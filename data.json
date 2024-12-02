@@ -1,265 +1,169 @@
-{
-    "questions": [
-      {
-        "id": 1,
-        "question_text": "¿Cuánto es 7 + 5?",
-        "options": {
-          "a": "10",
-          "b": "12",
-          "c": "13",
-          "d": "15"
-        },
-        "correct_answer": "b",
-        "mode": "historia",
-        "duration": 15
-      },
-      {
-        "id": 2,
-        "question_text": "¿Cuánto es 9 - 3?",
-        "options": {
-          "a": "6",
-          "b": "7",
-          "c": "8",
-          "d": "9"
-        },
-        "correct_answer": "a",
-        "mode": "arcade",
-        "duration": 10
-      },
-      {
-        "id": 3,
-        "question_text": "¿Cuánto es 4 x 3?",
-        "options": {
-          "a": "9",
-          "b": "11",
-          "c": "12",
-          "d": "13"
-        },
-        "correct_answer": "c",
-        "mode": "arcade",
-        "duration": 20
-      },
-      {
-        "id": 4,
-        "question_text": "¿Cuánto es 16 ÷ 4?",
-        "options": {
-          "a": "2",
-          "b": "3",
-          "c": "4",
-          "d": "5"
-        },
-        "correct_answer": "c",
-        "mode": "historia",
-        "duration": 10
-      },
-      {
-        "id": 5,
-        "question_text": "¿Cuánto es 15 - 7?",
-        "options": {
-          "a": "6",
-          "b": "8",
-          "c": "9",
-          "d": "10"
-        },
-        "correct_answer": "b",
-        "mode": "arcade",
-        "duration": 15
-      },
-      {
-        "id": 6,
-        "question_text": "¿Cuánto es 3²?",
-        "options": {
-          "a": "6",
-          "b": "8",
-          "c": "9",
-          "d": "12"
-        },
-        "correct_answer": "c",
-        "mode": "historia",
-        "duration": 20
-      },
-      {
-        "id": 7,
-        "question_text": "¿Cuánto es 5 x 6?",
-        "options": {
-          "a": "25",
-          "b": "30",
-          "c": "35",
-          "d": "40"
-        },
-        "correct_answer": "b",
-        "mode": "arcade",
-        "duration": 15
-      },
-      {
-        "id": 8,
-        "question_text": "¿Cuánto es 49 ÷ 7?",
-        "options": {
-          "a": "6",
-          "b": "7",
-          "c": "8",
-          "d": "9"
-        },
-        "correct_answer": "b",
-        "mode": "historia",
-        "duration": 10
-      },
-      {
-        "id": 9,
-        "question_text": "¿Cuánto es 25 + 15?",
-        "options": {
-          "a": "30",
-          "b": "35",
-          "c": "40",
-          "d": "50"
-        },
-        "correct_answer": "c",
-        "mode": "arcade",
-        "duration": 20
-      },
-      {
-        "id": 10,
-        "question_text": "¿Cuánto es 12 - 8?",
-        "options": {
-          "a": "2",
-          "b": "3",
-          "c": "4",
-          "d": "5"
-        },
-        "correct_answer": "c",
-        "mode": "historia",
-        "duration": 15
-      },
-      {
-        "id": 11,
-        "question_text": "¿Cuánto es 10 x 2?",
-        "options": {
-          "a": "15",
-          "b": "20",
-          "c": "25",
-          "d": "30"
-        },
-        "correct_answer": "b",
-        "mode": "arcade",
-        "duration": 10
-      },
-      {
-        "id": 12,
-        "question_text": "¿Cuánto es 64 ÷ 8?",
-        "options": {
-          "a": "7",
-          "b": "8",
-          "c": "9",
-          "d": "10"
-        },
-        "correct_answer": "b",
-        "mode": "historia",
-        "duration": 20
-      },
-      {
-        "id": 13,
-        "question_text": "¿Cuánto es 3 + 4 + 5?",
-        "options": {
-          "a": "11",
-          "b": "12",
-          "c": "13",
-          "d": "14"
-        },
-        "correct_answer": "b",
-        "mode": "arcade",
-        "duration": 15
-      },
-      {
-        "id": 14,
-        "question_text": "¿Cuánto es 18 ÷ 3?",
-        "options": {
-          "a": "5",
-          "b": "6",
-          "c": "7",
-          "d": "8"
-        },
-        "correct_answer": "b",
-        "mode": "historia",
-        "duration": 10
-      },
-      {
-        "id": 15,
-        "question_text": "¿Cuánto es 2³?",
-        "options": {
-          "a": "6",
-          "b": "7",
-          "c": "8",
-          "d": "9"
-        },
-        "correct_answer": "c",
-        "mode": "arcade",
-        "duration": 20
-      },
-      {
-        "id": 16,
-        "question_text": "¿Cuánto es 81 ÷ 9?",
-        "options": {
-          "a": "8",
-          "b": "9",
-          "c": "10",
-          "d": "11"
-        },
-        "correct_answer": "b",
-        "mode": "historia",
-        "duration": 15
-      },
-      {
-        "id": 17,
-        "question_text": "¿Cuánto es 15 x 2?",
-        "options": {
-          "a": "20",
-          "b": "25",
-          "c": "30",
-          "d": "35"
-        },
-        "correct_answer": "c",
-        "mode": "arcade",
-        "duration": 10
-      },
-      {
-        "id": 18,
-        "question_text": "¿Cuánto es 100 - 25?",
-        "options": {
-          "a": "50",
-          "b": "65",
-          "c": "75",
-          "d": "85"
-        },
-        "correct_answer": "c",
-        "mode": "historia",
-        "duration": 20
-      },
-      {
-        "id": 19,
-        "question_text": "¿Cuánto es 6 x 7?",
-        "options": {
-          "a": "42",
-          "b": "48",
-          "c": "49",
-          "d": "56"
-        },
-        "correct_answer": "a",
-        "mode": "arcade",
-        "duration": 15
-      },
-      {
-        "id": 20,
-        "question_text": "¿Cuánto es 90 ÷ 10?",
-        "options": {
-          "a": "8",
-          "b": "9",
-          "c": "10",
-          "d": "11"
-        },
-        "correct_answer": "b",
-        "mode": "historia",
-        "duration": 10
-      }
-    ]
+Amin Sultana, Ishaa A23 <a23ishamisul@inspedralbes.cat>
+	
+12:15 (fa 0 minuts)
+	
+per a mi
+
+Aquest missatge no s'ha enviat a Correu brossa perquè així està configurat a la teva organització.
+[
+  {
+    "id": 1,
+    "operacion": "5 + 3",
+    "respuesta_correcta": 8,
+    "respuestas_incorrectas": [9, 7, 10],
+    "modo": "arcade",
+    "duracion": 20
+  },
+  {
+    "id": 2,
+    "operacion": "9 - 4",
+    "respuesta_correcta": 5,
+    "respuestas_incorrectas": [3, 6, 7],
+    "modo": "historia",
+    "duracion": 25
+  },
+  {
+    "id": 3,
+    "operacion": "6 * 2",
+    "respuesta_correcta": 12,
+    "respuestas_incorrectas": [10, 14, 8],
+    "modo": "arcade",
+    "duracion": 15
+  },
+  {
+    "id": 4,
+    "operacion": "15 / 3",
+    "respuesta_correcta": 5,
+    "respuestas_incorrectas": [6, 4, 3],
+    "modo": "historia",
+    "duracion": 20
+  },
+  {
+    "id": 5,
+    "operacion": "7 + 8",
+    "respuesta_correcta": 15,
+    "respuestas_incorrectas": [14, 16, 13],
+    "modo": "arcade",
+    "duracion": 30
+  },
+  {
+    "id": 6,
+    "operacion": "12 - 5",
+    "respuesta_correcta": 7,
+    "respuestas_incorrectas": [6, 8, 9],
+    "modo": "historia",
+    "duracion": 25
+  },
+  {
+    "id": 7,
+    "operacion": "4 * 3",
+    "respuesta_correcta": 12,
+    "respuestas_incorrectas": [10, 14, 9],
+    "modo": "arcade",
+    "duracion": 20
+  },
+  {
+    "id": 8,
+    "operacion": "18 / 2",
+    "respuesta_correcta": 9,
+    "respuestas_incorrectas": [8, 7, 10],
+    "modo": "historia",
+    "duracion": 30
+  },
+  {
+    "id": 9,
+    "operacion": "10 + 5",
+    "respuesta_correcta": 15,
+    "respuestas_incorrectas": [14, 16, 13],
+    "modo": "arcade",
+    "duracion": 25
+  },
+  {
+    "id": 10,
+    "operacion": "20 - 8",
+    "respuesta_correcta": 12,
+    "respuestas_incorrectas": [11, 13, 10],
+    "modo": "historia",
+    "duracion": 20
+  },
+  {
+    "id": 11,
+    "operacion": "3 * 7",
+    "respuesta_correcta": 21,
+    "respuestas_incorrectas": [18, 24, 20],
+    "modo": "arcade",
+    "duracion": 15
+  },
+  {
+    "id": 12,
+    "operacion": "16 / 4",
+    "respuesta_correcta": 4,
+    "respuestas_incorrectas": [3, 5, 6],
+    "modo": "historia",
+    "duracion": 20
+  },
+  {
+    "id": 13,
+    "operacion": "9 + 6",
+    "respuesta_correcta": 15,
+    "respuestas_incorrectas": [14, 16, 13],
+    "modo": "arcade",
+    "duracion": 25
+  },
+  {
+    "id": 14,
+    "operacion": "14 - 7",
+    "respuesta_correcta": 7,
+    "respuestas_incorrectas": [6, 8, 5],
+    "modo": "historia",
+    "duracion": 30
+  },
+  {
+    "id": 15,
+    "operacion": "8 * 2",
+    "respuesta_correcta": 16,
+    "respuestas_incorrectas": [14, 12, 18],
+    "modo": "arcade",
+    "duracion": 20
+  },
+  {
+    "id": 16,
+    "operacion": "24 / 6",
+    "respuesta_correcta": 4,
+    "respuestas_incorrectas": [5, 3, 6],
+    "modo": "historia",
+    "duracion": 25
+  },
+  {
+    "id": 17,
+    "operacion": "11 + 4",
+    "respuesta_correcta": 15,
+    "respuestas_incorrectas": [14, 16, 13],
+    "modo": "arcade",
+    "duracion": 30
+  },
+  {
+    "id": 18,
+    "operacion": "13 - 9",
+    "respuesta_correcta": 4,
+    "respuestas_incorrectas": [3, 5, 6],
+    "modo": "historia",
+    "duracion": 15
+  },
+  {
+    "id": 19,
+    "operacion": "5 * 5",
+    "respuesta_correcta": 25,
+    "respuestas_incorrectas": [20, 30, 24],
+    "modo": "arcade",
+    "duracion": 30
+  },
+  {
+    "id": 20,
+    "operacion": "30 / 5",
+    "respuesta_correcta": 6,
+    "respuestas_incorrectas": [5, 4, 7],
+    "modo": "historia",
+    "duracion": 25
   }
-  
+]
