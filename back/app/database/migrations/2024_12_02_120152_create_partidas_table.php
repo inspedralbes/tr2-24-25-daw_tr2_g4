@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('operacion');
             $table->integer('respuesta_correcta'); 
-            $table->integer('respuestas_incorrectas_1');
-            $table->integer('respuestas_incorrectas_2');
-            $table->integer('respuestas_incorrectas_3');
+            $table->integer('respuestaIncorrecta_1');
+            $table->integer('respuestaIncorrecta_2');
+            $table->integer('respuestaIncorrecta_3');
             $table->string('modo'); 
             $table->integer('duracion'); 
             $table->timestamps();

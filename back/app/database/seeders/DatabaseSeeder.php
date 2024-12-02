@@ -2,9 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Partida;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +16,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $jsonFilePath = public_path('data.json'); // Asegúrate de la ruta correcta
+        $jsonData = File::get($jsonFilePath); // Usar File para obtener el contenido del archivo
+        $data = json_decode($jsonData, true); // Decodificar el JSON a un array
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        foreach ($data as $key => $producte) {
+            Partida::create([
+                'id' => $producte['id'],
+                'operacion' => $producte['operacion'],
+                'respuesta_correcta' => $producte['respuesta_correcta'],
+                'respuestaIncorrecta_1' => $producte['respuestaIncorrecta_1'],
+                'respuestaIncorrecta_2' => $producte['respuestaIncorrecta_2'],
+                'respuestaIncorrecta_3' => $producte['respuestaIncorrecta_3'],
+                'modo' => $producte['modo'],
+                'duracion' => $producte['duracion'],
+            ]);
+        }
+
+
+
+      
+
+         
     }
 }
