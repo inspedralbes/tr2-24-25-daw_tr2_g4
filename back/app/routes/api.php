@@ -9,4 +9,14 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::get('/preguntas', [PartidaController::class, 'obtenerPreguntas']);
+Route::apiResource('partidas', PartidaController::class);
+
+// Rutas para el CRUD de partidas
+Route::get('/partidas', [PartidaController::class, 'index']); // Listar todas las partidas
+Route::get('/partidas/{id}', [PartidaController::class, 'show']); // Obtener partida por ID
+Route::post('/partidas', [PartidaController::class, 'store']); // Crear nueva partida
+Route::patch('/partidas/{id}', [PartidaController::class, 'update']); // Actualizar partida con PATCH
+Route::delete('/partidas/{id}', [PartidaController::class, 'destroy']); // Eliminar partida
+
+
 
