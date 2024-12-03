@@ -45,12 +45,16 @@ function responder(data){
 
 <div>
 
-    {{ props.data.operacion }}
+   <h4>{{ props.data.operacion }} </h4> 
 
     <div class="respuestas">
     <div v-for="(respuesta, index) in respuestasMezcladas" :key="index">
-      <button @click="responder(respuesta)"> {{ respuesta }} </button>
+
+      <q-btn color="deep-orange" class="botones_partida" glossy label=""@click="responder(respuesta)"> {{ respuesta }}</q-btn>
+    
+     
      </div>
+    
     </div>
   
 </div>
@@ -66,6 +70,15 @@ function responder(data){
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
+div{
 
+  text-align: center;
+}
+.botones_partida{
+
+  width: 50%;
+  margin: 5px;
+
+}
 
 </style>

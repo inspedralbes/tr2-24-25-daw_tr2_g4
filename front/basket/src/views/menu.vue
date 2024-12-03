@@ -17,7 +17,7 @@ import { useRoute } from 'vue-router';
 const route = useRoute();
    
 watch(route, (newRoute, oldRoute) => {
-  // Verificamos si estamos en la misma ruta y queremos mostrar los botones
+  
   if (newRoute.path === '/jugar') {
     visibleOpciones.value = true;
   }
@@ -27,16 +27,18 @@ watch(route, (newRoute, oldRoute) => {
 </script>
 
 <template>
-  <main>
+  <main id="main_menu">
     
- <div v-if="visibleOpciones">
-   <RouterLink to="/jugar/historia" @click="ocultarTot">Historia</RouterLink>
+ <div id="div_menu" v-if="visibleOpciones">
+  <RouterLink to="/jugar/historia" @click="ocultarTot"> <q-btn color="deep-orange" class="botones_menu"   glossy label="Historia"></q-btn></RouterLink>
+  
    <br>
-   <RouterLink to="/jugar/arcade" @click="ocultarTot">Arcade</RouterLink>
+   <RouterLink to="/jugar/arcade" @click="ocultarTot"> <q-btn color="deep-orange" class="botones_menu"  glossy label="Arcade"></q-btn></RouterLink>
    <br>
-   <RouterLink to="/jugar/multijugador" @click="ocultarTot">2 Jugadores</RouterLink>
+   <RouterLink to="/jugar/multijugador" @click="ocultarTot"><q-btn color="deep-orange" class="botones_menu"  glossy label="Multijugador"></q-btn></RouterLink>
    <br>
-   <RouterLink to="/" @click="ocultarTot">Volver</RouterLink>
+  <RouterLink to="/" @click="ocultarTot"> <q-btn color="deep-orange" class="botones_menu"  glossy label="Volver"></q-btn> </RouterLink>
+ 
 </div>
 
 
@@ -45,3 +47,25 @@ watch(route, (newRoute, oldRoute) => {
 
   </main>
 </template>
+<style scoped>
+
+#main_menu{
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  height: 100vh; 
+
+
+}
+#div_menu{
+
+  text-align: center;
+  grid-column: 2;
+  grid-row: 3;
+}
+
+.botones_menu{
+  margin: 10px;
+  width: 200px; 
+}
+</style>
