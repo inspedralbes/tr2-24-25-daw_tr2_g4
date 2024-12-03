@@ -38,27 +38,91 @@ watch(route, (newRoute, oldRoute) => {
    <RouterLink to="/jugar/multijugador" @click="ocultarTot"><q-btn color="deep-orange" class="botones_menu"  glossy label="Multijugador"></q-btn></RouterLink>
    <br>
   <RouterLink to="/" @click="ocultarTot"> <q-btn color="deep-orange" class="botones_menu"  glossy label="Volver"></q-btn> </RouterLink>
- 
 </div>
+  
+
+<div class="user_menu" v-if="visibleOpciones">
+    <q-btn-dropdown
+      class="glossy"
+      color="deep-orange"
+     icon="eva-person-add-outline"
+     menu-anchor="top right"  
+     menu-self="bottom right"  
+    >
+      <div class="row no-wrap q-pa-md">
+        <div class="column">
+          <div class="text-h6 q-mb-md">Cuenta</div>
+          <RouterLink to="/user/login">
+          <q-btn
+          class="botones_desple"
+            color="primary"
+            label="Login"
+            push
+            size="sm"
+            v-close-popup
+          ></q-btn>
+        </RouterLink>
+        <RouterLink to="/user/register">
+        <q-btn
+            class="botones_desple"
+            color="primary"
+            label="Registrarse"
+            push
+            size="sm"
+            v-close-popup
+          ></q-btn>
+          </RouterLink>
+        </div>
+
+        <q-separator vertical inset class="q-mx-lg"></q-separator>
+
+        <div class="column items-center">
+          <q-avatar size="72px">
+            <img src="/public/avatar/boy1.png">
+          </q-avatar>
+
+          <div class="text-subtitle1 q-mt-md q-mb-xs">Invitado</div>
+
+          <q-btn
+            color="primary"
+            label="Logout"
+            push
+            size="sm"
+            v-close-popup
+          ></q-btn>
+        </div>
+      </div>
+    </q-btn-dropdown>
+  </div>
+
+ 
 
 
-   <RouterView />
+   <RouterView/>
 
 
   </main>
+
+  
 </template>
 <style scoped>
 
 #main_menu{
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr; 
   grid-template-columns: 1fr 1fr 1fr;
   height: 100vh; 
 
 
 }
-#div_menu{
+.enlaces{
+  text-decoration: none;
+  color: inherit; 
+  
+}
 
+#div_menu{
+   
   text-align: center;
   grid-column: 2;
   grid-row: 3;
@@ -67,5 +131,19 @@ watch(route, (newRoute, oldRoute) => {
 .botones_menu{
   margin: 10px;
   width: 200px; 
+}
+
+ 
+
+.botones_desple{
+  margin-top: 10px;
+  width: 100px;
+}
+.user_menu{
+   
+  height: 20%;
+  margin-top: 40px;
+  grid-column: 3;
+  grid-row: 4;
 }
 </style>

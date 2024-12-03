@@ -4,7 +4,8 @@ import Menu from '../views/menu.vue'
 import historia from '../views/modos/historia.vue'
 import arcade from '../views/modos/arcade.vue'
 import multijugador from '../views/modos/multijugador.vue'
-
+import registro from '../views/users/registro.vue'
+import login from '../views/users/login.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,6 +14,16 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: Inicio,
+    },
+    {
+      path: '/user/login',
+      name: 'login',
+      component: login,
+    },
+    {
+      path: '/user/register',
+      name: 'register',
+      component: registro,
     },
     {
       path: '/jugar',
