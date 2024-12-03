@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sala Privada</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <h1>Bienvenido a la Sala</h1>
+    <ul id="userList"></ul>
+    <script>
+        const room = window.location.pathname.slice(1); // Obtener la sala de la URL
+        const socket = io();
+
+        socket.emit('joinRoom', room, prompt("Por favor ingrese la contraseña:"));
+
+        socket.on('userJoined', (userId) => {
+            const userList = document.getElementById('userList');
+            const li = document.createElement('li');
+            li.textContent = `Usuario ${userId} se ha unido.`;
+            userList.appendChild(li);
+        });
+
+        socket.on('userLeft', (userId) => {
+            const userList = document.getElementById('userList');
+            const li = document.createElement('li');
+            li.textContent = `Usuario ${userId} ha salido.`;
+            userList.appendChild(li);
+        });
+
+        socket.on('joinError', (message) => {
+            alert(message);
+            window.location.href = '/'; // Regresar a la página principal
+        });
+    </script>
+</body>
+</html>
