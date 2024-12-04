@@ -13,7 +13,7 @@ import { ref,watch } from 'vue';
 <template>
   <main>
 
-    <q-input v-model="username" filled type="text" hint="Username"></q-input>
+    <q-input v-model="username" filled type="text" hint="Username" ></q-input>
     <br>
     <br>
    
@@ -48,7 +48,9 @@ import { ref,watch } from 'vue';
     margin-top: 40px;
  margin-right: 6px;
 }
-
+.input_login{
+ 
+}
 
  
 </style>
