@@ -42,19 +42,19 @@ function responder(data){
 
 <template>
  
-
-<div>
-
-   <h4>{{ props.data.operacion }} </h4> 
+  
+<div class="problema">
+  
+ <p class="titul"> {{ props.data.operacion }} </p>
+   
 
     <div class="respuestas">
-    <div v-for="(respuesta, index) in respuestasMezcladas" :key="index">
+     <div v-for="(respuesta, index) in respuestasMezcladas" :key="index">
 
-      <q-btn color="deep-orange" class="botones_partida" glossy label=""@click="responder(respuesta)"> {{ respuesta }}</q-btn>
+      <q-btn  color="deep-orange" class="botones_partida" glossy label=""@click="responder(respuesta)"> {{ respuesta }}</q-btn>
     
      
      </div>
-    
     </div>
   
 </div>
@@ -66,18 +66,33 @@ function responder(data){
 
 <style scoped>
 
+.titul{
+
+  grid-column: 2;
+  font-size: 70px;
+  display: inline;
+  
+}
+
+.problema{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  text-align: center
+
+}
 .respuestas{
     display: grid;
+    grid-column: 2;
     grid-template-columns: 1fr 1fr;
+    
 }
-div{
-
-  text-align: center;
-}
+ 
 .botones_partida{
 
-  width: 50%;
-  margin: 5px;
+  width: 170px; 
+  margin: 20px;
+  
+  font-size: 50px;
 
 }
 

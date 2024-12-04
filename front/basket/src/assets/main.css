@@ -1,13 +1,3 @@
 @import './base.css';
 
-#app {
-  
-  max-width: 1280px;  
-  padding: 2rem;
-  font-weight: normal;
-  width: 375px; /* Ancho típico de dispositivos móviles, como el iPhone 6 */
-  height: 667px; /* Alto típico de dispositivos móviles, como el iPhone 6 */
-  margin: 100px auto; /* Centra el contenido en la pantalla */
-  overflow: hidden; /* Permite desplazamiento si es necesario */
-  border: 1px solid black;
-}
+

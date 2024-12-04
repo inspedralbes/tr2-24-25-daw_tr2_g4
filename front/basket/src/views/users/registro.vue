@@ -36,7 +36,7 @@ import { ref,watch } from 'vue';
       
      
      <center>
-     Selecciona tu avatar  
+    < Selecciona tu avatar > 
       <q-carousel
       swipeable
       animated

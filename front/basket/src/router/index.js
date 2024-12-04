@@ -26,23 +26,26 @@ const router = createRouter({
       component: registro,
     },
     {
+      path: '/jugar/arcade', // Ruta: '/dashboard/profile'
+      name: 'arcade',
+      component: arcade,
+    },
+    {
+      path: '/jugar/historia', // Ruta: '/dashboard/profile'
+      name: 'historia',
+      component: historia,
+    },
+    ,
+    {
+      path: '/jugar/multijugador', // Ruta: '/dashboard/profile'
+      name: 'multijugador',
+      component: multijugador,
+    },
+
+    {
       path: '/jugar',
       name: 'jugar',
       component: Menu,
-      children: [
-        {
-          path: 'historia', // Ruta: '/dashboard/settings'
-          component: historia,
-        },
-        {
-          path: 'arcade', // Ruta: '/dashboard/profile'
-          component: arcade,
-        },
-        {
-          path: 'multijugador', // Ruta: '/dashboard/profile'
-          component: multijugador,
-        },
-      ],
     },
     
    /* {

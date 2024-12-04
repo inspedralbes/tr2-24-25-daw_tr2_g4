@@ -48,48 +48,44 @@ watch(route, (newRoute, oldRoute) => {
      icon="eva-person-add-outline"
      menu-anchor="top right"  
      menu-self="bottom right"  
+     size="25px"
     >
-      <div class="row no-wrap q-pa-md">
-        <div class="column">
-          <div class="text-h6 q-mb-md">Cuenta</div>
+      <div class="div_user">
+        <div>
+          <div style="font-size: 50px; text-align: center">Cuenta</div>
+         
+        </div>
+
+         
+
+        <div class="menu_avatar" >
+          <q-avatar size="90px">
+            <img src="/public/avatar/boy1.png">
+          </q-avatar>
+
+          <div style="font-size: 30px">Invitado</div>
+
           <RouterLink to="/user/login">
           <q-btn
           class="botones_desple"
             color="primary"
             label="Login"
             push
-            size="sm"
+            size="30px"
             v-close-popup
           ></q-btn>
         </RouterLink>
+        <br>
         <RouterLink to="/user/register">
         <q-btn
             class="botones_desple"
             color="primary"
             label="Registrarse"
             push
-            size="sm"
+            size="30px"
             v-close-popup
           ></q-btn>
-          </RouterLink>
-        </div>
-
-        <q-separator vertical inset class="q-mx-lg"></q-separator>
-
-        <div class="column items-center">
-          <q-avatar size="72px">
-            <img src="/public/avatar/boy1.png">
-          </q-avatar>
-
-          <div class="text-subtitle1 q-mt-md q-mb-xs">Invitado</div>
-
-          <q-btn
-            color="primary"
-            label="Logout"
-            push
-            size="sm"
-            v-close-popup
-          ></q-btn>
+          </RouterLink>  
         </div>
       </div>
     </q-btn-dropdown>
@@ -98,7 +94,7 @@ watch(route, (newRoute, oldRoute) => {
  
 
 
-   <RouterView/>
+   
 
 
   </main>
@@ -109,10 +105,15 @@ watch(route, (newRoute, oldRoute) => {
 
 #main_menu{
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr; 
+  grid-template-rows: 1fr 1fr 1fr ; 
   grid-template-columns: 1fr 1fr 1fr;
   height: 100vh; 
 
+
+}
+.menu_avatar{
+
+ text-align: center;
 
 }
 .enlaces{
@@ -120,30 +121,41 @@ watch(route, (newRoute, oldRoute) => {
   color: inherit; 
   
 }
+.div_user{
+  height: 400px;
+  width: 300px;
+}
 
 #div_menu{
    
   text-align: center;
   grid-column: 2;
-  grid-row: 3;
+  grid-row: 2;
 }
 
 .botones_menu{
   margin: 10px;
-  width: 200px; 
+  width: 350px;
+  font-size: 30px;
+  border: 1px solid black; 
 }
 
  
 
 .botones_desple{
   margin-top: 10px;
-  width: 100px;
+  width: 250px;
+  font-size: 100px;
+  
 }
 .user_menu{
    
   height: 20%;
   margin-top: 40px;
-  grid-column: 3;
-  grid-row: 4;
+  grid-column: 2;
+  grid-row: 3;
+  align-self: center; /* Centrado vertical dentro de su celda */
+  justify-self: right;
+ 
 }
 </style>

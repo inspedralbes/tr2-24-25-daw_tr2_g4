@@ -222,17 +222,34 @@ import { reactive,ref} from 'vue';
 </script>
 
 <template>
-  <main>
- 
-  <h1>Arcade</h1>
+  <main id="main_arcade">
+ <div class="body_arcade">
+ <h1>Arcade</h1>
 
 
-  <Partida :data="data[index]" @siguiente="siguientePregunta" />
+ <Partida :data="data[index]" @siguiente="siguientePregunta" />
 
   <h4 style="text-align: center;">Puntos:  {{ Canastas }} </h4>
   
-  <RouterLink to="/jugar"> Volver</RouterLink>
-
+  <RouterLink to="/jugar"> <q-btn color="deep-orange" size="20px" class="boton_arcade" glossy label="Volver"></q-btn></RouterLink>
+  </div>
  
   </main>
+  
 </template>
+
+<style scoped>
+#main_arcade{
+  display: grid;
+  grid-template-columns:1fr 1fr 1fr;
+ 
+   
+}
+.body_arcade{
+  grid-column: 2;
+  
+
+}
+
+
+</style>
