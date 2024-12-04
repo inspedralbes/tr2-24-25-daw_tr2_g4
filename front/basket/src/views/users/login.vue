@@ -12,12 +12,13 @@ import { ref,watch } from 'vue';
 
 <template>
   <main>
-
-    <q-input v-model="username" filled type="text" hint="Username" ></q-input>
+    <br>  <br>
+    <q-input v-model="username"  type="text" class="we" ></q-input>
+    Username
     <br>
     <br>
    
-    <q-input v-model="password" filled :type="isPwd ? 'password' : 'text'" hint="Contraseña">
+    <q-input v-model="password"  :type="isPwd ? 'password' : 'text'" class="we">
         <template v-slot:append>
           <q-icon
             :name="isPwd ? 'visibility_off' : 'visibility'"
@@ -45,11 +46,16 @@ import { ref,watch } from 'vue';
 
 <style scoped>
 .botones_login{
-    margin-top: 40px;
+  margin-top: 40px;
  margin-right: 6px;
-}
-.input_login{
- 
+} 
+
+.we{
+
+  width: 400px;
+  height: 100px;
+  font-size: 45px;
+  
 }
 
  
