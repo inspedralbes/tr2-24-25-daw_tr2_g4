@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PartidaController;
+use App\Http\Controllers\AuthController;
+
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -18,5 +20,13 @@ Route::post('/partidas', [PartidaController::class, 'store']); // Crear nueva pa
 Route::patch('/partidas/{id}', [PartidaController::class, 'update']); // Actualizar partida con PATCH
 Route::delete('/partidas/{id}', [PartidaController::class, 'destroy']); // Eliminar partida
 
+// Rutas para el registro y login de usuarios
+Route::post('register', [AuthController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('user', [AuthController::class, 'user']);
+    Route::post('logout', [AuthController::class, 'logout']);
+});
 
 

@@ -1,48 +1,57 @@
 <?php
 
-namespace App\Models;
+namespace App\Http\Controllers;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
-class User extends Authenticatable
+class AuthController extends Controller
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    public function register(Request $request)
     {
+        $data = $request->validate([
+            'username' => ['required', 'string', 'unique:users,username'],
+            'email' => ['required', 'email', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:6'],
+        ]);
+
+        $user = User::create([
+            'username' => $data['username'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
+
+        $token = $user->createToken('auth_token')->plainTextToken;
+
         return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'user' => $user,
+            'token' => $token,
+        ];
+    }
+
+    public function login(Request $request)
+    {
+        $data = $request->validate([
+            'email' => ['required', 'email', 'exists:users,email'],
+            'password' => ['required', 'string', 'min:6'],
+        ]);
+
+        $user = User::where('email', $data['email'])->first();
+
+        if (!$user || !Hash::check($data['password'], $user->password)) {
+            return response([
+                'message' => 'Invalid credentials'
+            ], 401);
+        }
+
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return [
+            'user' => $user,
+            'token' => $token,
         ];
     }
 }
+
