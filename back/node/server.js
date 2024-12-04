@@ -1,58 +1,64 @@
 const express = require('express');
 const http = require('http');
-const socketIo = require('socket.io');
+const { Server } = require('socket.io');
+const { v4: uuidv4 } = require('uuid');
 
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server);
-
-let salas = {};
-let nombres = {};
+const io = new Server(server);
 
 app.use(express.static('public'));
 
 io.on('connection', (socket) => {
-    console.log('Nuevo jugador conectado', socket.id);
-
-    socket.on('registrarNombre', (nombre) => {
-        nombres[socket.id] = nombre;
-        console.log(`Jugador registrado: ${nombre} (${socket.id})`);
-        socket.emit('nombreRegistrado', nombre);
+    console.log(`Usuario conectado: ${socket.id}`);
+    //CREAR
+    socket.on('create-room', () => {
+        const claveSala = uuidv4().slice(0, 5); // Clave de sala de 5 caracteres
+        socket.join(claveSala);
+        socket.emit('room-created', claveSala);
+        io.to(claveSala).emit('room-users', { room: claveSala, users: [socket.id] });
     });
-
-    socket.on('crearSala', (codigoSala) => {
-        if (!salas[codigoSala]) {
-            salas[codigoSala] = { jugadores: [] };
-            console.log(`Sala creada: ${codigoSala}`);
-            socket.emit('salaCreada', codigoSala); // Confirma la creación de la sala
+    //UNIR
+    socket.on('join-room', (claveSala) => {
+        //io.sockets.adapter.rooms.get(clave) busca una room con mi clave
+        const room = io.sockets.adapter.rooms.get(claveSala);
+        if (room) {
+            socket.join(claveSala);
+            socket.emit('room-joined', claveSala);
+            //emite a esa room lista actualizada
+            io.to(claveSala).emit('room-users', { room: claveSala, users: [...room] });
         } else {
-            socket.emit('errorSala', 'El código de sala ya está en uso');
+            socket.emit('error', 'Sala no encontrada');
         }
     });
 
-    socket.on('unirseSala', (codigoSala) => {
-        if (salas[codigoSala]) {
-            salas[codigoSala].jugadores.push(nombres[socket.id]);
-            socket.join(codigoSala);
-            console.log(`Jugador ${nombres[socket.id]} se unió a la sala ${codigoSala}`);
-            io.to(codigoSala).emit('jugadores', salas[codigoSala].jugadores);
-        } else {
-            socket.emit('errorSala', 'Código de sala inválido');
+    socket.on('leave-room', (claveSala) => {
+        socket.leave(claveSala);
+        const room = io.sockets.adapter.rooms.get(claveSala);
+        if (room) {
+            io.to(claveSala).emit('room-users', { room: claveSala, users: [...room] });
+        }
+        socket.emit('left-room');
+    });
+
+    socket.on('disconnecting', () => {
+        for (const claveSala of socket.rooms) {
+            if (claveSala !== socket.id) {
+                const room = io.sockets.adapter.rooms.get(claveSala);
+                if (room) {
+                    const usersActualizados = [...room].filter((id) => id !== socket.id);
+                    io.to(claveSala).emit('room-users', { room: claveSala, users: usersActualizados });
+                }
+            }
         }
     });
 
     socket.on('disconnect', () => {
-        console.log(`Jugador desconectado: ${nombres[socket.id]} (${socket.id})`);
-        for (let codigoSala in salas) {
-            salas[codigoSala].jugadores = salas[codigoSala].jugadores.filter(
-                nombre => nombre !== nombres[socket.id]
-            );
-            io.to(codigoSala).emit('jugadores', salas[codigoSala].jugadores);
-        }
-        delete nombres[socket.id];
+        console.log(`Usuario desconectado: ${socket.id}`);
     });
 });
 
-server.listen(3000, () => {
-    console.log('Servidor corriendo en http://localhost:3000');
+const PORT = 3000;
+server.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
