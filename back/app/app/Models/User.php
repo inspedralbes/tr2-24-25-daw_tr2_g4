@@ -1,57 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Models;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\HasApiTokens;
 
-class AuthController extends Controller
+class User extends Authenticatable
 {
-    public function register(Request $request)
-    {
-        $data = $request->validate([
-            'username' => ['required', 'string', 'unique:users,username'],
-            'email' => ['required', 'email', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:6'],
-        ]);
+    use HasApiTokens, HasFactory;
 
-        $user = User::create([
-            'username' => $data['username'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+    protected $fillable = [
+        'username', 'email', 'password', 'personal_access_token',
+    ];
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 
-        return [
-            'user' => $user,
-            'token' => $token,
-        ];
-    }
-
-    public function login(Request $request)
-    {
-        $data = $request->validate([
-            'email' => ['required', 'email', 'exists:users,email'],
-            'password' => ['required', 'string', 'min:6'],
-        ]);
-
-        $user = User::where('email', $data['email'])->first();
-
-        if (!$user || !Hash::check($data['password'], $user->password)) {
-            return response([
-                'message' => 'Invalid credentials'
-            ], 401);
-        }
-
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return [
-            'user' => $user,
-            'token' => $token,
-        ];
-    }
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
 }
-
