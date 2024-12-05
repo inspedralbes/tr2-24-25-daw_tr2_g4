@@ -21,12 +21,13 @@ Route::patch('/partidas/{id}', [PartidaController::class, 'update']); // Actuali
 Route::delete('/partidas/{id}', [PartidaController::class, 'destroy']); // Eliminar partida
 
 // Rutas para el registro y login de usuarios
+
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
-
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('user', [AuthController::class, 'user']);
-    Route::post('logout', [AuthController::class, 'logout']);
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
 });
+
+
 
 
