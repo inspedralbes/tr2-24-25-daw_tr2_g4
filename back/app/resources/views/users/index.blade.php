@@ -13,15 +13,15 @@
             @endif
             <!-- errores por falta de datos -->
             @error('username')
-            <h6 class="alert alert-danger">{{ $message }}</h6>
+            <h6 class="alert alert-danger">El campo de usuario debe tener al menos 3 caracteres.</h6>
             @enderror
 
             @error('email')
-            <h6 class="alert alert-danger">{{ $message }}</h6>
+            <h6 class="alert alert-danger">El correo ya esta registrado</h6>
             @enderror
 
             @error('password')
-            <h6 class="alert alert-danger">{{ $message }}</h6>
+            <h6 class="alert alert-danger">El campo de contraseña debe tener al menos 6 caracteres</h6>
             @enderror
             <!-- Formulario de Crear Usuario -->
             <div class="mb-3">
@@ -48,11 +48,11 @@
             @foreach ($users as $user)
                 <div class="row py-1">
                     <div class="col-md-9 d-flex align-items-center">
-                        <!-- Enlace que redirige a la página de detalles del usuario -->
-                        <a href="{{ route('users-show', ['id' => $user->id]) }}">{{ $user->username }}</a>
+                        {{ $user->username }}
                     </div>
-
                     <div class="col-md-3 d-flex justify-content-end">
+                        <!-- boton para editar usuario -->
+                        <a href="{{ route('users-show', ['id' => $user->id]) }}" class="btn btn-primary btn-sm me-2">Editar</a>
                         <!-- Botón para eliminar el usuario -->
                         <form action="{{ route('users-destroy', [$user->id]) }}" method="POST">
                             @method('DELETE')
