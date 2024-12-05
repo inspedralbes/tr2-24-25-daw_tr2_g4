@@ -17,7 +17,6 @@ Route::get('/preguntas', [PartidaController::class, 'obtenerPreguntas']);
 // CRUD de partidas: Aquí puede que quieras protegerlas si solo los usuarios autenticados deberían acceder a ellas
 Route::apiResource('partidas', PartidaController::class)->middleware('auth:sanctum');
 
-// Rutas register y login
-Route::post('register', [AuthController::class, 'register']); 
-Route::post('login', [AuthController::class, 'login']); 
-
+// Rutas para el registro y login de usuarios
+Route::post('register', [AuthController::class, 'register']); // Registro de usuario
+Route::post('login', [AuthController::class, 'login']); // Login de usuario

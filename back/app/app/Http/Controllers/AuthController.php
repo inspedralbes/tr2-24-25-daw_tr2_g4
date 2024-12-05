@@ -12,13 +12,17 @@ class AuthController extends Controller
     // Registro de usuario
     public function register(Request $request)
     {
-        // Validación
-        $data = $request->validate([
-            'username' => ['required', 'string', 'unique:users,username'],
-            'email' => ['required', 'email', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:6'],
+        // Validación de los datos de entrada
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|string|max:255|unique:users,username',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6|confirmed',
         ]);
-    
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
         // Crear el usuario
         $user = User::create([
             'username' => $data['username'],
@@ -28,41 +32,46 @@ class AuthController extends Controller
     
         // Generar y guardar un token único
         $token = $user->createToken('auth_token')->plainTextToken;
-        $user->update(['personal_access_token' => $token]);
-    
-        // Respuesta con el usuario y el token
+
+        // Responder con los datos del usuario y el token
         return response()->json([
             'user' => $user,
-        ]);
+            'token' => $token
+        ], 201);
     }
-    
-    // Login 
+
+    // Login de usuario
     public function login(Request $request)
     {
-        // Validación
-        $data = $request->validate([
-            'username' => ['required', 'string', 'exists:users,username'],
-            'password' => ['required', 'string', 'min:6'],
+        // Validación de los datos de entrada
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|string',
+            'password' => 'required|string|min:6',
         ]);
-    
-        // Buscar usuario por nombre
-        $user = User::where('username', $data['username'])->first();
-    
-        if (!$user || !Hash::check($data['password'], $user->password)) {
-            return response([
-                'message' => 'Invalid credentials'
-            ], 401);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
         }
-    
-        // guardar el token uncio de cada usuario
-        $token = $user->personal_access_token;
-    
+
+        // Buscar el usuario por username
+        $user = User::where('username', $request->username)->first();
+
+        // Verificar las credenciales
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return response()->json(['message' => 'Credenciales inválidas'], 401);
+        }
+
+        // Crear el token de acceso
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        // Responder con los datos del usuario y el token
         return response()->json([
             'user' => $user,
+            'token' => $token
         ]);
     }
-    
-    //detalles del usuario autenticado
+
+    // Obtener los detalles del usuario autenticado
     public function user(Request $request)
     {
         return response()->json($request->user());
