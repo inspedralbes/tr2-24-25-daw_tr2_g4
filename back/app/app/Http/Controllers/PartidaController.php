@@ -14,6 +14,17 @@ class PartidaController extends Controller
         return view('partidas.index', compact('partidas'));
     }
 
+
+        public function obtenerPreguntas()
+        {
+            $partidas = Partida::all();
+            return $partidas;
+        }
+   
+
+    
+
+
     //Formulario para crear nueva partida
     public function create()
     {
