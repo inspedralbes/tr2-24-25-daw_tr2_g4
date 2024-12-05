@@ -9,6 +9,8 @@ const io = new Server(server);
 
 app.use(express.static('public'));
 
+
+
 io.on('connection', (socket) => {
     console.log(`Usuario conectado: ${socket.id}`);
     //CREAR
