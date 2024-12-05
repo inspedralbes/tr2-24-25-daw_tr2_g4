@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +11,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory;
 
     protected $fillable = [
-        'username', 'email', 'password',
+        'username', 'email', 'password', 'personal_access_token',
     ];
 
     protected $hidden = [
