@@ -35,7 +35,7 @@ watch(route, (newRoute, oldRoute) => {
    <br>
    <RouterLink to="/jugar/arcade" @click="ocultarTot"> <q-btn color="deep-orange" class="botones_menu"  glossy label="Arcade"></q-btn></RouterLink>
    <br>
-   <RouterLink to="/jugar/multijugador" @click="ocultarTot"><q-btn color="deep-orange" class="botones_menu" disable glossy label="Multijugador"></q-btn></RouterLink>
+   <RouterLink to="/jugar/multijugador" @click="ocultarTot"><q-btn color="deep-orange" class="botones_menu"   glossy label="Multijugador"></q-btn></RouterLink>
    <br>
   <RouterLink to="/" @click="ocultarTot"> <q-btn color="deep-orange" class="botones_menu"  glossy label="Volver"></q-btn> </RouterLink>
 </div>

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('respuestaIncorrecta_1');
             $table->integer('respuestaIncorrecta_2');
             $table->integer('respuestaIncorrecta_3');
-            $table->string('modo'); 
+            $table->integer('nivel')->default(1); 
             $table->integer('duracion'); 
             $table->timestamps();
         });
