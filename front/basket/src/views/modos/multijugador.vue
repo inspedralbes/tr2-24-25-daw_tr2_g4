@@ -7,7 +7,7 @@
   <div>
     <SalasPrivadas />
   </div>
- <RouterLink to="/jugar"> Volver</RouterLink>
+ <RouterLink to="/jugar"><q-btn color="red-12" size="25px" class="boton_sala" glossy label="Volver"></q-btn></RouterLink>
   </main>
 </template>
 
