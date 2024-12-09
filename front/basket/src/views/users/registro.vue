@@ -1,15 +1,27 @@
 <script setup>
 
-import { ref,watch } from 'vue';
+import { reactive, ref,watch } from 'vue';
+import { register } from '@/comunication_manager';
+
 
    const password= ref('');
    const  isPwd= ref(true);
    const  email= ref('');
    const username= ref('') 
-
    const slide= ref(3);
+   const params = reactive({ username: "", email: "", password: ""}); 
+
+
+
+   function register_compo() {
+     
     
-      
+
+
+   }
+   
+
+
 </script>
 
 <template>
@@ -62,7 +74,7 @@ import { ref,watch } from 'vue';
 
 <RouterLink to="/jugar">  <q-btn color="deep-orange" class="botones_regis"   glossy label="Volver"></q-btn></RouterLink> 
 
-<q-btn color="deep-orange" class="botones_regis"   glossy label="Registrarse"></q-btn>
+<q-btn color="deep-orange" class="botones_regis" @click="register_compo" glossy label="Registrarse"></q-btn>
 
    
 
