@@ -18,7 +18,7 @@ class Partida extends Model
         'respuestaIncorrecta_1',
         'respuestaIncorrecta_2',
         'respuestaIncorrecta_3',
-        'modo',
+        'nivel',
         'duracion',
     ];
 

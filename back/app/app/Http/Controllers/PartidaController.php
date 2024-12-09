@@ -15,11 +15,13 @@ class PartidaController extends Controller
     }
 
 
-        public function obtenerPreguntas()
-        {
-            $partidas = Partida::all();
-            return $partidas;
-        }
+        
+            public function obtenerPreguntas()
+            {
+                $partidas = Partida::all();
+                return response()->json($partidas);
+            }
+                    
    
 
     
@@ -51,7 +53,7 @@ class PartidaController extends Controller
         'respuestaIncorrecta_1' => 'required|integer',
         'respuestaIncorrecta_2' => 'required|integer',
         'respuestaIncorrecta_3' => 'required|integer',
-        'modo' => 'required|string',
+        'nivel' => 'required|string',
         'duracion' => 'required|integer',
     ]);
 
@@ -85,7 +87,7 @@ class PartidaController extends Controller
             'respuestaIncorrecta_1' => 'integer',
             'respuestaIncorrecta_2' => 'integer',
             'respuestaIncorrecta_3' => 'integer',
-            'modo' => 'string',
+            'nivel' => 'string',
             'duracion' => 'integer',
         ]);
 

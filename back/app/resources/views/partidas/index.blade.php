@@ -25,7 +25,7 @@
             <thead>
                 <tr>
                     <th>Operación</th>
-                    <th>Modo</th>
+                    <th>nivel</th>
                     <th>Duración</th>
                     <th>Acciones</th>
                 </tr>
@@ -34,7 +34,7 @@
                 @foreach ($partidas as $partida)
                     <tr>
                         <td>{{ $partida->operacion }}</td>
-                        <td>{{ $partida->modo }}</td>
+                        <td>{{ $partida->nivel }}</td>
                         <td>{{ $partida->duracion }}</td>
                         <td>
                             <a href="{{ route('partidas.edit', $partida->id) }}">Editar</a>
