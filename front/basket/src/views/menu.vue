@@ -30,7 +30,7 @@ watch(route, (newRoute, oldRoute) => {
   <main id="main_menu">
     
  <div id="div_menu" v-if="visibleOpciones">
-  <RouterLink to="/jugar/historia" @click="ocultarTot"> <q-btn color="deep-orange" class="botones_menu" disable  glossy label="Historia"></q-btn></RouterLink>
+  <RouterLink to="/jugar/historia" @click="ocultarTot"> <q-btn color="deep-orange" class="botones_menu"   glossy label="Historia"></q-btn></RouterLink>
   
    <br>
    <RouterLink to="/jugar/arcade" @click="ocultarTot"> <q-btn color="deep-orange" class="botones_menu"  glossy label="Arcade"></q-btn></RouterLink>
