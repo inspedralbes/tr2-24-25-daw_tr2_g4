@@ -14,6 +14,8 @@ class User extends Authenticatable
         'username', 
         'email', 
         'password', 
+        'nivel',
+        'avatar',
         'personal_access_token', // Incluido para almacenar el token
     ];
 

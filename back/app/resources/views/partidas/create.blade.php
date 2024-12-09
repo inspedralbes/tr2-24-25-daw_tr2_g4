@@ -28,8 +28,8 @@
         <label for="respuestaIncorrecta_3">Respuesta Incorrecta 3:</label>
         <input type="number" name="respuestaIncorrecta_3" id="respuestaIncorrecta_3" required><br>
 
-        <label for="modo">Modo:</label>
-        <input type="text" name="modo" id="modo" required><br>
+        <label for="nivel">nivel:</label>
+        <input type="text" name="nivel" id="nivel" required><br>
 
         <label for="duracion">Duración:</label>
         <input type="number" name="duracion" id="duracion" required><br>

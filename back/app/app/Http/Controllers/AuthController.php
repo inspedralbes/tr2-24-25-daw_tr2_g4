@@ -27,13 +27,14 @@ class AuthController extends Controller
         $user = User::create([
             'username' => $request->username,
             'email' => $request->email,
+            'avatar' => $request->avatar,
             'password' => Hash::make($request->password),
         ]);
 
         // Generar un token único y guardarlo en el usuario
         $token = $user->createToken('auth_token')->plainTextToken;
         $user->update(['personal_access_token' => $token]);
-
+        $user = User::where('username', $request->username)->first();
         // Respuesta con el usuario y el token
         return response()->json([
             'user' => $user,
