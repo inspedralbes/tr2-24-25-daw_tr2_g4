@@ -2,19 +2,49 @@
 
 import { reactive, ref,watch } from 'vue';
 import { register } from '@/comunication_manager';
-
+import { useCounterStore } from '@/stores/counter';
 
    const password= ref('');
    const  isPwd= ref(true);
    const  email= ref('');
    const username= ref('') 
    const slide= ref(3);
-   const params = reactive({ username: "", email: "", password: ""}); 
+   const params = reactive({ username: "", email: "", password: "", avatar:""}); 
+   const alert= ref(false);
+   const errors=reactive({errores:""})
 
-
-
-   function register_compo() {
+  async function register_compo() {
      
+    params.username=username.value;
+    params.email=email.value;
+    params.password=password.value;
+    params.avatar=slide.value;
+    
+    const data= await register(params);
+   
+    
+    console.log(data);
+    
+    if(data.errors==undefined){
+      
+        useCounterStore.setLoginInfo({
+          username: data.user.username,
+          avatar: data.user.avatar,
+          nivel: data.user.nivel,
+
+        })
+
+
+    }else{
+
+
+      errors.errores=data.errors;
+      alert.value=true;
+      
+      
+    }
+
+    
     
 
 
@@ -26,6 +56,26 @@ import { register } from '@/comunication_manager';
 
 <template>
   <main>
+    
+    <q-dialog v-model="alert">
+      <q-card>
+        <q-card-section>
+          <div class="text-h6">Error</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+        {{ errors.errores }}
+         </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="OK" color="primary" v-close-popup></q-btn>
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
+
+
+
 
     <q-input v-model="username" filled type="text" hint="Username"></q-input>
     <br>
