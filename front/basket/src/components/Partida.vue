@@ -91,9 +91,8 @@ function responder(data){
 
   width: 170px; 
   margin: 20px;
-  
   font-size: 50px;
-
+  
 }
 
 </style>
