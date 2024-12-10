@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rankings', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('id_users')->constrained('partidas')->onDelete('cascade'); 
-            $table->integer('puntuacion'); 
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            //
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rankings');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };

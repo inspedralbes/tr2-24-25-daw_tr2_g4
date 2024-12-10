@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
                 'respuestaIncorrecta_1' => $producte['respuestaIncorrecta_1'],
                 'respuestaIncorrecta_2' => $producte['respuestaIncorrecta_2'],
                 'respuestaIncorrecta_3' => $producte['respuestaIncorrecta_3'],
-                'modo' => $producte['modo'],
+                'nivel' => $producte['nivel'],
                 'duracion' => $producte['duracion'],
             ]);
         }

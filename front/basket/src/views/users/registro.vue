@@ -1,27 +1,96 @@
 <script setup>
 
-import { ref,watch } from 'vue';
+import { reactive, ref,watch } from 'vue';
+import { register } from '@/comunication_manager';
+import { useCounterStore } from '@/stores/counter';
+import { useRouter } from 'vue-router';
 
+
+  const router = useRouter(); 
    const password= ref('');
    const  isPwd= ref(true);
    const  email= ref('');
    const username= ref('') 
-
    const slide= ref(3);
+   const params = reactive({ username: "", email: "", password: "", avatar:""}); 
+   const alert= ref(false);
+   const errors=reactive({errores:""})
+
+
+  async function register_compo() {
+     
+    params.username=username.value;
+    params.email=email.value;
+    params.password=password.value;
+    params.avatar=slide.value;
     
+    const data= await register(params);
+   
+    
+    console.log(data);
+    
+    if(data.errors==undefined){
+      const appStore = useCounterStore();
+        appStore.setLoginInfo({
+          loggedIn: true,
+          username: data.user.username,
+          avatar: data.user.avatar,
+          nivel: data.user.nivel,
+
+        })
+        router.push('/jugar'); 
+       
+        
+       
+    }else{
+
+
+      errors.errores=data.errors;
+      alert.value=true;
       
+      
+    }
+
+    
+    
+
+
+   }
+   
+
+
 </script>
 
 <template>
   <main>
+    
+    <q-dialog v-model="alert">
+      <q-card class="tarjeta_register">
+        <q-card-section>
+          <div class="text-h6">Error</div>
+        </q-card-section>
 
-    <q-input v-model="username" filled type="text" hint="Username"></q-input>
+        <q-card-section class="q-pt-none">
+        {{ errors.errores }}
+         </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="OK" color="primary" v-close-popup></q-btn>
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
+
+
+
+
+    <q-input class="we" v-model="username" filled type="text" hint="Username"></q-input>
     <br>
     <br>
-    <q-input v-model="email" filled type="email" hint="Correo"></q-input>
+    <q-input class="we" v-model="email" filled type="email" hint="Correo"></q-input>
     <br>
     <br>
-    <q-input v-model="password" filled :type="isPwd ? 'password' : 'text'" hint="Contraseña">
+    <q-input class="we" v-model="password" filled :type="isPwd ? 'password' : 'text'" hint="Contraseña">
         <template v-slot:append>
           <q-icon
             :name="isPwd ? 'visibility_off' : 'visibility'"
@@ -62,7 +131,7 @@ import { ref,watch } from 'vue';
 
 <RouterLink to="/jugar">  <q-btn color="deep-orange" class="botones_regis"   glossy label="Volver"></q-btn></RouterLink> 
 
-<q-btn color="deep-orange" class="botones_regis"   glossy label="Registrarse"></q-btn>
+<q-btn color="deep-orange" class="botones_regis" @click="register_compo" glossy label="Registrarse"></q-btn>
 
    
 
@@ -77,6 +146,19 @@ import { ref,watch } from 'vue';
 .botones_regis{
     margin-top: 40px;
  margin-right: 6px;
+}
+
+.tarjeta_register{
+  font-size: 25px;
+
+}
+
+.we{
+
+width: 400px;
+height: 100px;
+font-size: 45px;
+
 }
 
 
