@@ -46,15 +46,7 @@ class AuthController extends Controller
     // Login de usuario
     public function login(Request $request)
     {
-        // Validación de los datos de entrada
-        $validator = Validator::make($request->all(), [
-            'username' => 'required|string|exists:users,username',
-            'password' => 'required|string|min:6',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
+        
 
         // Buscar el usuario por username
         $user = User::where('username', $request->username)->first();

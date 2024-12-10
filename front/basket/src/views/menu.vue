@@ -2,12 +2,12 @@
 
 import { ref,watch } from 'vue';
 import { useRoute } from 'vue-router';
+import { useCounterStore } from '@/stores/counter';
 
+
+    const visibleLog=ref(false);
+    const useApp = useCounterStore();
     const visibleOpciones=ref(true);
-
-
-
-
     function ocultarTot(){
         visibleOpciones.value=false;
 
@@ -16,14 +16,45 @@ import { useRoute } from 'vue-router';
  
 const route = useRoute();
    
+ function salir(){
+    useApp.setLoginInfo({
+      loggedIn: false,
+      username:'',
+      avatar:'',
+      nivel:''
+
+    });
+    
+    visibleLog.value=false;
+    console.log(useApp.loginInfo)
+   
+
+ } 
+
+
 watch(route, (newRoute, oldRoute) => {
   
   if (newRoute.path === '/jugar') {
     visibleOpciones.value = true;
+   
   }
-});
+
  
+ 
+
+});
+
+
+if(useApp.loginInfo.loggedIn){
+    visibleLog.value=true;
+    console.log(useApp.loginInfo);
     
+  }else{
+    visibleLog.value=false;
+  }
+
+
+  
 </script>
 
 <template>
@@ -58,7 +89,45 @@ watch(route, (newRoute, oldRoute) => {
 
          
 
-        <div class="menu_avatar" >
+       
+
+        <!-- Loggeado -->
+
+        <div class="menu_avatar" v-if="visibleLog">
+          <q-avatar size="90px">
+            <img :src="`/public/avatar/boy${useApp.loginInfo.avatar}.png`" >
+
+          </q-avatar>
+
+          <div style="font-size: 30px">{{ useApp.loginInfo.username }}</div>
+
+          <RouterLink to="/user/login">
+          <q-btn
+          class="botones_desple"
+            color="primary"
+            label="Perfil"
+            push
+            size="30px"
+            v-close-popup
+          ></q-btn>
+        </RouterLink>
+        <br>
+        <RouterLink to="/jugar">
+        <q-btn
+            class="botones_desple"
+            color="primary"
+            label="Log out"
+            push
+            size="30px"
+            v-close-popup
+            @click="salir"
+          ></q-btn>
+          </RouterLink>  
+        </div>
+
+        <!-- No Loggeado-->
+
+        <div class="menu_avatar" v-else >
           <q-avatar size="90px">
             <img src="/public/avatar/boy1.png">
           </q-avatar>
@@ -87,6 +156,10 @@ watch(route, (newRoute, oldRoute) => {
           ></q-btn>
           </RouterLink>  
         </div>
+
+
+
+
       </div>
     </q-btn-dropdown>
   </div>

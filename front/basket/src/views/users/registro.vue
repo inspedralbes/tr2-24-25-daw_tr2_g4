@@ -3,7 +3,10 @@
 import { reactive, ref,watch } from 'vue';
 import { register } from '@/comunication_manager';
 import { useCounterStore } from '@/stores/counter';
+import { useRouter } from 'vue-router';
 
+
+  const router = useRouter(); 
    const password= ref('');
    const  isPwd= ref(true);
    const  email= ref('');
@@ -12,6 +15,7 @@ import { useCounterStore } from '@/stores/counter';
    const params = reactive({ username: "", email: "", password: "", avatar:""}); 
    const alert= ref(false);
    const errors=reactive({errores:""})
+
 
   async function register_compo() {
      
@@ -26,15 +30,18 @@ import { useCounterStore } from '@/stores/counter';
     console.log(data);
     
     if(data.errors==undefined){
-      
-        useCounterStore.setLoginInfo({
+      const appStore = useCounterStore();
+        appStore.setLoginInfo({
+          loggedIn: true,
           username: data.user.username,
           avatar: data.user.avatar,
           nivel: data.user.nivel,
 
         })
-
-
+        router.push('/jugar'); 
+       
+        
+       
     }else{
 
 
@@ -58,7 +65,7 @@ import { useCounterStore } from '@/stores/counter';
   <main>
     
     <q-dialog v-model="alert">
-      <q-card>
+      <q-card class="tarjeta_register">
         <q-card-section>
           <div class="text-h6">Error</div>
         </q-card-section>
@@ -77,13 +84,13 @@ import { useCounterStore } from '@/stores/counter';
 
 
 
-    <q-input v-model="username" filled type="text" hint="Username"></q-input>
+    <q-input class="we" v-model="username" filled type="text" hint="Username"></q-input>
     <br>
     <br>
-    <q-input v-model="email" filled type="email" hint="Correo"></q-input>
+    <q-input class="we" v-model="email" filled type="email" hint="Correo"></q-input>
     <br>
     <br>
-    <q-input v-model="password" filled :type="isPwd ? 'password' : 'text'" hint="Contraseña">
+    <q-input class="we" v-model="password" filled :type="isPwd ? 'password' : 'text'" hint="Contraseña">
         <template v-slot:append>
           <q-icon
             :name="isPwd ? 'visibility_off' : 'visibility'"
@@ -139,6 +146,19 @@ import { useCounterStore } from '@/stores/counter';
 .botones_regis{
     margin-top: 40px;
  margin-right: 6px;
+}
+
+.tarjeta_register{
+  font-size: 25px;
+
+}
+
+.we{
+
+width: 400px;
+height: 100px;
+font-size: 45px;
+
 }
 
 
