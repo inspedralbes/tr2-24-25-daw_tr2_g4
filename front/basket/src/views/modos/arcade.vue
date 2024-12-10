@@ -1,9 +1,9 @@
 <script setup>
 
 import Partida from '@/components/Partida.vue';
-import { reactive,ref} from 'vue';
+import { reactive, ref } from 'vue';
 
-  const data =reactive([
+const data = reactive([
   {
     "id": 1,
     "operacion": "5 + 3",
@@ -206,50 +206,50 @@ import { reactive,ref} from 'vue';
   }
 ]
 )
-  const Canastas= ref(0)
-  const index= ref(0)
+const Canastas = ref(0)
+const index = ref(0)
 
-  function siguientePregunta(num){
-    
-    
-    if(index.value < data.length - 1)
-      if(data[index.value].respuesta_correcta==num){
-        Canastas.value++;
-      }
-      index.value++;
-  }
+function siguientePregunta(num) {
+
+
+  if (index.value < data.length - 1)
+    if (data[index.value].respuesta_correcta == num) {
+      Canastas.value++;
+    }
+  index.value++;
+}
 
 </script>
 
 <template>
   <main id="main_arcade">
- <div class="body_arcade">
- <h1>Arcade</h1>
+    <div class="body_arcade">
+      <h1>Arcade</h1>
 
 
- <Partida :data="data[index]" @siguiente="siguientePregunta" />
+      <Partida :data="data[index]" @siguiente="siguientePregunta" />
 
-  <h4 style="text-align: center;">Puntos:  {{ Canastas }} </h4>
-  
-  <RouterLink to="/jugar"> <q-btn color="deep-orange" size="20px" class="boton_arcade" glossy label="Volver"></q-btn></RouterLink>
-  </div>
- 
+      <h4 style="text-align: center;">Puntos: {{ Canastas }} </h4>
+
+      <RouterLink to="/jugar"> <q-btn color="deep-orange" size="20px" class="boton_arcade" glossy
+          label="Volver"></q-btn></RouterLink>
+    </div>
+
   </main>
-  
+
 </template>
 
 <style scoped>
-#main_arcade{
+#main_arcade {
   display: grid;
-  grid-template-columns:1fr 1fr 1fr;
- 
-   
+  grid-template-columns: 1fr 1fr 1fr;
+
+
 }
-.body_arcade{
+
+.body_arcade {
   grid-column: 2;
-  
+
 
 }
-
-
 </style>

@@ -1,150 +1,185 @@
 <template>
-    <q-header class="bg-primary text-white">
-        <q-toolbar>
-            <q-btn flat round dense icon="arrow_back" @click="goBack" />
-            <q-toolbar-title>Esperando Jugador</q-toolbar-title>
-        </q-toolbar>
-    </q-header>
     <div>
+      <div class="menu-mult">
         <h1 class="text-center text-white bg-deep-orange q-pa-md no-margin">Salas Privadas</h1>
-        <div id="menu" v-if="!enSala">
-            <q-btn @click="crearSala" color="deep-orange" size="25px" class="boton_sala" glossy
-                label="Crear Sala"></q-btn>
-            <q-btn @click="unirSala" color="deep-orange" size="25px" class="boton_sala" glossy
-                label="Unir Sala"></q-btn>
-            <input type="text" v-model="claveSala" placeholder="Clave de la sala" />
+  
+        <div v-if="!enSala" class="boton-grid">
+          <q-btn @click="crearSala" color="deep-orange" size="25px" class="boton_sala" glossy label="Crear Sala"></q-btn>
+          <input type="text" v-model="claveSala" class="input-sala" placeholder="Clave de la sala" />
+          <q-btn @click="unirSala" color="deep-orange" size="25px" class="boton_sala" glossy label="Unir Sala"></q-btn>
+  
+          <RouterLink to="/jugar">
+            <q-btn color="red-12" size="25px" class="boton-volver" glossy label="Volver"></q-btn>
+          </RouterLink>
         </div>
-
+  
         <div id="room-info" v-else>
-    <div class="q-mb-md">
-      <h2 class="text-center text-orange"><span>{{ claveActual }}</span></h2>
+          <div class="q-mb-md">
+            <h2 class="text-center text-orange"><span>{{ claveActual }}</span></h2>
+          </div>
+  
+          <div>
+            <h3 class="text-center text-h5">Usuarios en la sala:</h3>
+            <q-list bordered class="q-pa-none">
+              <q-item v-for="usuario in usuarios" :key="usuario">
+                <q-item-section avatar>
+                  <q-avatar size="5rem">
+                    <span class="text-h4">🏀</span>
+                  </q-avatar>
+                </q-item-section>
+                <q-item-section>
+                  <span class="text-h6">{{ usuario }}</span>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </div>
+  
+          <div class="flex flex-center q-mt-lg">
+            <q-spinner-hourglass color="orange" size="6em" />
+          </div>
+  
+          <div class="flex justify-center q-mt-lg">
+            <q-btn @click="salirSala" color="deep-orange" size="lg" glossy label="Salir de la Sala" class="q-pa-md" />
+          </div>
+        </div>
+      </div>
+  
+      <!-- Diálogo para alerta -->
+      <q-dialog v-model="dialog" :backdrop-filter="backdropFilter">
+        <q-card>
+          <q-card-section class="row items-center q-pb-none text-h6">
+            Aviso
+          </q-card-section>
+  
+          <q-card-section>
+            Introduce una clave de sala para unirte.
+          </q-card-section>
+  
+          <q-card-actions align="right">
+            <q-btn flat label="Cerrar" color="primary" v-close-popup />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
     </div>
-
-    <div>
-      <h3 class="text-center text-h5">Usuarios en la sala:</h3>
-      <q-list bordered class="q-pa-none">
-        <q-item v-for="usuario in usuarios" :key="usuario">
-          <q-item-section avatar>
-            <q-avatar size="5rem">
-              <span class="text-h4">🏀</span>
-            </q-avatar>
-          </q-item-section>
-          <q-item-section>
-            <span class="text-h6">{{ usuario }}</span>
-          </q-item-section>
-        </q-item>
-      </q-list>
-    </div>
-
-    <div class="flex flex-center q-mt-lg">
-      <q-spinner-hourglass color="orange" size="6em" />
-    </div>
-
-    <div class="flex justify-center q-mt-lg">
-      <q-btn 
-        @click="salirSala" 
-        color="deep-orange" 
-        size="lg" 
-        glossy 
-        label="Salir de la Sala" 
-        class="q-pa-md"
-      />
-    </div>
-  </div>
-    </div>
-</template>
-
-<script>
-import { io } from 'socket.io-client';
-
-export default {
+  </template>
+  
+  <script>
+  import { io } from "socket.io-client";
+  import { ref } from "vue";
+  
+  export default {
+    setup() {
+      const dialog = ref(false); // Estado del cuadro de diálogo
+      const backdropFilter = ref("hue-rotate(210deg)"); // Filtro CSS para el fondo
+  
+      return {
+        dialog,
+        backdropFilter,
+      };
+    },
     data() {
-        return {
-            socket: null,         // Conexión del socket
-            claveSala: '',        // Clave de la sala ingresada por el usuario
-            claveActual: '',      // Sala actual
-            usuarios: [],         // Lista de usuarios en la sala
-            enSala: false,        // Indicador de si el usuario está en una sala
-        };
+      return {
+        socket: null,
+        claveSala: "", // Clave de la sala ingresada por el usuario
+        claveActual: "", // Sala actual
+        usuarios: [], // Lista de usuarios en la sala
+        enSala: false, // Indicador de si el usuario está en una sala
+      };
     },
     methods: {
-        crearSala() {
-            this.socket.emit('create-room');
-        },
-        unirSala() {
-            if (this.claveSala.trim()) {
-                this.socket.emit('join-room', this.claveSala.trim());
-            } else {
-                alert('Introduce una clave de sala');
-            }
-        },
-        salirSala() {
-            this.socket.emit('leave-room', this.claveActual);
-        },
-        updateRoomView(clave) {
-            this.enSala = true;
-            this.claveActual = clave;
-        },
-        resetToMenu() {
-            this.enSala = false;
-            this.claveActual = '';
-            this.usuarios = [];
-        },
+      crearSala() {
+        this.socket.emit("create-room");
+      },
+      unirSala() {
+        if (this.claveSala.trim()) {
+          this.socket.emit("join-room", this.claveSala.trim());
+        } else {
+          this.dialog = true; // Muestra el diálogo
+        }
+      },
+      salirSala() {
+        this.socket.emit("leave-room", this.claveActual);
+      },
+      updateRoomView(clave) {
+        this.enSala = true;
+        this.claveActual = clave;
+      },
+      resetToMenu() {
+        this.enSala = false;
+        this.claveActual = "";
+        this.usuarios = [];
+      },
     },
     mounted() {
-        // Conectar el cliente de Socket.IO al server
-        this.socket = io('http://localhost:3000', {
-            transports: ['websocket'],
-            withCredentials: true
-        });
-
-        this.socket.on('room-created', (claveSala) => {
-            this.updateRoomView(claveSala);
-        });
-
-        this.socket.on('room-joined', (claveSala) => {
-            this.updateRoomView(claveSala);
-        });
-
-        this.socket.on('room-users', ({ room, users }) => {
-            this.claveActual = room;
-            this.usuarios = users;
-        });
-
-        this.socket.on('left-room', () => {
-            this.resetToMenu();
-        });
-
-        this.socket.on('error', (message) => {
-            alert(message);
-        });
+      this.socket = io("http://localhost:3000", {
+        transports: ["websocket"],
+        withCredentials: true,
+      });
+  
+      this.socket.on("room-created", (claveSala) => {
+        this.updateRoomView(claveSala);
+      });
+  
+      this.socket.on("room-joined", (claveSala) => {
+        this.updateRoomView(claveSala);
+      });
+  
+      this.socket.on("room-users", ({ room, users }) => {
+        this.claveActual = room;
+        this.usuarios = users;
+      });
+  
+      this.socket.on("left-room", () => {
+        this.resetToMenu();
+      });
+  
+      this.socket.on("error", (message) => {
+        alert(message);
+      });
     },
     beforeDestroy() {
-        // Cierra la conexión del socket al salir del componente
-        if (this.socket) {
-            this.socket.disconnect();
-        }
+      if (this.socket) {
+        this.socket.disconnect();
+      }
     },
-};
-</script>
-
-<style scoped>
-body {
-    font-family: Arial, sans-serif;
+  };
+  </script>
+  
+  <style scoped>
+  .menu-mult {
     text-align: center;
-    padding: 20px;
-}
-
-h1 {
-    font-size: 46px;
-
-}
-
-.hidden {
-    display: none;
-}
-
-#room-info {
+    grid-column: 2;
+  }
+  
+  .boton-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    justify-items: center;
+    align-items: center;
     margin-top: 20px;
-}
-</style>
+  }
+  
+  .input-sala {
+    grid-column: 1 / -1;
+    width: 80%;
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+  }
+  
+  .boton_sala {
+    width: 90%;
+    font-size: 18px;
+  }
+  .boton-volver {
+    position: fixed;
+    bottom: 20px;
+    transform: translateX(-50%);
+    width: 200px;
+    font-size: 18px;
+    padding: 10px;
+    text-align: center;
+  }
+  </style>
+  
