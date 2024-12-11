@@ -224,15 +224,17 @@ import { reactive,ref} from 'vue';
 <template>
   <main id="main_arcade">
  <div class="body_arcade">
- <h1>Arcade</h1>
+  
 
-<Partida :data="data[index]" @siguiente="siguientePregunta" /> 
 
   <h4 style="text-align: center;">Puntos:  {{ Canastas }} </h4>
   
   <RouterLink to="/jugar"> <q-btn color="deep-orange" size="20px" glossy label="Volver"></q-btn></RouterLink>
-  </div>
- 
+
+</div>
+
+
+<Partida class="arcade":data="data[index]" @siguiente="siguientePregunta" />  
   </main>
   
 </template>
@@ -240,15 +242,22 @@ import { reactive,ref} from 'vue';
 <style scoped>
 #main_arcade{
   display: grid;
-  grid-template-columns:1fr 1fr 1fr;
+  grid-template-columns:1fr ;
+  grid-template-rows: 1fr 1fr 1fr;
   height: 100vh;
    
  
    
 }
 .body_arcade{
-  grid-column: 2;
+  grid-column:1;
   text-align: center;
+
+}
+.arcade{
+  display: grid;
+  grid-column: 1;
+  grid-row: 3;
 
 }
 

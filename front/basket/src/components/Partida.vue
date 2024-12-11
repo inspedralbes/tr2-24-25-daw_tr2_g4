@@ -12,6 +12,27 @@ const props = defineProps({
 
 },)
 
+const progress = ref(0.0); 
+const color=ref("red");
+
+  
+ 
+const intervalId = setInterval(() => {
+  progress.value=progress.value+0.1;
+ 
+  if(progress.value==0.4){
+   
+  }
+  if(progress.value==0.7){
+    clearInterval(intervalId);
+  } 
+
+}, 1000);
+ 
+
+  
+
+
 const emit = defineEmits();
 
 
@@ -32,7 +53,6 @@ const respuestasMezcladas = computed(() => mezclarRespuestas());
 
 function responder(data){
 
-
     emit('siguiente', data);
     
 }
@@ -45,11 +65,12 @@ function responder(data){
   
 <div class="problema">
   
- <p class="titul"> {{ props.data.operacion }} </p>
+ <span class="titul"> {{ props.data.operacion }} </span>
    
-
     <div class="respuestas">
-     <div v-for="(respuesta, index) in respuestasMezcladas" :key="index">
+      <q-linear-progress  :value="progress" :color="color" class=" barra"> </q-linear-progress>
+     
+      <div v-for="(respuesta, index) in respuestasMezcladas" :key="index">
 
       <q-btn  color="deep-orange" class="botones_partida" glossy label=""@click="responder(respuesta)"> {{ respuesta }}</q-btn>
     
@@ -68,9 +89,9 @@ function responder(data){
 
 .titul{
 
-  grid-column: 2;
+  grid-column: span 3;
   font-size: 70px;
-  display: inline;
+  border: 1px solid black;
   
 }
 
@@ -82,17 +103,21 @@ function responder(data){
 }
 .respuestas{
     display: grid;
-    grid-column: 2;
+    grid-column: span 3;
     grid-template-columns: 1fr 1fr;
     
 }
  
 .botones_partida{
 
-  width: 170px; 
-  margin: 20px;
-  font-size: 50px;
-  
+  width: 100%; 
+  font-size: 50px;  
+}
+
+.barra{
+  height: 20px;
+  grid-column: span 2;
+   
 }
 
 </style>
