@@ -1,9 +1,9 @@
 <script setup>
 
 import Partida from '@/components/Partida.vue';
-import { reactive,ref} from 'vue';
+import { reactive, ref } from 'vue';
 
-  const data =reactive([
+const data = reactive([
   {
     "id": 1,
     "operacion": "5 + 3",
@@ -206,18 +206,18 @@ import { reactive,ref} from 'vue';
   }
 ]
 )
-  const Canastas= ref(0)
-  const index= ref(0)
+const Canastas = ref(0)
+const index = ref(0)
 
-  function siguientePregunta(num){
-    
-    
-    if(index.value < data.length - 1)
-      if(data[index.value].respuesta_correcta==num){
-        Canastas.value++;
-      }
-      index.value++;
-  }
+function siguientePregunta(num) {
+
+
+  if (index.value < data.length - 1)
+    if (data[index.value].respuesta_correcta == num) {
+      Canastas.value++;
+    }
+  index.value++;
+}
 
 </script>
 
@@ -236,11 +236,11 @@ import { reactive,ref} from 'vue';
 
 <Partida class="arcade":data="data[index]" @siguiente="siguientePregunta" />  
   </main>
-  
+
 </template>
 
 <style scoped>
-#main_arcade{
+#main_arcade {
   display: grid;
   grid-template-columns:1fr ;
   grid-template-rows: 1fr 1fr 1fr;

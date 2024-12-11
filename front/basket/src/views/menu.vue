@@ -21,8 +21,8 @@ const route = useRoute();
       loggedIn: false,
       username:'',
       avatar:'',
-      nivel:''
-
+      nivel:'',
+      token:''
     });
     
     visibleLog.value=false;
