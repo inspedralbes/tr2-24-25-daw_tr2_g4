@@ -226,7 +226,6 @@ function siguientePregunta(num) {
     <div class="body_arcade">
       <h1>Arcade</h1>
 
-<<<<<<< HEAD
 
       <Partida :data="data[index]" @siguiente="siguientePregunta" />
 
@@ -236,15 +235,6 @@ function siguientePregunta(num) {
           label="Volver"></q-btn></RouterLink>
     </div>
 
-=======
-<Partida :data="data[index]" @siguiente="siguientePregunta" /> 
-
-  <h4 style="text-align: center;">Puntos:  {{ Canastas }} </h4>
-  
-  <RouterLink to="/jugar"> <q-btn color="deep-orange" size="20px" glossy label="Volver"></q-btn></RouterLink>
-  </div>
- 
->>>>>>> origin/dev
   </main>
 
 </template>
@@ -252,26 +242,13 @@ function siguientePregunta(num) {
 <style scoped>
 #main_arcade {
   display: grid;
-<<<<<<< HEAD
   grid-template-columns: 1fr 1fr 1fr;
 
 
-=======
-  grid-template-columns:1fr 1fr 1fr;
-  height: 100vh;
-   
- 
-   
->>>>>>> origin/dev
 }
 
 .body_arcade {
   grid-column: 2;
-<<<<<<< HEAD
-
-=======
-  text-align: center;
->>>>>>> origin/dev
 
 }
 </style>

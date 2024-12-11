@@ -28,7 +28,7 @@ import { useRouter } from 'vue-router';
           username: data.user.username,
           avatar: data.user.avatar,
           nivel: data.user.nivel,
-
+          token: data.token
         })
         router.push('/jugar'); 
 

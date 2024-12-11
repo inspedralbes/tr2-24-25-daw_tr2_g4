@@ -31,12 +31,14 @@ import { useRouter } from 'vue-router';
     
     if(data.errors==undefined){
       const appStore = useCounterStore();
+
+      
         appStore.setLoginInfo({
           loggedIn: true,
           username: data.user.username,
           avatar: data.user.avatar,
           nivel: data.user.nivel,
-
+         
         })
         router.push('/jugar'); 
        
