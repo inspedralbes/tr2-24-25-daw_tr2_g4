@@ -1,0 +1,71 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    position: relative;
+    width: 300px;
+    height: 500px;
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-div {
+    position: absolute;
+}
+
+.canasta {
+    top: 0;
+    width: 200px;
+    height: 200px;
+}
+
+.pelota {
+    bottom: 0;
+    width: 50px;
+    height: 50px;
+    animation: none;
+    animation-fill-mode: forwards;
+}
+
+.button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+#activate:checked ~ .container .pelota {
+    animation: jump 1s ease-in-out, 
+    disappear 0.1s 0.9s forwards;
+}
+
+@keyframes jump {
+    0% {
+        transform: translateY(0);
+    }
+    80% {
+        transform: translateY(-400px); 
+    }
+    100% {
+        transform: translateY(-350px); 
+    }
+}
+
+@keyframes disappear {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden; 
+    }
+}
