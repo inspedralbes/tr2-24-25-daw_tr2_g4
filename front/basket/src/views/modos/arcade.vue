@@ -1,9 +1,8 @@
 <script setup>
-
 import Partida from '@/components/Partida.vue';
-import { reactive,ref} from 'vue';
+import { reactive, ref } from 'vue';
 
-  const data =reactive([
+const data = reactive([
   {
     "id": 1,
     "operacion": "5 + 3",
@@ -205,52 +204,54 @@ import { reactive,ref} from 'vue';
     "duracion": 25
   }
 ]
-)
-  const Canastas= ref(0)
-  const index= ref(0)
+);
+const Canastas = ref(0);
+const index = ref(0);
+const juegoTerminado = ref(false);
 
-  function siguientePregunta(num){
-    
-    
-    if(index.value < data.length - 1)
-      if(data[index.value].respuesta_correcta==num){
-        Canastas.value++;
-      }
-      index.value++;
+  function siguientePregunta(num) {
+  if (index.value < data.length - 1) {
+    if (data[index.value].respuesta_correcta === num) {
+      Canastas.value++;
+    }
+    index.value++;
+  } else {
+    juegoTerminado.value = true;
   }
+}
 
 </script>
 
 <template>
-  <main id="main_arcade">
- <div class="body_arcade">
- <h1>Arcade</h1>
+  <main id="arcade">
+    <div class="body_arcade">
+      <h1>Arcade</h1>
 
-<Partida :data="data[index]" @siguiente="siguientePregunta" /> 
+      <div v-if="!juegoTerminado">
+        <Partida :data="data[index]" @siguiente="siguientePregunta" />
+        <h4>Puntos: {{ Canastas }}</h4>
+      </div>
 
-  <h4 style="text-align: center;">Puntos:  {{ Canastas }} </h4>
-  
-  <RouterLink to="/jugar"> <q-btn color="deep-orange" size="20px" glossy label="Volver"></q-btn></RouterLink>
-  </div>
- 
+      <div v-else>
+        <h2>el juego se ha terminado</h2>
+        <p>Tu puntuación final es: {{ Canastas }}</p>
+        <RouterLink to="/jugar">
+          <q-btn color="deep-orange" size="20px" glossy label="Volver a jugar"></q-btn>
+        </RouterLink>
+      </div>
+    </div>
   </main>
-  
 </template>
 
 <style scoped>
-#main_arcade{
+#arcade {
   display: grid;
-  grid-template-columns:1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   height: 100vh;
-   
- 
-   
 }
-.body_arcade{
+
+.body_arcade {
   grid-column: 2;
   text-align: center;
-
 }
-
-
 </style>
