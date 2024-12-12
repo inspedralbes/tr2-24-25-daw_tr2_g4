@@ -227,14 +227,13 @@ function siguientePregunta(num) {
   
 
 
-  <h4 style="text-align: center;">Puntos:  {{ Canastas }} </h4>
+  <h4  >Puntos:  {{ Canastas }} </h4>
   
   <RouterLink to="/jugar"> <q-btn color="deep-orange" size="20px" glossy label="Volver"></q-btn></RouterLink>
 
   
 
-</div>
-    
+</div> 
 <Partida class="arcade":data="data[index]" @siguiente="siguientePregunta" />  
   </main>
 
@@ -250,12 +249,14 @@ function siguientePregunta(num) {
   grid-template-columns:1fr 1fr 1fr  ;
   grid-template-rows: 1fr 1fr 1fr;
   height: 100vh;  
-   
+  background-image: url("../../assets/bioma/fondo.jpg"); 
+  background-repeat: no-repeat;
+  background-position: 50% 400% ;
  
    
 }
 .body_arcade{
-  grid-column: span 3;
+  grid-column: 1;
   text-align: center;
 
 }

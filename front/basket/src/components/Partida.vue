@@ -131,9 +131,9 @@ function responder(data){
 .titul{
 
   grid-column: span 3;
-  font-size: 70px;
+  font-size: 50px;
   border: 1px solid black;
-  
+  background-color: white;
 }
 
 .tiempo_fuera{
