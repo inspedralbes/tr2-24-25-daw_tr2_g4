@@ -3,113 +3,116 @@ const express = require('express');
 const cors = require('cors');
 const http = require('http');
 const socketIo = require('socket.io');
-const axios = require('axios');  // Para hacer peticiones HTTP a Laravel
+const axios = require('axios');  
 
-// Inicializa Express
 const app = express();
 
-// Habilita CORS
 app.use(cors({
-    origin: "*",  // Permitir todos los orígenes
+    origin: "*",  
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true  // Permitir el envío de cookies y credenciales
+    credentials: true  
 }));
 
-// Crea el servidor HTTP
 const server = http.createServer(app);
 
-// Configura Socket.IO
 const io = socketIo(server, {
     cors: {
-        origin: "*",  // Permitir todos los orígenes
+        origin: "*",  
         methods: ["GET", "POST"],
-        credentials: true  // Permitir el envío de cookies y credenciales
+        credentials: true  
     }
 });
 
-// Maneja las conexiones de los sockets
 io.on('connection', async (socket) => {
     console.log(`Usuario conectado: ${socket.id}`);
 
-    // Obtén el token del handshake (proceso de conexión)
     const token = socket.handshake.auth.token;
 
     if (!token) {
-        socket.disconnect(); // Desconecta si no hay token
+        console.log('Token no proporcionado. Desconectando socket.');
+        socket.disconnect();
         return;
     }
 
     try {
-        // Valida el token con Laravel (la ruta debe ser la que tú configures)
         const response = await axios.get('http://localhost:8000/api/user', {
             headers: {
-                Authorization: `Bearer ${token}`,  // Envío el token como Bearer
+                Authorization: `Bearer ${token}`,
             },
         });
-
-        // Si el token es válido, se guarda el usuario autenticado en el socket
-        socket.user = response.data;  // Datos del usuario autenticado
-        console.log(`Usuario autenticado: ${socket.user.name}`);
-
+        socket.user = response.data;
+        console.log('Usuario autenticado:', socket.user); // Confirmar las propiedades que llegan
     } catch (error) {
         console.error('Token inválido:', error.response?.data || error.message);
-        socket.disconnect(); // Desconecta si el token es inválido
+        socket.disconnect();
         return;
     }
 
-    // Evento para crear una sala
     socket.on('create-room', () => {
-        const claveSala = uuidv4().slice(0, 5);  // Clave de sala generada
+        const claveSala = uuidv4().slice(0, 5); 
         socket.join(claveSala);
+        socket.emit('room-created', claveSala);
+        console.log(`Sala creada: ${claveSala} por el usuario: ${socket.user.username} (ID=${socket.user.id})`);
 
-        // Emitir la lista de usuarios en la sala (incluyendo los datos del usuario)
         io.to(claveSala).emit('room-users', {
             room: claveSala,
             users: [...io.sockets.adapter.rooms.get(claveSala)].map(id => ({
                 id,
-                username: io.sockets.sockets.get(id)?.user?.name || 'Invitado'
-            }))
+                username: io.sockets.sockets.get(id)?.user?.username || 'Invitado',
+            })),
         });
     });
 
-    // Evento para unirse a una sala
     socket.on('join-room', (claveSala) => {
         const room = io.sockets.adapter.rooms.get(claveSala);
         if (room) {
             socket.join(claveSala);
+            console.log(`Usuario ${socket.user.username} (ID=${socket.user.id}) se unió a la sala: ${claveSala}`);
+
             socket.emit('room-joined', claveSala);
 
             io.to(claveSala).emit('room-users', {
                 room: claveSala,
                 users: [...room].map(id => ({
                     id,
-                    username: io.sockets.sockets.get(id)?.user?.name || 'Invitado'
+                    username: io.sockets.sockets.get(id)?.user?.username || 'Invitado',
                 }))
             });
         } else {
+            console.log(`Intento de unión a sala inexistente: ${claveSala}`);
             socket.emit('error', 'Sala no encontrada');
         }
     });
 
-    // Evento para salir de una sala
     socket.on('leave-room', (claveSala) => {
         socket.leave(claveSala);
         const room = io.sockets.adapter.rooms.get(claveSala);
         if (room) {
-            io.to(claveSala).emit('room-users', { room: claveSala, users: [...room] });
+            io.to(claveSala).emit('room-users', {
+                room: claveSala,
+                users: [...room].map(id => ({
+                    id,
+                    username: io.sockets.sockets.get(id)?.user?.username || 'Invitado',
+                }))
+            });
         }
         socket.emit('left-room');
     });
 
-    // Manejo de desconexión
     socket.on('disconnecting', () => {
         for (const claveSala of socket.rooms) {
             if (claveSala !== socket.id) {
                 const room = io.sockets.adapter.rooms.get(claveSala);
                 if (room) {
                     const usersActualizados = [...room].filter((id) => id !== socket.id);
-                    io.to(claveSala).emit('room-users', { room: claveSala, users: usersActualizados });
+                    io.to(claveSala).emit('room-users', {
+                        room: claveSala,
+                        users: usersActualizados.map(id => ({
+                            id,
+                            username: io.sockets.sockets.get(id)?.user?.username || 'Invitado',
+                        }))
+                    });
                 }
             }
         }
@@ -120,7 +123,6 @@ io.on('connection', async (socket) => {
     });
 });
 
-// Inicia el servidor en el puerto 3000
 const PORT = 3000;
 server.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
