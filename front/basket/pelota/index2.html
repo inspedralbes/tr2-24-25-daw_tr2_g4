@@ -15,7 +15,6 @@
             position: relative;
             width: 300px;
             height: 500px;
-            border: 2px solid black;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -33,8 +32,8 @@
 
         .pelota {
             bottom: 0;
-            width: 50px;
-            height: 50px;
+            width: 200px;
+            height: 200px;
             animation: none;
             animation-fill-mode: forwards;
         }
@@ -44,6 +43,7 @@
             padding: 10px 20px;
             background-color: #007bff;
             color: #fff;
+            cursor: pointer;
         }
 
         .button:hover {
@@ -51,30 +51,34 @@
         }
 
         #activate:checked ~ .container .pelota {
-            animation: jump 1s ease-in-out, 
-            fall 0.5s 1s forwards;
+            animation: moveAndScale 1s ease-in-out, 
+                       disappear 0.1s 0.9s forwards;
         }
 
-        @keyframes jump {
+        @keyframes moveAndScale {
             0% {
-                transform: translateY(0) translateX(0); 
+                transform: translate(0, 0) scale(1);
             }
             50% {
-                transform: translateY(-300px) translateX(50px); 
+                transform: translate(100px, -200px) scale(0.6);
+            }
+            80% {
+                transform: translate(150px, -400px) scale(0.25);
             }
             100% {
-                transform: translateY(0) translateX(50px); 
+                transform: translate(150px, -350px) scale(0.25); 
             }
         }
 
-        @keyframes fall {
+        @keyframes disappear {
             0% {
-                transform: translateY(0) translateX(50px);     
+                opacity: 1;
             }
-                100% {
-                transform: translateY(0) translateX(50px); 
+            100% {
+                opacity: 0;
+                visibility: hidden; 
             }
-        }       
+        }
     </style>
 </head>
 <body>
