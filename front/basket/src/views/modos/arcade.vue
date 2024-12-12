@@ -12,7 +12,7 @@ const data = reactive([
     "respuestaIncorrecta_2": 7,
     "respuestaIncorrecta_3": 10,
     "modo": "arcade",
-    "duracion": 20
+    "duracion": 10
   },
   {
     "id": 2,
@@ -22,7 +22,7 @@ const data = reactive([
     "respuestaIncorrecta_2": 6,
     "respuestaIncorrecta_3": 7,
     "modo": "historia",
-    "duracion": 25
+    "duracion": 8
   },
   {
     "id": 3,
@@ -32,7 +32,7 @@ const data = reactive([
     "respuestaIncorrecta_2": 14,
     "respuestaIncorrecta_3": 8,
     "modo": "arcade",
-    "duracion": 15
+    "duracion": 12
   },
   {
     "id": 4,
@@ -42,7 +42,7 @@ const data = reactive([
     "respuestaIncorrecta_2": 4,
     "respuestaIncorrecta_3": 3,
     "modo": "historia",
-    "duracion": 20
+    "duracion": 7
   },
   {
     "id": 5,
@@ -52,7 +52,7 @@ const data = reactive([
     "respuestaIncorrecta_2": 16,
     "respuestaIncorrecta_3": 13,
     "modo": "arcade",
-    "duracion": 30
+    "duracion": 12
   },
   {
     "id": 6,
@@ -62,7 +62,7 @@ const data = reactive([
     "respuestaIncorrecta_2": 8,
     "respuestaIncorrecta_3": 9,
     "modo": "historia",
-    "duracion": 25
+    "duracion": 14
   },
   {
     "id": 7,
@@ -231,32 +231,37 @@ function siguientePregunta(num) {
   
   <RouterLink to="/jugar"> <q-btn color="deep-orange" size="20px" glossy label="Volver"></q-btn></RouterLink>
 
+  
+
 </div>
-
-
+    
 <Partida class="arcade":data="data[index]" @siguiente="siguientePregunta" />  
   </main>
 
 </template>
 
 <style scoped>
+ 
+
+
+
 #main_arcade {
   display: grid;
-  grid-template-columns:1fr ;
+  grid-template-columns:1fr 1fr 1fr  ;
   grid-template-rows: 1fr 1fr 1fr;
-  height: 100vh;
+  height: 100vh;  
    
  
    
 }
 .body_arcade{
-  grid-column:1;
+  grid-column: span 3;
   text-align: center;
 
 }
 .arcade{
   display: grid;
-  grid-column: 1;
+  grid-column: span 3;
   grid-row: 3;
 
 }
