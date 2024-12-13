@@ -1,7 +1,7 @@
 <script setup>
 import Partida from '@/components/Partida.vue';
-import { reactive, ref } from 'vue';
-
+import { reactive, ref, onMounted } from 'vue';
+import { RouterLink } from 'vue-router'; 
 const data = reactive([
   {
     "id": 1,
@@ -203,55 +203,123 @@ const data = reactive([
     "modo": "historia",
     "duracion": 25
   }
-]
-);
+]);
+
 const Canastas = ref(0);
 const index = ref(0);
-const juegoTerminado = ref(false);
+const nombreJugador = ref('');
+const puntuaciones = ref([]);
+const juegoActivo = ref(false);
 
-  function siguientePregunta(num) {
-  if (index.value < data.length - 1) {
-    if (data[index.value].respuesta_correcta === num) {
-      Canastas.value++;
-    }
-    index.value++;
-  } else {
-    juegoTerminado.value = true;
+//cagar puntuaciones al iniciar
+onMounted(() => {
+  puntuaciones.value = JSON.parse(localStorage.getItem('puntuaciones') || '[]');
+});
+
+// Guardar nueva puntuacion
+const guardarPuntuacion = () => {
+  puntuaciones.value.push({ nombre: nombreJugador.value, puntuacion: Canastas.value });
+  puntuaciones.value.sort((a, b) => b.puntuacion - a.puntuacion);
+  localStorage.setItem('puntuaciones', JSON.stringify(puntuaciones.value));
+};
+
+// Comenzar el juego
+const empezarJuego = () => {
+  if (!nombreJugador.value) return alert('Ingresa tu nombre para jugar.');
+  juegoActivo.value = true;
+  Canastas.value = 0;
+  index.value = 0;
+};
+
+//siguiente pregunta
+const siguientePregunta = (respuesta) => {
+  if (data[index.value].respuesta_correcta === respuesta) Canastas.value++;
+  index.value++;
+  if (index.value >= data.length) {
+    guardarPuntuacion();
+    juegoActivo.value = false;
   }
-}
+};
+
 
 </script>
-
 <template>
   <main id="arcade">
     <div class="body_arcade">
-      <h1>Arcade</h1>
+      <h3>Arcade</h3>
 
-      <div v-if="!juegoTerminado">
+      <!-- Pantalla de ranking o pantalla de resultados -->
+      <div v-if="!juegoActivo && !juegoTerminado">
+        <h5>RANKING</h5>
+
+        <table class="puntuaciones">
+          <thead>
+            <tr>
+              <th>Jugador</th>
+              <th>Puntuación</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(p, i) in puntuaciones" :key="i">
+              <td>{{ p.nombre }}</td>
+              <td>{{ p.puntuacion }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <input type="text" v-model="nombreJugador" placeholder="Ingresa tu nombre" />
+        <q-btn color="deep-orange" size="10px" @click="empezarJuego"> <q-icon name="eva-arrow-right-outline" size="200%" /></q-btn>
+      </div>
+
+      <!-- Pantalla de juego -->
+      <div v-else>
         <Partida :data="data[index]" @siguiente="siguientePregunta" />
         <h4>Puntos: {{ Canastas }}</h4>
       </div>
 
-      <div v-else>
-        <h2>el juego se ha terminado</h2>
-        <p>Tu puntuación final es: {{ Canastas }}</p>
-        <RouterLink to="/jugar">
-          <q-btn color="deep-orange" size="20px" glossy label="Volver a jugar"></q-btn>
+      <!-- Pantalla de puntuación final -->
+      <div v-if="juegoTerminado">
+        <h3>¡Juego terminado!</h3>
+        <h4>Puntuación final: {{ Canastas }}</h4>
+        <RouterLink to="/">
+          <q-btn color="deep-orange" class="botones_menu" glossy label="Ver Ranking"></q-btn>
         </RouterLink>
       </div>
     </div>
   </main>
 </template>
 
+
 <style scoped>
 #arcade {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
+  justify-content: center;
   height: 100vh;
 }
 
 .body_arcade {
-  grid-column: 2;
   text-align: center;
+}
+
+input {
+  margin-bottom: 10px;
+}
+
+.puntuaciones {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.puntuaciones th,
+.puntuaciones td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.puntuaciones th {
+  background-color: #f4f4f4;
+  font-weight: bold;
 }
 </style>
