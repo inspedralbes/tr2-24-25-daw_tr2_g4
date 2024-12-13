@@ -209,14 +209,16 @@ const Canastas = ref(0);
 const index = ref(0);
 const nombreJugador = ref('');
 const puntuaciones = ref([]);
+const pantallaActiva = ref('ranking'); 
 const juegoActivo = ref(false);
+const juegoTerminado = ref(false);
 
-//cagar puntuaciones al iniciar
+// Cargar puntuaciones al iniciar
 onMounted(() => {
   puntuaciones.value = JSON.parse(localStorage.getItem('puntuaciones') || '[]');
 });
 
-// Guardar nueva puntuacion
+// Guardar nueva puntuación
 const guardarPuntuacion = () => {
   puntuaciones.value.push({ nombre: nombreJugador.value, puntuacion: Canastas.value });
   puntuaciones.value.sort((a, b) => b.puntuacion - a.puntuacion);
@@ -226,30 +228,39 @@ const guardarPuntuacion = () => {
 // Comenzar el juego
 const empezarJuego = () => {
   if (!nombreJugador.value) return alert('Ingresa tu nombre para jugar.');
+  pantallaActiva.value = 'juego';
   juegoActivo.value = true;
   Canastas.value = 0;
   index.value = 0;
+  juegoTerminado.value = false;
 };
 
-//siguiente pregunta
+// Siguiente pregunta
 const siguientePregunta = (respuesta) => {
   if (data[index.value].respuesta_correcta === respuesta) Canastas.value++;
   index.value++;
   if (index.value >= data.length) {
     guardarPuntuacion();
     juegoActivo.value = false;
+    juegoTerminado.value = true; 
+    pantallaActiva.value = 'resultado';
   }
 };
 
-
+const verRanking = () => {
+  pantallaActiva.value = 'ranking'; 
+};
 </script>
+
+
+
 <template>
   <main id="arcade">
     <div class="body_arcade">
       <h3>Arcade</h3>
 
-      <!-- Pantalla de ranking o pantalla de resultados -->
-      <div v-if="!juegoActivo && !juegoTerminado">
+      <!-- ranking -->
+      <div v-if="pantallaActiva === 'ranking'">
         <h5>RANKING</h5>
 
         <table class="puntuaciones">
@@ -271,24 +282,21 @@ const siguientePregunta = (respuesta) => {
         <q-btn color="deep-orange" size="10px" @click="empezarJuego"> <q-icon name="eva-arrow-right-outline" size="200%" /></q-btn>
       </div>
 
-      <!-- Pantalla de juego -->
-      <div v-else>
+      <!-- juego -->
+      <div v-if="pantallaActiva === 'juego'">
         <Partida :data="data[index]" @siguiente="siguientePregunta" />
         <h4>Puntos: {{ Canastas }}</h4>
       </div>
 
-      <!-- Pantalla de puntuación final -->
-      <div v-if="juegoTerminado">
-        <h3>¡Juego terminado!</h3>
-        <h4>Puntuación final: {{ Canastas }}</h4>
-        <RouterLink to="/">
-          <q-btn color="deep-orange" class="botones_menu" glossy label="Ver Ranking"></q-btn>
-        </RouterLink>
+      <!-- puntuacion final -->
+      <div v-if="pantallaActiva === 'resultado'">
+        <h4>juego terminado</h4>
+        <p>Tu puntuacion- {{ Canastas }} de {{ data.length }}</p>
+        <q-btn color="deep-orange" class="botones_menu" glossy label="Ver Ranking" @click="verRanking"></q-btn>
       </div>
     </div>
   </main>
 </template>
-
 
 <style scoped>
 #arcade {
