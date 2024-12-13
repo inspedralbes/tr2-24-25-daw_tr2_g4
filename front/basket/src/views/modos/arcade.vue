@@ -235,9 +235,15 @@ function siguientePregunta(num) {
      
 
  <div class="body_arcade">
-   
+   <!--
   <h4  >Puntos:  {{ Canastas }} </h4>
+  
+  
   <RouterLink to="/jugar"> <q-btn color="deep-orange"  size="20px" glossy label="Volver"></q-btn></RouterLink>
+ -->
+   <img id="canasta" src="../../assets/bioma/tablero.png" alt="">
+
+
   <img id="balon" :class="{'animacion_balon': activar_animacion}" src="../../assets/bioma/balon.png" alt="" srcset="">
 
 </div> 
@@ -292,9 +298,19 @@ function siguientePregunta(num) {
   grid-column: 2;
   grid-row: 2;
   position: relative;
-  top: 130px
+  top: 130px;
+  justify-self: center;  
+}
+
+#canasta{
+  grid-row: 1;
+  grid-column: span 3;
+  justify-self: center;  
+  
+
   
 }
+
 
 #main_arcade {
   display: grid;
@@ -307,7 +323,7 @@ function siguientePregunta(num) {
   grid-column: span 3;
   text-align: center;
   grid-row: span 2;
-  background-image: url("../../assets/bioma/calle.jpg"); 
+  background-image: url("../../assets/bioma/casa2.jpg"); 
   background-position:  bottom center;
   background-repeat: no-repeat; 
   background-size: auto;
