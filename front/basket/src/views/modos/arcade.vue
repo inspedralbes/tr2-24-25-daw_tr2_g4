@@ -223,6 +223,9 @@ function siguientePregunta(num) {
 
 <template>
   <main id="main_arcade">
+
+     
+
  <div class="body_arcade">
   
 
@@ -231,9 +234,8 @@ function siguientePregunta(num) {
   
   <RouterLink to="/jugar"> <q-btn color="deep-orange" size="20px" glossy label="Volver"></q-btn></RouterLink>
 
-  
-
 </div> 
+
 <Partida class="arcade":data="data[index]" @siguiente="siguientePregunta" />  
   </main>
 
@@ -249,15 +251,21 @@ function siguientePregunta(num) {
   grid-template-columns:1fr 1fr 1fr  ;
   grid-template-rows: 1fr 1fr 1fr;
   height: 100vh;  
-  background-image: url("../../assets/bioma/fondo.jpg"); 
-  background-repeat: no-repeat;
-  background-position: 50% 400% ;
- 
-   
-}
+    }
+
 .body_arcade{
-  grid-column: 1;
+  grid-column: span 3;
   text-align: center;
+   
+  grid-row: span 2;
+  background-image: url("../../assets/bioma/calle.jpg"); 
+  background-position:  bottom center;
+  background-repeat: no-repeat; 
+  background-size: auto;
+  height: 80vh; 
+            
+           
+           
 
 }
 .arcade{
