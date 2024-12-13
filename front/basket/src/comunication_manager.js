@@ -19,12 +19,11 @@ export async function register(param) {
         })
     } );
     
+    
     const data = await response.json();
 
     return data;
 }
-
-
 
 export async function login(param) {
     const URL = `${laravel.URL}/login`;

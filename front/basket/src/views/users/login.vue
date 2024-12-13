@@ -37,7 +37,6 @@ async function aux_login() {
   try {
     const data = await login(param)
 
-    // Ocultar el loading después de obtener los datos
     $q.loading.hide()
 
     if (data.message == undefined) {
@@ -45,6 +44,7 @@ async function aux_login() {
       appStore.setLoginInfo({
         loggedIn: true,
         username: data.user.username,
+        email:data.user.email,
         avatar: data.user.avatar,
         nivel: data.user.nivel,
         token: data.token,
@@ -56,7 +56,6 @@ async function aux_login() {
       alert.value = true
     }
   } catch (err) {
-    // En caso de error, ocultar el loading y mostrar el error
     $q.loading.hide()
     console.error("Error durante el login:", err)
   }
@@ -110,10 +109,10 @@ async function aux_login() {
 
     <!-- Botones -->
     <div class="text-center q-mt-md">
+      <q-btn color="deep-orange" @click="aux_login" glossy label="Login" class="q-mb-md" />
       <RouterLink to="/jugar">
-        <q-btn color="deep-orange" glossy label="Volver" class="q-mb-md" />
+        <q-btn color="red" glossy label="Volver" class="q-mb-md" />
       </RouterLink>
-      <q-btn color="deep-orange" @click="aux_login" glossy label="Login" />
     </div>
   </main>
 </template>

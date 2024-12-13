@@ -122,10 +122,10 @@ async function register_compo() {
 
     <!-- Botones -->
     <div class="q-mt-md text-center">
+      <q-btn color="deep-orange" @click="register_compo" class="q-mb-md" glossy label="Registrarse" />
       <RouterLink to="/jugar">
-        <q-btn color="deep-orange" class="q-mb-md" glossy label="Volver" />
+        <q-btn color="red" class="q-mb-md" glossy label="Volver" />
       </RouterLink>
-      <q-btn color="deep-orange" @click="register_compo" glossy label="Registrarse" />
     </div>
 
   </main>
