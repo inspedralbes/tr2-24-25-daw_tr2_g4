@@ -208,15 +208,23 @@ const data = reactive([
 )
 const Canastas = ref(0)
 const index = ref(0)
+const activar_animacion=ref(false);
 
 function siguientePregunta(num) {
+  
 
-
+   
+  activar_animacion.value=true;
   if (index.value < data.length - 1)
     if (data[index.value].respuesta_correcta == num) {
       Canastas.value++;
     }
   index.value++;
+
+  setTimeout(() => {
+    activar_animacion.value=false;
+  }, 500);
+  
 }
 
 </script>
@@ -227,14 +235,14 @@ function siguientePregunta(num) {
      
 
  <div class="body_arcade">
-  
-
-
+   
   <h4  >Puntos:  {{ Canastas }} </h4>
-  
-  <RouterLink to="/jugar"> <q-btn color="deep-orange" size="20px" glossy label="Volver"></q-btn></RouterLink>
+  <RouterLink to="/jugar"> <q-btn color="deep-orange"  size="20px" glossy label="Volver"></q-btn></RouterLink>
+  <img id="balon" :class="{'animacion_balon': activar_animacion}" src="../../assets/bioma/balon.png" alt="" srcset="">
 
 </div> 
+
+
 
 <Partida class="arcade":data="data[index]" @siguiente="siguientePregunta" />  
   </main>
@@ -242,9 +250,51 @@ function siguientePregunta(num) {
 </template>
 
 <style scoped>
+ @keyframes 
+ encestar {
+    0% {
+        transform: translateY(0); /* Empieza en la parte inferior */
+    } 50%{
+
+       transform: translateY(-300px)  scale(0.8) rotate(-90deg);
+       
+    }
+    100% {
+        transform: translateY(-250px) scale(0.7) rotate(-180deg); /* Sube 200px hacia arriba */
+    }
+  }
+
+
+  @keyframes 
+ fallo1 {
+    0% {
+        transform: translateY(0); /* Empieza en la parte inferior */
+    } 50%{
+
+       transform: translateY(-300px) translateX(-100px)  scale(0.8) rotate(-90deg);
+       
+    }
+    100% {
+        transform: translateY(-250px) translateX(-100px)  scale(0.7) rotate(-180deg); /* Sube 200px hacia arriba */
+    }
+  }
+
+.animacion_balon{
+
  
+  animation: fallo1 0.5s linear;
 
+}  
 
+#balon{
+  height: 150px;
+  width: 150px;
+  grid-column: 2;
+  grid-row: 2;
+  position: relative;
+  top: 130px
+  
+}
 
 #main_arcade {
   display: grid;
@@ -256,13 +306,15 @@ function siguientePregunta(num) {
 .body_arcade{
   grid-column: span 3;
   text-align: center;
-   
   grid-row: span 2;
   background-image: url("../../assets/bioma/calle.jpg"); 
   background-position:  bottom center;
   background-repeat: no-repeat; 
   background-size: auto;
   height: 80vh; 
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr; 
             
            
            
