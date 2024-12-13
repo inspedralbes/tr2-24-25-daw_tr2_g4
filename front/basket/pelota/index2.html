@@ -18,6 +18,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            overflow: hidden; /* Asegura que los elementos que salgan del contenedor no sean visibles */
         }
 
         .image-div {
@@ -51,20 +52,36 @@
         }
 
         #activate:checked ~ .container .pelota {
-            animation: moveAndScale 1s ease-in-out, 
-                       disappear 0.1s 0.9s forwards;
+            animation: jumpAndScale 1s ease-in-out, 
+                       curveAndFall 1.5s 1s forwards, /* Animación curva y caída */
+                       disappear 0.1s 2.5s forwards;
         }
 
-        @keyframes moveAndScale {
+        @keyframes jumpAndScale {
             0% {
-                transform: translate(0, 0) scale(1); /* Tamaño inicial (200px) */
+                transform: translateY(0) translateX(0) scale(1); /* Comienza en la parte inferior y sin desplazarse a la derecha */
             }
-           
-            80% {
-                transform: translate(150px, -400px) scale(0.25);
+            50% {
+                transform: translateY(-300px) translateX(50px) scale(0.25); /* Se desplaza ligeramente hacia la derecha mientras sube */
             }
             100% {
-                transform: translate(150px, -350px) scale(0.25); 
+                transform: translateY(-250px) translateX(50px) scale(0.25); /* Llega a la cima del salto con un pequeño desplazamiento hacia la derecha */
+            }
+        }
+
+        /* Animación curva y caída a la derecha */
+        @keyframes curveAndFall {
+            0% {
+                transform: translateY(-200px) translateX(50px) scale(0.25); /* Empieza en la cima del salto */
+            }
+            6>0% {
+                transform: translateY(-100px) translateX(150px) scale(0.4); /* Se mueve hacia la esquina de la canasta */
+            }
+            60% {
+                transform: translateY(0) translateX(200px) scale(0.2); /* Se mueve a la derecha y se sigue reduciendo */
+            }
+            100% {
+                transform: translateY(400px) translateX(250px) scale(0.1); /* La pelota cae fuera, a la derecha, y se minimiza */
             }
         }
 

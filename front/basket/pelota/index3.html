@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta tags to define character set and responsive behavior -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pelota y Canasta</title>
     <style>
+        /* General body styles */
         body {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
+        /* Container for the images, set fixed size and center the content */
         .container {
             position: relative;
             width: 300px;
@@ -20,71 +23,77 @@
             align-items: center;
         }
 
+        /* General style for the image divs, used to position the images */
         .image-div {
             position: absolute;
         }
 
+        /* Position and size of the 'canasta' (basket) image */
         .canasta {
-            top: 0;
+            top: 0; /* Positioned at the top of the container */
             width: 200px;
             height: 200px;
         }
 
+        /* Position and size of the 'pelota' (ball) image */
         .pelota {
-            bottom: 0;
+            bottom: 0; /* Positioned at the bottom of the container */
             width: 200px;
             height: 200px;
-            animation: none;
-            animation-fill-mode: forwards;
+            animation: none; /* No animation initially */
+            animation-fill-mode: forwards; /* Keeps the end state of the animation */
         }
 
+        /* Button style for the 'Saltar' button */
         .button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #fff;
-            cursor: pointer;
+            margin-top: 20px; /* Adds space above the button */
+            padding: 10px 20px; /* Padding for the button */
+            background-color: #007bff; /* Blue background */
+            color: #fff; /* White text color */
+            cursor: pointer; /* Changes cursor to pointer when hovering */
         }
 
+        /* Button hover effect */
         .button:hover {
-            background-color: #0056b3;
+            background-color: #0056b3; /* Darker blue on hover */
         }
 
+        /* CSS for the animation triggered by the checkbox when it is checked */
         #activate:checked ~ .container .pelota {
-            animation: jumpAndScale 1s ease-in-out, 
-                       disappear 0.1s 0.9s forwards;
+            animation: jumpTouchShrinkAndDisappear 1.5s ease-in-out forwards; /* Faster animation */
         }
 
-        @keyframes jumpAndScale {
+        /* Keyframe animation definition for the pelota (ball) */
+        @keyframes jumpTouchShrinkAndDisappear {
             0% {
-                transform: translate(0, 0) scale(1); /* Tamaño inicial (200px) */
+                transform: translateY(0) translateX(0) scale(1); /* Start at normal size */
+                opacity: 1; /* Fully visible */
             }
-           
-            80% {
-                transform: translate(-150px, -400px) scale(0.25); /* Cerca de la esquina izquierda */
+            70% {
+                transform: translateY(-300px) translateX(-40px) scale(0.3); /* Continues shrinking and moving */
+                opacity: 1; /* Still visible */
             }
             100% {
-                transform: translate(-150px, -350px) scale(0.25); /* Tamaño final y posición */
-            }
-        }
-
-        @keyframes disappear {
-            0% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-                visibility: hidden; 
+                transform: translateY(0) translateX(-150px) scale(0.3); /* Ends with ball at a smaller size */
+                opacity: 0; /* Ball fades out */
             }
         }
     </style>
 </head>
 <body>
+    <!-- Hidden checkbox used to trigger the animation when checked -->
     <input type="checkbox" id="activate" class="hidden" style="display: none;">
+    
+    <!-- Container for the images of the ball and basket -->
     <div class="container">
+        <!-- Canasta (basket) image -->
         <img src="canasta.png" alt="Canasta" class="image-div canasta">
+        
+        <!-- Pelota (ball) image, positioned at the bottom of the container -->
         <img src="pelota.png" alt="Pelota" class="image-div pelota">
     </div>
-    <label for="activate" class="button">Slatar</label>
+    
+    <!-- Label styled as a button, triggers the checkbox when clicked -->
+    <label for="activate" class="button">Saltar</label>
 </body>
 </html>
