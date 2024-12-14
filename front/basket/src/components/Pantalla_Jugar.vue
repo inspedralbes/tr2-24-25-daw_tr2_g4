@@ -209,7 +209,7 @@ const data = reactive([
 const Canastas = ref(0)
 const index = ref(0)
 
-const animaciones = reactive({encestar: false, fallo1: false, fallo2: false, fallo3:false, fallo4:false, fallo5:false })
+const animaciones = reactive({encestar: false, fallo1: false, fallo2: false, fallo3:false, fallo4:false, fallo5:false, temblor1:false })
  
 
 function apagarAnimaciones(){
@@ -272,6 +272,7 @@ function siguientePregunta(num) {
   'animacion_fallo3': animaciones.fallo3,
   'animacion_fallo4': animaciones.fallo4,
   'animacion_fallo5': animaciones.fallo5,
+  'animacion_temblor1':animaciones.temblor1,
 
   }" 
   src="../../assets/bioma/balon.png" alt="" srcset="">
@@ -286,6 +287,43 @@ function siguientePregunta(num) {
 </template>
 
 <style scoped>
+
+@keyframes temblor1 {
+            0% { transform: translate(0, 0); }
+            20% { transform: translate(7px, 7px); }
+            40% { transform: translate(-7px, -7px); }
+            60% { transform: translate(7px, -7px); }
+            80% { transform: translate(-7px, 7px); }
+            100% { transform: translate(0, 0); }
+        }
+
+
+        @keyframes temblor2 {
+            0% { transform: translate(0, 0); }
+            10% { transform: translate(8px, 8px); }
+            20% { transform: translate(-12px, -10px); }
+            30% { transform: translate(10px, -15px); }
+            40% { transform: translate(-8px, 12px); }
+            50% { transform: translate(5px, -10px); }
+            60% { transform: translate(-6px, 8px); }
+            70% { transform: translate(12px, 15px); }
+            80% { transform: translate(-10px, -8px); }
+            90% { transform: translate(5px, 12px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        @keyframes llamas {
+            0% {
+                
+                box-shadow: none;
+            }
+            100% {
+                
+                box-shadow: 0 0 40px 20px yellow, 0 0 60px 30px red, 0 0 80px 40px #ff4500;
+                background-color:rgb(255, 196, 0);
+                filter:brightness(1.4);
+            }
+        }
  @keyframes 
  encestar {
     0% {
@@ -370,7 +408,7 @@ function siguientePregunta(num) {
 
 .animacion_encestar{
 
- 
+  
   animation: encestar  0.5s linear  ;
 
 }  
@@ -390,6 +428,21 @@ function siguientePregunta(num) {
 }
 .animacion_fallo5{
   animation: fallo5  0.5s linear  ;
+}
+
+.animacion_temblor1{
+  animation: temblor1 0.5s infinite;
+}
+
+
+.animacion_temblor2{
+  animation: temblor2 0.5 infinite;
+}
+
+
+.animacion_fuego{
+
+  animation: temblor2 0.5 infinite, llamas 1s forwards;
 }
 
 

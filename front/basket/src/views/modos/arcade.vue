@@ -209,31 +209,75 @@ const data = reactive([
 const Canastas = ref(0)
 const index = ref(0)
 
-const animaciones = reactive({encestar: false, fallo1: false, fallo2: false, fallo3:false, fallo4:false, fallo5:false })
+const animaciones = reactive({encestar: false, fallo1: false, fallo2: false, fallo3:false, fallo4:false, fallo5:false,temblor1:false,
+                              temblor2:false, llamas:false,
+
+ })
  
 
-function apagarAnimaciones(){
-
+function apagarAnimaciones(interrumptor){
+  console.log(interrumptor)
   animaciones.encestar=false;
   animaciones.fallo1=false;
   animaciones.fallo2=false;
   animaciones.fallo3=false;
   animaciones.fallo4=false;
   animaciones.fallo5=false;
+
+  if(interrumptor==3){
+
+    animaciones.temblor1=true
+     
+    
+  }
+  if(interrumptor==4){
+    animaciones.temblor2=true;
+     
+    
+    
+  }
+  if(interrumptor>=5){
+    animaciones.llamas=true
+  }
+
+
 }
 
+function apagarAnimaciones_temblores(){
+
+  animaciones.temblor1=false;
+  animaciones.temblor2=false;
+  animaciones.llamas=false;
+
+}
+let puntosSeguidos=0;
 
 function siguientePregunta(num) {
   
-
+let apagar=0;
    
-  if (index.value < data.length - 1)
+  if (index.value < data.length - 1){
+    apagarAnimaciones_temblores();
     if (data[index.value].respuesta_correcta == num) {
-
-  animaciones.encestar=true;
+       
+      animaciones.encestar=true;
       Canastas.value++;
-    }else{
+      puntosSeguidos++;
 
+      if(puntosSeguidos==3){
+       
+        apagar=3;
+
+      }
+      if(puntosSeguidos==4){
+        apagar=4;
+      }
+      if(puntosSeguidos>=5){
+        apagar=5
+      }
+
+    }else{
+      puntosSeguidos=0;
       let aux= Math.floor(Math.random() * 5) + 1;
       
       animaciones[`fallo${aux}`] = true;
@@ -243,9 +287,9 @@ function siguientePregunta(num) {
   index.value++;
 
   setTimeout(() => {
-    apagarAnimaciones();
+    apagarAnimaciones(apagar);
   }, 500);
-  
+}
 }
 
 </script>
@@ -264,14 +308,19 @@ function siguientePregunta(num) {
  -->
    <img id="canasta" src="../../assets/bioma/tablero.png" alt="">
 
+   
 
   <img id="balon" 
+   
   :class="{'animacion_encestar': animaciones.encestar,
   'animacion_fallo1': animaciones.fallo1,
   'animacion_fallo2': animaciones.fallo2,
   'animacion_fallo3': animaciones.fallo3,
   'animacion_fallo4': animaciones.fallo4,
   'animacion_fallo5': animaciones.fallo5,
+  'animacion_temblor1':animaciones.temblor1,
+  'animacion_temblor2': animaciones.temblor2,
+  'animacion_fuego':animaciones.llamas,
 
   }" 
   src="../../assets/bioma/balon.png" alt="" srcset="">
@@ -286,6 +335,43 @@ function siguientePregunta(num) {
 </template>
 
 <style scoped>
+
+@keyframes temblor1 {
+            0% { transform: translate(0, 0); }
+            20% { transform: translate(7px, 7px); }
+            40% { transform: translate(-7px, -7px); }
+            60% { transform: translate(7px, -7px); }
+            80% { transform: translate(-7px, 7px); }
+            100% { transform: translate(0, 0); }
+        }
+
+
+@keyframes temblor2 {
+            0% { transform: translate(0, 0); }
+            10% { transform: translate(8px, 8px); }
+            20% { transform: translate(-12px, -10px); }
+            30% { transform: translate(10px, -15px); }
+            40% { transform: translate(-8px, 12px); }
+            50% { transform: translate(5px, -10px); }
+            60% { transform: translate(-6px, 8px); }
+            70% { transform: translate(12px, 15px); }
+            80% { transform: translate(-10px, -8px); }
+            90% { transform: translate(5px, 12px); }
+            100% { transform: translate(0, 0); }
+        }
+
+@keyframes llamas {
+            0% {
+                
+                box-shadow: none;
+            }
+            100% {
+                
+                box-shadow: 0 0 40px 20px yellow, 0 0 60px 30px red, 0 0 80px 40px #ff4500;
+                background-color:rgb(255, 196, 0);
+                filter:brightness(1.4);
+            }
+        }
  @keyframes 
  encestar {
     0% {
@@ -392,6 +478,21 @@ function siguientePregunta(num) {
   animation: fallo5  0.5s linear  ;
 }
 
+.animacion_temblor1{
+  animation: temblor1 0.5s infinite;
+}
+
+
+.animacion_temblor2{
+  animation: temblor2 0.5s infinite;
+}
+
+
+.animacion_fuego{
+
+  animation: temblor2 0.5s infinite, llamas 1s forwards;
+}
+
 
 
 
@@ -404,6 +505,7 @@ function siguientePregunta(num) {
   position: relative;
   top: 130px;
   justify-self: center;  
+  border-radius: 50%;
 }
 
 #canasta{
@@ -427,7 +529,7 @@ function siguientePregunta(num) {
   grid-column: span 3;
   text-align: center;
   grid-row: span 2;
-  background-image: url("../../assets/bioma/casa2.jpg"); 
+  background-image: url("../../assets/bioma/parque.jpg"); 
   background-position:  bottom center;
   background-repeat: no-repeat; 
   background-size: auto;
