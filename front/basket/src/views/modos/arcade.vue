@@ -256,7 +256,7 @@ function siguientePregunta(num) {
   
 let apagar=0;
    
-  if (index.value < data.length - 1){
+  if (index.value < data.length){
     apagarAnimaciones_temblores();
     if (data[index.value].respuesta_correcta == num) {
        
@@ -289,6 +289,10 @@ let apagar=0;
   setTimeout(() => {
     apagarAnimaciones(apagar);
   }, 500);
+}else{
+
+  console.log("hola");
+  
 }
 }
 
