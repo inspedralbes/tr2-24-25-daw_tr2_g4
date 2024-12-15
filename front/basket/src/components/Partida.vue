@@ -1,6 +1,6 @@
 <script setup>
-
 import { reactive,ref,computed, watch } from 'vue';
+
 
 const props = defineProps({
   data: {
@@ -12,6 +12,120 @@ const props = defineProps({
 
 
 },)
+
+
+const Canastas = ref(0)
+const index = ref(0)
+
+const animaciones = reactive({encestar: false, fallo1: false, fallo2: false, fallo3:false, fallo4:false, fallo5:false,temblor1:false,
+                              temblor2:false, llamas:false, tiro_en_llamas:false
+
+ })
+ 
+
+function apagarAnimaciones(interrumptor){
+  
+  animaciones.encestar=false;
+  animaciones.fallo1=false;
+  animaciones.fallo2=false;
+  animaciones.fallo3=false;
+  animaciones.fallo4=false;
+  animaciones.fallo5=false;
+  animaciones.tiro_en_llamas=false;
+
+  if(interrumptor==3){
+
+    animaciones.temblor1=true
+     
+    
+  }
+  if(interrumptor==4){
+    animaciones.temblor2=true;
+     
+    
+    
+  }
+  if(interrumptor>=5){
+    animaciones.llamas=true
+  }
+
+
+}
+
+function apagarAnimaciones_temblores(){
+
+  animaciones.temblor1=false;
+  animaciones.temblor2=false;
+  animaciones.llamas=false;
+  
+
+}
+let puntosSeguidos=0;
+
+function comprobarPunto(num) {
+
+  
+let fallo=false;
+
+let apagar=0;
+   
+    apagarAnimaciones_temblores();
+    if (props.data.respuesta_correcta == num) {
+       
+
+      if (progress.value < 0.3) {
+        puntosSeguidos++;
+        Canastas.value=Canastas.value+3;
+    } else if(progress.value < 0.7) {
+      Canastas.value=Canastas.value+2;
+      puntosSeguidos=0;
+    } else if(progress.value < 1){
+      Canastas.value++;
+      puntosSeguidos=0;
+    }
+     
+
+      if(puntosSeguidos==3){
+       
+        apagar=3;
+
+      }
+      if(puntosSeguidos==4){
+        apagar=4;
+      }
+      if(puntosSeguidos>=5){
+        apagar=5
+        
+      }
+
+      if(puntosSeguidos>5){
+        animaciones.tiro_en_llamas=true;
+      
+
+      }else{
+        animaciones.encestar=true;
+       
+}
+
+    }else{
+      let aux= Math.floor(Math.random() * 5) + 1;
+      animaciones[`fallo${aux}`] = true;
+      fallo=true;
+
+
+    }
+  console.log(Canastas.value)
+  index.value++;
+
+  setTimeout(() => {
+    apagarAnimaciones(apagar);
+  }, 500);
+
+
+  return fallo;
+}
+
+
 
 const progress = ref(0.0); 
 const color = ref(''); 
@@ -79,21 +193,68 @@ function mezclarRespuestas() {
 
 const respuestasMezcladas = computed(() => mezclarRespuestas());
 
-function responder(data){
-
-    emit('siguiente', data); 
-    reiniciarTemporizador();
+function responder(num){
     
+  let f=comprobarPunto(num);
+
+  if(f){
+    setTimeout(() => {
+      emit('siguiente',f); 
+  }, 800);
+
+
+  }else{
+
+    emit('siguiente',f); 
+  }
+
+    reiniciarTemporizador();
+   
     
 }
+
+
+
 </script>
 
-
-
 <template>
- 
+  <main id="main_arcade">
+     
+ <div class="body_arcade">
+   <!--
+  <h4  >Puntos:  {{ Canastas }} </h4>
   
-<div class="problema">
+  
+  <RouterLink to="/jugar"> <q-btn color="deep-orange"  size="20px" glossy label="Volver"></q-btn></RouterLink>
+ -->
+   <img id="canasta" src="../assets/bioma/tablero.png" alt="">
+
+   
+
+  <img id="balon" 
+   
+  :class="{'animacion_encestar': animaciones.encestar,
+  'animacion_fallo1': animaciones.fallo1,
+  'animacion_fallo2': animaciones.fallo2,
+  'animacion_fallo3': animaciones.fallo3,
+  'animacion_fallo4': animaciones.fallo4,
+  'animacion_fallo5': animaciones.fallo5,
+  'animacion_temblor1':animaciones.temblor1,
+  'animacion_temblor2': animaciones.temblor2,
+  'animacion_fuego':animaciones.llamas,
+  'animacion_encestar_llamas': animaciones.tiro_en_llamas
+
+  }" 
+  src="../assets/bioma/balon.png" alt="" srcset="">
+
+</div> 
+
+
+
+ 
+
+
+
   <div class="tiempo_fuera">
     <div class="tiempo" >{{ props.data.duracion }} </div>
    </div>
@@ -112,14 +273,258 @@ function responder(data){
      </div>
     </div>
   
-</div>
 
 
 
 
+
+  </main>
+<!--<Partida class="arcade":data="data[index]" @siguiente="siguientePregunta" />  -->
 </template>
 
 <style scoped>
+
+@keyframes temblor1 {
+            0% { transform: translate(0, 0); }
+            20% { transform: translate(7px, 7px); }
+            40% { transform: translate(-7px, -7px); }
+            60% { transform: translate(7px, -7px); }
+            80% { transform: translate(-7px, 7px); }
+            100% { transform: translate(0, 0); }
+        }
+
+
+@keyframes temblor2 {
+            0% { transform: translate(0, 0); }
+            10% { transform: translate(8px, 8px); }
+            20% { transform: translate(-12px, -10px); }
+            30% { transform: translate(10px, -15px); }
+            40% { transform: translate(-8px, 12px); }
+            50% { transform: translate(5px, -10px); }
+            60% { transform: translate(-6px, 8px); }
+            70% { transform: translate(12px, 15px); }
+            80% { transform: translate(-10px, -8px); }
+            90% { transform: translate(5px, 12px); }
+            100% { transform: translate(0, 0); }
+        }
+
+@keyframes llamas {
+            0% {
+                
+                box-shadow: none;
+            }
+            100% {
+                
+                box-shadow: 0 0 40px 20px yellow, 0 0 60px 30px red, 0 0 80px 40px #ff4500;
+                background-color:rgb(255, 196, 0);
+                filter:brightness(1.4);
+            }
+        }
+
+@keyframes tiro_en_llamas {
+
+  0% {
+        transform: translateY(0);
+        box-shadow: 0 0 40px 20px yellow, 0 0 60px 30px red, 0 0 80px 40px #ff4500;
+                background-color:rgb(255, 196, 0);
+                filter:brightness(1.4);
+         
+    } 50%{
+
+       transform: translateY(-300px)  scale(0.8) rotate(-90deg);
+        
+      
+    }
+    100% {
+        transform: translateY(-200px) scale(0.4) rotate(-180deg); /* Sube 200px hacia arriba */
+         
+        box-shadow: 0 30px 30px 20px yellow, 0 40px 50px 30px red, 0 50px  70px 40px #ff4500;
+                background-color:rgb(255, 196, 0);
+                filter:brightness(1.4);
+    }
+        }
+
+ @keyframes 
+ encestar {
+    0% {
+        transform: translateY(0); /* Empieza en la parte inferior */
+         
+    } 50%{
+
+       transform: translateY(-300px)  scale(0.8) rotate(-90deg);
+      
+    }
+    100% {
+        transform: translateY(-200px) scale(0.4) rotate(-180deg); /* Sube 200px hacia arriba */
+         
+    }
+  }
+
+
+  @keyframes 
+ fallo1 {
+    0% {
+        transform: translateY(0); /* Empieza en la parte inferior */
+    } 50%{
+
+       transform: translateY(-300px) translateX(-100px)  scale(0.8) rotate(-90deg);
+       
+    }
+    100% {
+        transform: translateY(-200px) translateX(-150px)  scale(0.4) rotate(-180deg); /* Sube 200px hacia arriba */
+    }
+  }
+
+  @keyframes 
+ fallo2 {
+    0% {
+        transform: translateY(0); /* Empieza en la parte inferior */
+    } 50%{
+
+       transform: translateY(-300px) translateX(100px)  scale(0.8) rotate(-90deg);
+       
+    }
+    100% {
+        transform: translateY(-200px) translateX(150px)  scale(0.4) rotate(-180deg); /* Sube 200px hacia arriba */
+    }
+  }
+
+  @keyframes 
+ fallo3 {
+    0% {
+        transform: translateY(0); /* Empieza en la parte inferior */
+    } 50%{
+
+       transform: translateY(-300px) translateX(10px)  scale(0.8) rotate(-90deg);
+       
+    }
+    70% {
+        transform: translateY(-250px)translateX(10px)   scale(0.4) rotate(-180deg); /* Sube 200px hacia arriba */
+    }
+    100%{
+      transform: translateY(-200px) translateX(50px)  scale(0.4) rotate(-180deg); /* Sube 200px hacia arriba */
+    }
+  }
+  @keyframes 
+ fallo4{
+    0% {
+        transform: translateY(0); /* Empieza en la parte inferior */
+    }
+    100%{
+      transform: translateY(-500px) translateX(200px)  scale(0.4) rotate(-180deg); /* Sube 200px hacia arriba */
+    }
+  }
+
+  @keyframes 
+ fallo5{
+    0% {
+        transform: translateY(0); /* Empieza en la parte inferior */
+    }
+    100%{
+      transform: translateY(-800px) translateX(-100px)  scale(0.4) rotate(-180deg); /* Sube 200px hacia arriba */
+    }
+  }
+
+.animacion_encestar_llamas{
+  animation: tiro_en_llamas 0.5s linear;
+}
+
+.animacion_encestar{
+
+ 
+  animation: encestar  0.5s linear  ;
+
+}  
+
+.animacion_fallo1{
+  animation: fallo1  0.5s linear  ;
+}
+
+.animacion_fallo2{
+  animation: fallo2  0.5s linear  ;
+}
+.animacion_fallo3{
+  animation: fallo3  0.5s linear  ;
+}
+.animacion_fallo4{
+  animation: fallo4  0.5s linear  ;
+}
+.animacion_fallo5{
+  animation: fallo5  0.5s linear  ;
+}
+
+.animacion_temblor1{
+  animation: temblor1 0.5s infinite;
+}
+
+
+.animacion_temblor2{
+  animation: temblor2 0.5s infinite;
+}
+
+
+.animacion_fuego{
+
+  animation: temblor2 0.5s infinite, llamas 1s forwards;
+}
+
+
+
+
+
+#balon{
+  height: 150px;
+  width: 150px;
+  grid-column: 2;
+  grid-row: 2;
+  
+ 
+  justify-self: center;  
+  border-radius: 50%;
+}
+
+#canasta{
+  grid-row: 1;
+  grid-column: span 3;
+  justify-self: center;  
+  
+
+  
+}
+
+
+#main_arcade {
+  display: grid;
+  grid-template-columns:1fr 1fr 1fr  ;
+  grid-template-rows: 1fr 1fr ;
+  max-height: 100svh;
+  background-image: url("../assets/bioma/parque.jpg"); 
+  background-position: center 150% ;
+  background-repeat: no-repeat; 
+  background-size: auto;
+ 
+    }
+
+.body_arcade{
+  grid-column: span 3;
+  text-align: center;
+  grid-row: span 2;
+  
+  max-height: 80svh;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr; 
+            
+           
+           
+
+}
+.arcade{
+  display: grid;
+  grid-column: span 3;
+  grid-row: 3;
+
+}
 
 
 @font-face {
@@ -134,6 +539,7 @@ function responder(data){
   font-size: 50px;
   border: 1px solid black;
   background-color: white;
+  text-align: center
 }
 
 .tiempo_fuera{
@@ -156,6 +562,7 @@ function responder(data){
   border: 5px solid rgb(70, 70, 70);
   width: 70px;
   margin: 0 auto;
+  text-align: center;
   
   
 }
@@ -184,5 +591,7 @@ function responder(data){
   grid-column: span 2;
    
 }
+
+
 
 </style>
