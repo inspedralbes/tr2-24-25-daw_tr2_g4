@@ -391,11 +391,111 @@
   },
   {
     "id": 40,
-    "operacion": "6 - (-2)",
-    "respuesta_correcta": 8,
-    "respuestaIncorrecta_1": 6,
-    "respuestaIncorrecta_2": 7,
+    "operacion": "4.2 * 2",
+    "respuesta_correcta": 8.4,
+    "respuestaIncorrecta_1": 8,
+    "respuestaIncorrecta_2": 7.8,
     "respuestaIncorrecta_3": 9,
+    "modo": "arcade",
+    "duracion": 20
+  },
+  {
+    "id": 41,
+    "operacion": "2 * 4 + 6",
+    "respuesta_correcta": 14,
+    "respuestaIncorrecta_1": 16,
+    "respuestaIncorrecta_2": 12,
+    "respuestaIncorrecta_3": 10,
+    "modo": "historia",
+    "duracion": 30
+  },
+  {
+    "id": 42,
+    "operacion": "1.5 * 2.5",
+    "respuesta_correcta": 3.75,
+    "respuestaIncorrecta_1": 3.5,
+    "respuestaIncorrecta_2": 3.6,
+    "respuestaIncorrecta_3": 4,
+    "modo": "arcade",
+    "duracion": 20
+  },
+  {
+    "id": 43,
+    "operacion": "3 * 5 + 4",
+    "respuesta_correcta": 19,
+    "respuestaIncorrecta_1": 18,
+    "respuestaIncorrecta_2": 20,
+    "respuestaIncorrecta_3": 17,
+    "modo": "historia",
+    "duracion": 25
+  },
+  {
+    "id": 44,
+    "operacion": "4.5 + 7.5",
+    "respuesta_correcta": 12,
+    "respuestaIncorrecta_1": 13,
+    "respuestaIncorrecta_2": 11.5,
+    "respuestaIncorrecta_3": 12.5,
+    "modo": "arcade",
+    "duracion": 20
+  },
+  {
+    "id": 45,
+    "operacion": "3 + 6 * 2",
+    "respuesta_correcta": 15,
+    "respuestaIncorrecta_1": 18,
+    "respuestaIncorrecta_2": 14,
+    "respuestaIncorrecta_3": 16,
+    "modo": "historia",
+    "duracion": 30
+  },
+  {
+    "id": 46,
+    "operacion": "10 + 12",
+    "respuesta_correcta": 22,
+    "respuestaIncorrecta_1": 20,
+    "respuestaIncorrecta_2": 25,
+    "respuestaIncorrecta_3": 18,
+    "modo": "arcade",
+    "duracion": 20
+  },
+  {
+    "id": 47,
+    "operacion": "1/5 + 2/5",
+    "respuesta_correcta": "3/5",
+    "respuestaIncorrecta_1": "4/5",
+    "respuestaIncorrecta_2": "1/2",
+    "respuestaIncorrecta_3": "2/5",
+    "modo": "arcade",
+    "duracion": 30
+  },
+  {
+    "id": 48,
+    "operacion": "3/4 - 1/4",
+    "respuesta_correcta": "2/4",
+    "respuestaIncorrecta_1": "1/4",
+    "respuestaIncorrecta_2": "3/5",
+    "respuestaIncorrecta_3": "2/3",
+    "modo": "historia",
+    "duracion": 25
+  },
+  {
+    "id": 49,
+    "operacion": "3/5 + 1/5",
+    "respuesta_correcta": "4/5",
+    "respuestaIncorrecta_1": "3/6",
+    "respuestaIncorrecta_2": "5/5",
+    "respuestaIncorrecta_3": "2/5",
+    "modo": "arcade",
+    "duracion": 30
+  },
+  {
+    "id": 50,
+    "operacion": "2/3 - 1/6",
+    "respuesta_correcta": "3/6",
+    "respuestaIncorrecta_1": "1/2",
+    "respuestaIncorrecta_2": "2/6",
+    "respuestaIncorrecta_3": "1/3",
     "modo": "historia",
     "duracion": 30
   }
