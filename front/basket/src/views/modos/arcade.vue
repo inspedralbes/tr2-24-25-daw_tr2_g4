@@ -1,10 +1,16 @@
 <script setup>
+<<<<<<< HEAD
 import { reactive, ref } from 'vue';
 import Arcade2 from '../../components/Partida.vue';
 
 
 
 
+=======
+import Partida from '@/components/Partida.vue';
+import { reactive, ref, onMounted } from 'vue';
+import { RouterLink } from 'vue-router';
+>>>>>>> f2b65b84a34c37cfea27d3a6456aaf76ae9fc858
 const data = reactive([
   {
     "id": 1,
@@ -206,6 +212,7 @@ const data = reactive([
     "modo": "historia",
     "duracion": 25
   }
+<<<<<<< HEAD
 ]
 )
 const visibleJuego= ref(true)
@@ -221,10 +228,59 @@ function siguientePregunta(info){
 
 }
 
+=======
+]);
 
+const Canastas = ref(0);
+const index = ref(0);
+const nombreJugador = ref('');
+const puntuaciones = ref([]);
+const pantallaActiva = ref('ranking');
+const juegoActivo = ref(false);
+const juegoTerminado = ref(false);
+
+// Cargar puntuaciones al iniciar
+onMounted(() => {
+  puntuaciones.value = JSON.parse(localStorage.getItem('puntuaciones') || '[]');
+});
+
+// Guardar nueva puntuación
+const guardarPuntuacion = () => {
+  puntuaciones.value.push({ nombre: nombreJugador.value, puntuacion: Canastas.value });
+  puntuaciones.value.sort((a, b) => b.puntuacion - a.puntuacion);
+  localStorage.setItem('puntuaciones', JSON.stringify(puntuaciones.value));
+};
+
+// Comenzar el juego
+const empezarJuego = () => {
+  if (!nombreJugador.value) return alert('Ingresa tu nombre para jugar.');
+  pantallaActiva.value = 'juego';
+  juegoActivo.value = true;
+  Canastas.value = 0;
+  index.value = 0;
+  juegoTerminado.value = false;
+};
+
+// Siguiente pregunta
+const siguientePregunta = (respuesta) => {
+  if (data[index.value].respuesta_correcta === respuesta) Canastas.value++;
+  index.value++;
+  if (index.value >= data.length) {
+    guardarPuntuacion();
+    juegoActivo.value = false;
+    juegoTerminado.value = true;
+    pantallaActiva.value = 'resultado';
+  }
+};
+>>>>>>> f2b65b84a34c37cfea27d3a6456aaf76ae9fc858
+
+const verRanking = () => {
+  pantallaActiva.value = 'ranking';
+};
 </script>
 
 <template>
+<<<<<<< HEAD
  
     <Arcade2 v-if="visibleJuego" :data="data[index]" @siguiente="siguientePregunta"> </Arcade2>
 
@@ -232,5 +288,81 @@ function siguientePregunta(info){
 </template>
 
 <style scoped>
+=======
+  <main id="arcade">
+    <div class="body_arcade">
+      <h3>Arcade</h3>
 
+      <div v-if="pantallaActiva === 'ranking'">
+        <h5>RANKING</h5>
+
+        <table class="puntuaciones">
+          <thead>
+            <tr>
+              <th>Jugador</th>
+              <th>Puntuación</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(p, i) in puntuaciones.slice(0, 5)" :key="i">
+              <td>{{ p.nombre }}</td>
+              <td>{{ p.puntuacion }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <input type="text" v-model="nombreJugador" placeholder="Ingresa tu nombre" />
+        <q-btn color="deep-orange" size="10px" @click="empezarJuego"> <q-icon name="eva-arrow-right-outline"
+            size="200%" /></q-btn>
+      </div>
+
+      <!-- juego -->
+      <div v-if="pantallaActiva === 'juego'">
+        <Partida :data="data[index]" @siguiente="siguientePregunta" />
+        <h4>Puntos: {{ Canastas }}</h4>
+      </div>
+
+      <!-- puntuacion final -->
+      <div v-if="pantallaActiva === 'resultado'">
+        <h4>juego terminado</h4>
+        <p>Tu puntuacion- {{ Canastas }} de {{ data.length }}</p>
+        <q-btn color="deep-orange" class="botones_menu" glossy label="Ver Ranking" @click="verRanking"></q-btn>
+      </div>
+    </div>
+  </main>
+</template>
+
+<style scoped>
+#arcade {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+
+.body_arcade {
+  text-align: center;
+}
+
+input {
+  margin-bottom: 10px;
+}
+>>>>>>> f2b65b84a34c37cfea27d3a6456aaf76ae9fc858
+
+.puntuaciones {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.puntuaciones th,
+.puntuaciones td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.puntuaciones th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
 </style>
