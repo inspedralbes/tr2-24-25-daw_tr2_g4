@@ -3,7 +3,10 @@
 import { ref,watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useCounterStore } from '@/stores/counter';
+import { useQuasar, QSpinnerFacebook } from 'quasar'
+import { onBeforeUnmount } from 'vue'
 
+const $q = useQuasar() 
 
     const visibleLog=ref(false);
     const useApp = useCounterStore();
@@ -16,20 +19,34 @@ import { useCounterStore } from '@/stores/counter';
  
 const route = useRoute();
    
- function salir(){
+async function salir() {
+  $q.loading.show({
+    spinner: QSpinnerFacebook,
+    spinnerColor: 'white',
+    spinnerSize: 140,
+    backgroundColor: 'black',
+    message: 'Cerrando sesión...',
+    messageColor: 'white',
+  });
+
+  try {
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
     useApp.setLoginInfo({
       loggedIn: false,
-      username:'',
-      avatar:'',
-      nivel:'',
-      token:''
+      username: '',
+      email:'',
+      avatar: '',
+      nivel: '',
+      token: '',
     });
-    
-    visibleLog.value=false;
-    console.log(useApp.loginInfo)
-   
 
- } 
+    visibleLog.value = false;
+    console.log(useApp.loginInfo);
+  } finally {
+    $q.loading.hide();
+  }
+}
 
 
 watch(route, (newRoute, oldRoute) => {
@@ -101,7 +118,7 @@ if(useApp.loginInfo.loggedIn){
 
           <div style="font-size: 30px">{{ useApp.loginInfo.username }}</div>
 
-          <RouterLink to="/user/login">
+          <RouterLink to="/user/perfil">
           <q-btn
           class="botones_desple"
             color="primary"

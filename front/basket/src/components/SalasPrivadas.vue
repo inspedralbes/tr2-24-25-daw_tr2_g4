@@ -28,7 +28,7 @@
                 </q-avatar>
               </q-item-section>
               <q-item-section>
-                <span class="text-h6">{{ usuario.username }}</span> <!-- Mostrar el nombre de usuario aquí -->
+                <span class="text-h6">{{ usuario.username }}</span> 
               </q-item-section>
             </q-item>
           </q-list>
@@ -70,8 +70,8 @@ import { ref } from "vue";
 
 export default {
   setup() {
-    const dialog = ref(false); // Estado del cuadro de diálogo
-    const backdropFilter = ref("hue-rotate(210deg)"); // Filtro CSS para el fondo
+    const dialog = ref(false); 
+    const backdropFilter = ref("hue-rotate(210deg)"); 
 
     return {
       dialog,
@@ -113,40 +113,46 @@ export default {
   },
 
   mounted() {
-    const store = useCounterStore(); // Accede a Pinia
-    const token = store.getLoginInfo.token; // Obtener el token almacenado en Pinia
+    const store = useCounterStore();
+    const token = store.getLoginInfo.token; 
+    console.log("Token enviado al servidor:", token);
 
-    // Inicializar el socket
     this.socket = io("http://localhost:3000", {
       transports: ["websocket"],
       withCredentials: true,
       auth: {
-        token: token, // Usar el token de Pinia para autenticarse
+        token: token, 
       },
     });
 
-    // Escuchar cuando se crea una sala
+    
+    this.socket.on("connect", () => {
+    console.log("Conectado al servidor con ID:", this.socket.id);
+    });
+
+    this.socket.on("connect_error", (err) => {
+      console.error("Error al conectar:", err.message);
+    });
+
     this.socket.on("room-created", (claveSala) => {
       this.updateRoomView(claveSala);
     });
 
-    // Escuchar cuando se une un usuario a una sala
     this.socket.on("room-joined", (claveSala) => {
       this.updateRoomView(claveSala);
     });
 
-    // Escuchar la lista de usuarios en la sala
     this.socket.on("room-users", ({ room, users }) => {
+      console.log(`Usuarios en la sala ${room}:`, users); 
+      
       this.claveActual = room;
-      this.usuarios = users; // Actualiza la lista de usuarios
+      this.usuarios = users;
     });
 
-    // Escuchar cuando un usuario sale de la sala
     this.socket.on("left-room", () => {
       this.resetToMenu();
     });
 
-    // Escuchar errores
     this.socket.on("error", (message) => {
       alert(message);
     });
