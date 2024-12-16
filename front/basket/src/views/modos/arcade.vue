@@ -1,7 +1,7 @@
 <script setup>
 import Partida from '@/components/Partida.vue';
 import { reactive, ref, onMounted } from 'vue';
-import { RouterLink } from 'vue-router'; 
+import { RouterLink } from 'vue-router';
 const data = reactive([
   {
     "id": 1,
@@ -209,7 +209,7 @@ const Canastas = ref(0);
 const index = ref(0);
 const nombreJugador = ref('');
 const puntuaciones = ref([]);
-const pantallaActiva = ref('ranking'); 
+const pantallaActiva = ref('ranking');
 const juegoActivo = ref(false);
 const juegoTerminado = ref(false);
 
@@ -242,24 +242,21 @@ const siguientePregunta = (respuesta) => {
   if (index.value >= data.length) {
     guardarPuntuacion();
     juegoActivo.value = false;
-    juegoTerminado.value = true; 
+    juegoTerminado.value = true;
     pantallaActiva.value = 'resultado';
   }
 };
 
 const verRanking = () => {
-  pantallaActiva.value = 'ranking'; 
+  pantallaActiva.value = 'ranking';
 };
 </script>
-
-
 
 <template>
   <main id="arcade">
     <div class="body_arcade">
       <h3>Arcade</h3>
 
-      <!-- ranking -->
       <div v-if="pantallaActiva === 'ranking'">
         <h5>RANKING</h5>
 
@@ -271,7 +268,7 @@ const verRanking = () => {
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(p, i) in puntuaciones" :key="i">
+            <tr v-for="(p, i) in puntuaciones.slice(0, 5)" :key="i">
               <td>{{ p.nombre }}</td>
               <td>{{ p.puntuacion }}</td>
             </tr>
@@ -279,7 +276,8 @@ const verRanking = () => {
         </table>
 
         <input type="text" v-model="nombreJugador" placeholder="Ingresa tu nombre" />
-        <q-btn color="deep-orange" size="10px" @click="empezarJuego"> <q-icon name="eva-arrow-right-outline" size="200%" /></q-btn>
+        <q-btn color="deep-orange" size="10px" @click="empezarJuego"> <q-icon name="eva-arrow-right-outline"
+            size="200%" /></q-btn>
       </div>
 
       <!-- juego -->
