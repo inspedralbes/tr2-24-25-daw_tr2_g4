@@ -112,7 +112,7 @@ if(useApp.loginInfo.loggedIn){
 
         <div class="menu_avatar" v-if="visibleLog">
           <q-avatar size="90px">
-            <img :src="`/public/avatar/boy${useApp.loginInfo.avatar}.png`" >
+            <img :src="`/public/avatar/foto${useApp.loginInfo.avatar}.png`" >
 
           </q-avatar>
 
@@ -146,7 +146,7 @@ if(useApp.loginInfo.loggedIn){
 
         <div class="menu_avatar" v-else >
           <q-avatar size="90px">
-            <img src="/public/avatar/boy1.png">
+            <img src="/public/avatar/foto1.png">
           </q-avatar>
 
           <div style="font-size: 30px">Invitado</div>

@@ -61,13 +61,7 @@ async function saveProfile() {
 }
 
 /*async function fetchUserRanking() {
-    try {
-        if (rankingData) {
-            score.value = rankingData.score; 
-        }
-    } catch (error) {
-        console.error('Error al obtener el ranking:', error);
-    }
+    
 }*/
 
 onMounted(() => {
