@@ -12,22 +12,17 @@ const router = useRouter();
 const useApp = useCounterStore();
 const username = ref(useApp.loginInfo.username || '');
 const email = ref(useApp.loginInfo.email || '');
-const avatar = ref(useApp.loginInfo.avatar || 1); // Suponiendo que el avatar es un número (1 a 7)
-const nivel = ref(useApp.loginInfo.nivel || ''); // Nivel que no es editable
-const score = ref(0); // Puntuación del ranking, inicialmente 0
-
+const avatar = ref(useApp.loginInfo.avatar || 1); 
+const nivel = ref(useApp.loginInfo.nivel || ''); 
+const score = ref(0); 
 // Campos de error
 const errors = ref('');
 
-// Mostrar/ocultar spinner de carga
 const isLoading = ref(false);
 
-// Estado para saber si está en modo de edición
 const isEditing = ref(false);
 
-// Función para actualizar el perfil
 async function saveProfile() {
-    // Mostrar spinner de carga
     isLoading.value = true;
     $q.loading.show({
         spinner: 'QSpinnerFacebook',
@@ -44,11 +39,9 @@ async function saveProfile() {
             avatar: avatar.value,
         });
 
-        // Verificar si hubo un error al actualizar
         if (data.errors) {
             errors.value = data.errors;
         } else {
-            // Actualizar la información en el store
             useApp.setLoginInfo({
                 loggedIn: true,
                 username: data.user.username,
@@ -57,13 +50,11 @@ async function saveProfile() {
                 nivel: data.user.nivel,
             });
 
-            // Redirigir a la página principal o a donde se desee
             router.push('/user/login');
         }
     } catch (error) {
         errors.value = 'Hubo un error al guardar el perfil.';
     } finally {
-        // Ocultar spinner
         isLoading.value = false;
         $q.loading.hide();
     }
