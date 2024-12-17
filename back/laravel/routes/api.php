@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PartidaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PreguntaController;
+use App\Http\Controllers\RankingController;
+
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -19,3 +21,5 @@ Route::post('register', [AuthController::class, 'register']); // Registro de usu
 Route::post('login', [AuthController::class, 'login']); // Login de usuario
 
 Route::get('/preguntas/nivel/{nivel}', [PreguntaController::class, 'obtenerPreguntasPorNivel']);
+
+Route::get('/ranking', [RankingController::class, 'getRanking']);

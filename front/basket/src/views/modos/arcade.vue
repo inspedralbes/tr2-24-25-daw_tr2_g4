@@ -1,10 +1,11 @@
 <script setup>
 import { reactive, ref } from 'vue';
 import Arcade2 from '../../components/Partida.vue';
+import Ranking from '../../components/ranking.vue';
 
 
 
-
+//preguntas y respuestas 
 const data = reactive([
   {
     "id": 1,
@@ -227,7 +228,7 @@ function siguientePregunta(info){
 <template>
  
     <Arcade2 v-if="visibleJuego" :data="data[index]" @siguiente="siguientePregunta"> </Arcade2>
-
+    <Ranking v-if="!visibleJuego" />
 
 </template>
 

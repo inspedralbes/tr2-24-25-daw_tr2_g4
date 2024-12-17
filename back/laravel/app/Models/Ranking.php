@@ -8,7 +8,17 @@ use Illuminate\Notifications\Notifiable;
 
 class Ranking extends Model
 {
-    use HasFactory, Notifiable;
+    use HasFactory;
 
-    protected $guarded = [];
+    protected $table = 'rankings';
+
+    protected $fillable = [
+        'id_users',
+        'puntuacion',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_users', 'id');
+    }
 }
