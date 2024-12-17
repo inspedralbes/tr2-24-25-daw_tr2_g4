@@ -1,5 +1,20 @@
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:3000'); // Cambiar a la URL de tu backend en producción
+let socketInstance;
 
-export default socket;
+const getSocket = (token) => {
+  // Si no existe la instancia, la creamos
+  if (!socketInstance) {
+    console.log("Token enviado al servidor:", token);
+    socketInstance = io("http://localhost:3000", {
+      transports: ["websocket"],
+      withCredentials: true,
+      auth: {
+        token: token,
+      },
+    });
+  }
+  return socketInstance;
+};
+
+export default getSocket;

@@ -39,7 +39,7 @@
         </div>
 
         <div class="flex justify-center q-mt-lg">
-          <q-btn @click="salirSala" color="deep-orange" size="lg" glossy label="Salir de la Sala" class="q-pa-md" />
+          <q-btn @click="hola" color="deep-orange" size="lg" glossy label="Salir de la Sala" class="q-pa-md" />
         </div>
       </div>
     </div>
@@ -64,9 +64,9 @@
 </template>
 
 <script>
-import { useCounterStore } from '@/stores/counter';
-import { io } from "socket.io-client";
+import { useCounterStore } from '@/stores/counter'; 
 import { ref } from "vue";
+import getSocket from '@/socket';
 
 export default {
   setup() {
@@ -91,6 +91,12 @@ export default {
     crearSala() {
       this.socket.emit("create-room");
     },
+    hola(){
+
+      this.socket.emit('tiro');
+
+    },
+
     unirSala() {
       if (this.claveSala.trim()) {
         this.socket.emit("join-room", this.claveSala.trim());
@@ -117,15 +123,9 @@ export default {
     const token = store.getLoginInfo.token; 
     console.log("Token enviado al servidor:", token);
 
-    this.socket = io("http://localhost:3000", {
-      transports: ["websocket"],
-      withCredentials: true,
-      auth: {
-        token: token, 
-      },
-    });
+    this.socket = getSocket(token);
 
-    
+     
     this.socket.on("connect", () => {
     console.log("Conectado al servidor con ID:", this.socket.id);
     });

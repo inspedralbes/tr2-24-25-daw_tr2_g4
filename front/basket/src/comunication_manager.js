@@ -1,4 +1,4 @@
-const laravel = { URL: "http://localhost:8000/api" }
+const laravel = { URL: "http://localhost:8001/api" }
 
 export async function register(param) {
     const URL = `${laravel.URL}/register`;

@@ -1,24 +1,37 @@
 <script setup>
+import { ref } from 'vue';
+import SalasPrivadas from '@/components/SalasPrivadas.vue';
+import JugarOnli from '@/components/JugarOnli.vue';
+import socket from '@/socket';
+
+
+const visibleSalas=ref(true);
+const visibleJuego=ref(false);
+ 
 
 </script>
 
 <template>
-  <main class="main-multijugador">
-    <div class="body_multijugador">
+  <main >
+    <div v-if="visibleSalas"  class="main-multijugador"> 
+      <div class="body_multijugador">
       <SalasPrivadas />
+      <button @click="hola">empezar</button>
     </div>
+
+    </div>
+
+    <div v-if="visibleJuego">
+      <JugarOnli></JugarOnli>
+
+    </div>
+   
   </main>
+
+
+
 </template>
-
-<script>
-import SalasPrivadas from '@/components/SalasPrivadas.vue';
-
-export default {
-  components: {
-    SalasPrivadas,
-  },
-};
-</script>
+ 
 
 <style scoped>
 #main-multijugador{
