@@ -91,11 +91,6 @@ export default {
     crearSala() {
       this.socket.emit("create-room");
     },
-    hola(){
-
-      this.socket.emit('tiro');
-
-    },
 
     unirSala() {
       if (this.claveSala.trim()) {

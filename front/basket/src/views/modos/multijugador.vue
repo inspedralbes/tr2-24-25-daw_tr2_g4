@@ -2,12 +2,22 @@
 import { ref } from 'vue';
 import SalasPrivadas from '@/components/SalasPrivadas.vue';
 import JugarOnli from '@/components/JugarOnli.vue';
-import socket from '@/socket';
+import { useCounterStore } from '@/stores/counter'; 
+import getSocket from '@/socket';
 
 
 const visibleSalas=ref(true);
 const visibleJuego=ref(false);
- 
+const store = useCounterStore();
+    const token = store.getLoginInfo.token; 
+    console.log("Token enviado al servidor:", token);
+
+const socket = getSocket(token);
+function  hola(){
+
+      socket.emit('tiro');
+
+    }
 
 </script>
 
