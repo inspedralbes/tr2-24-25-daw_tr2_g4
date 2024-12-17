@@ -89,8 +89,8 @@ onMounted(() => {
                         </q-item-section>
                     </q-item>
                     <div class="text-center q-mt-md">
-                        <q-avatar size="90px">
-                            <img :src="`/public/avatar/boy${avatar}.png`" />
+                        <q-avatar >
+                            <img :src="`/public/avatar/foto${avatar}.png`" />
                         </q-avatar>
                     </div>
                     <div class="q-mt-md text-center">
@@ -107,7 +107,7 @@ onMounted(() => {
                     <div class="text-center q-mt-md">
                         <q-carousel v-model="avatar" swipeable animated :disable="isLoading"
                             style="width: 100px; height: 100px; border-radius: 50%; border: 1px solid #ccc;">
-                            <q-carousel-slide v-for="i in 7" :key="i" :name="i" :img-src="`/public/avatar/boy${i}.png`" />
+                            <q-carousel-slide v-for="i in 7" :key="i" :name="i" :img-src="`/public/avatar/foto${i}.png`" />
                         </q-carousel>
                     </div>
 
@@ -150,4 +150,21 @@ onMounted(() => {
 .q-btn {
     width: 200px;
 }
+.q-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    justify-content: center;
+    align-items: center; 
+    background-color: #f0f0f0; 
+}
+
+.q-avatar img {
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    object-position: center; 
+}
+
 </style>
