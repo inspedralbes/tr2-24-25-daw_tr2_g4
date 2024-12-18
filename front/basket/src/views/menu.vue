@@ -1,24 +1,32 @@
 <script setup>
-
-import { ref,watch } from 'vue';
+import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useCounterStore } from '@/stores/counter';
-import { useQuasar, QSpinnerFacebook } from 'quasar'
-import { onBeforeUnmount } from 'vue'
+import { useQuasar, QSpinnerFacebook } from 'quasar';
+import { onBeforeUnmount } from 'vue';
 
-const $q = useQuasar() 
+const $q = useQuasar();
 
-    const visibleLog=ref(false);
-    const useApp = useCounterStore();
-    const visibleOpciones=ref(true);
-    function ocultarTot(){
-        visibleOpciones.value=false;
+const visibleLog = ref(false);
+const useApp = useCounterStore();
+const visibleOpciones = ref(true);
 
-    }
+// avatares dsponibles
+const guestAvatars = [1, 2, 3, 4];
 
- 
+// avatar aleatorio 
+const getRandomAvatar = () => {
+  const randomIndex = Math.floor(Math.random() * guestAvatars.length);
+  return guestAvatars[randomIndex];
+};
+
+// Ocultar opciones
+function ocultarTot() {
+  visibleOpciones.value = false;
+}
+
 const route = useRoute();
-   
+
 async function salir() {
   $q.loading.show({
     spinner: QSpinnerFacebook,
@@ -30,12 +38,12 @@ async function salir() {
   });
 
   try {
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
     useApp.setLoginInfo({
       loggedIn: false,
       username: '',
-      email:'',
+      email: '',
       avatar: '',
       nivel: '',
       token: '',
@@ -48,31 +56,20 @@ async function salir() {
   }
 }
 
-
 watch(route, (newRoute, oldRoute) => {
-  
   if (newRoute.path === '/jugar') {
     visibleOpciones.value = true;
-   
   }
-
- 
- 
-
 });
 
-
-if(useApp.loginInfo.loggedIn){
-    visibleLog.value=true;
-    console.log(useApp.loginInfo);
-    
-  }else{
-    visibleLog.value=false;
-  }
-
-
-  
+if (useApp.loginInfo.loggedIn) {
+  visibleLog.value = true;
+  console.log(useApp.loginInfo);
+} else {
+  visibleLog.value = false;
+}
 </script>
+
 <template>
   <main id="main_menu">
     <!-- Menú de Opciones -->
@@ -143,9 +140,9 @@ if(useApp.loginInfo.loggedIn){
 
           <!-- No Loggeado -->
           <div class="menu_avatar" v-else>
-            <!-- Avatar de invitado -->
+            <!-- Avatar de invitado con selección aleatoria -->
             <q-avatar class="custom-avatar">
-              <img src="/public/avatar/foto1.png" />
+              <img :src="`/public/avatar/foto${getRandomAvatar()}.png`" />
             </q-avatar>
             <div style="font-size: 30px">Invitado</div>
 
@@ -215,8 +212,6 @@ if(useApp.loginInfo.loggedIn){
 .botones_desple {
   margin-top: 10px;
   width: 220px;
-
-  
 }
 
 .user_menu {
