@@ -12,18 +12,28 @@ const router = useRouter();
 const useApp = useCounterStore();
 const username = ref(useApp.loginInfo.username || '');
 const email = ref(useApp.loginInfo.email || '');
-const avatar = ref(useApp.loginInfo.avatar || 1); 
-const nivel = ref(useApp.loginInfo.nivel || ''); 
-const score = ref(0); 
-// Campos de error
+const avatar = ref(useApp.loginInfo.avatar || 1);
+const nivel = ref(useApp.loginInfo.nivel || '');
+const score = ref(useApp.loginInfo.score || 0); // Ajuste en el puntaje
 const errors = ref('');
-
 const isLoading = ref(false);
-
 const isEditing = ref(false);
 
+// URL base del backend
+const baseUrl = "http://127.0.0.1:8000"; // Cambia esto si tu backend usa otro puerto o dominio
+// Método para guardar el perfil
 async function saveProfile() {
+    if (!username.value || !email.value) {
+        $q.notify({
+            type: 'negative',
+            message: 'El nombre de usuario y el correo electrónico son obligatorios.',
+            position: 'top',
+        });
+        return;
+    }
+
     isLoading.value = true;
+
     $q.loading.show({
         spinner: 'QSpinnerFacebook',
         message: 'Guardando cambios...',
@@ -32,48 +42,65 @@ async function saveProfile() {
     });
 
     try {
-        // Llamar a la API para actualizar el perfil del usuario
-        const data = await updateUserProfile({
-            username: username.value,
-            email: email.value,
-            avatar: avatar.value,
+        const response = await fetch(`${baseUrl}/api/user/update-profile`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${useApp.loginInfo.token}`,
+            },
+            body: JSON.stringify({
+                username: username.value,
+                email: email.value,
+                avatar: avatar.value,
+            }),
         });
 
-        if (data.errors) {
-            errors.value = data.errors;
-        } else {
-            useApp.setLoginInfo({
-                loggedIn: true,
-                username: data.user.username,
-                avatar: data.user.avatar,
-                email: data.user.email,
-                nivel: data.user.nivel,
-            });
+        const data = await response.json();
 
-            router.push('/user/login');
+        if (!response.ok) {
+            throw new Error(data.message || 'Error al actualizar el perfil.');
         }
+
+        // Actualizar el estado global (Pinia, Vuex, o lo que utilices)
+        useApp.setLoginInfo({
+            loggedIn: true,
+            username: data.user.username, // El nombre de usuario actualizado
+            avatar: data.user.avatar,     // El avatar actualizado
+            email: data.user.email,       // El correo actualizado
+            nivel: data.user.nivel,       // El nivel actualizado
+        });
+
+        isEditing.value = false;
+
+        // Mostrar notificación de éxito
+        $q.notify({
+            type: 'positive',
+            message: 'Perfil actualizado con éxito',
+        });
+
     } catch (error) {
-        errors.value = 'Hubo un error al guardar el perfil.';
+        console.error('Error al guardar el perfil:', error); // Ver los detalles del error
+        errors.value = error.message || 'Hubo un error al guardar el perfil.';
+        $q.notify({
+            type: 'negative',
+            message: errors.value,
+            position: 'top',
+        });
     } finally {
         isLoading.value = false;
         $q.loading.hide();
     }
 }
 
-/*async function fetchUserRanking() {
-    
-}*/
 
-onMounted(() => {
-    //fetchUserRanking();
-});
 </script>
 
 <template>
     <main id="perfil_page" class="q-pa-md">
+        <div class="text-h6">{{ isEditing ? 'Editar perfil' : 'Perfil del usuario' }}</div>
+
         <q-card flat bordered>
             <q-card-section>
-                <div class="text-h6">{{ isEditing ? 'Editar perfil' : 'Perfil del usuario' }}</div>
                 <div v-if="errors" class="text-negative q-mt-md">
                     <p>{{ errors }}</p>
                 </div>
@@ -89,7 +116,7 @@ onMounted(() => {
                         </q-item-section>
                     </q-item>
                     <div class="text-center q-mt-md">
-                        <q-avatar >
+                        <q-avatar>
                             <img :src="`/public/avatar/foto${avatar}.png`" />
                         </q-avatar>
                     </div>
@@ -107,13 +134,15 @@ onMounted(() => {
                     <div class="text-center q-mt-md">
                         <q-carousel v-model="avatar" swipeable animated :disable="isLoading"
                             style="width: 100px; height: 100px; border-radius: 50%; border: 1px solid #ccc;">
-                            <q-carousel-slide v-for="i in 7" :key="i" :name="i" :img-src="`/public/avatar/foto${i}.png`" />
+                            <q-carousel-slide v-for="i in 7" :key="i" :name="i"
+                                :img-src="`/public/avatar/foto${i}.png`" />
                         </q-carousel>
                     </div>
 
                     <div class="q-mt-md text-center">
                         <q-btn :loading="isLoading" color="primary" label="Guardar cambios" @click="saveProfile"
                             :disable="isLoading" />
+                        <q-btn color="negative" label="Cancelar" flat @click="isEditing = false" :disable="isLoading" />
                     </div>
                 </div>
             </q-card-section>
@@ -135,7 +164,7 @@ onMounted(() => {
 }
 
 .q-card {
-    max-width: 500px;
+    max-width: 400px;
 }
 
 .q-input {
@@ -150,21 +179,21 @@ onMounted(() => {
 .q-btn {
     width: 200px;
 }
+
 .q-avatar {
     width: 100px;
     height: 100px;
     border-radius: 50%;
     border: 1px solid #ccc;
     justify-content: center;
-    align-items: center; 
-    background-color: #f0f0f0; 
+    align-items: center;
+    background-color: #f0f0f0;
 }
 
 .q-avatar img {
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
-    object-position: center; 
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
-
 </style>

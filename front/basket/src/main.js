@@ -8,12 +8,15 @@ import router from './router'
 import App from './App.vue'
 import '@quasar/extras/eva-icons/eva-icons.css'
 import { Loading } from 'quasar'
+import { Notify } from 'quasar'
 
 const app = createApp(App)
 
 app.use(Quasar, {
   plugins: {
     Loading, // Aquí añades el plugin Loading
+    Notify,
+
   },
   lang: quasarLang,
 })

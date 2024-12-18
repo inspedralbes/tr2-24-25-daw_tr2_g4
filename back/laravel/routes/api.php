@@ -20,3 +20,7 @@ Route::apiResource('partidas', PartidaController::class)->middleware('auth:sanct
 // Rutas para el registro y login de usuarios
 Route::post('register', [AuthController::class, 'register']); // Registro de usuario
 Route::post('login', [AuthController::class, 'login']); // Login de usuario
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/user/update-profile', [AuthController::class, 'updateProfile']);
+});

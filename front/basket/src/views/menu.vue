@@ -123,7 +123,7 @@ if(useApp.loginInfo.loggedIn){
                 color="primary"
                 label="Perfil"
                 push
-                size="30px"
+                size="20px"
                 v-close-popup
               ></q-btn>
             </RouterLink>
@@ -134,7 +134,7 @@ if(useApp.loginInfo.loggedIn){
                 color="primary"
                 label="Log out"
                 push
-                size="30px"
+                size="20px"
                 v-close-popup
                 @click="salir"
               ></q-btn>
@@ -155,7 +155,7 @@ if(useApp.loginInfo.loggedIn){
                 color="primary"
                 label="Login"
                 push
-                size="30px"
+                size="25px"
                 v-close-popup
               ></q-btn>
             </RouterLink>
@@ -166,7 +166,7 @@ if(useApp.loginInfo.loggedIn){
                 color="primary"
                 label="Registrarse"
                 push
-                size="30px"
+                size="25px"
                 v-close-popup
               ></q-btn>
             </RouterLink>
@@ -214,8 +214,9 @@ if(useApp.loginInfo.loggedIn){
 
 .botones_desple {
   margin-top: 10px;
-  width: 250px;
-  font-size: 100px;
+  width: 220px;
+
+  
 }
 
 .user_menu {
