@@ -22,5 +22,5 @@ Route::post('register', [AuthController::class, 'register']); // Registro de usu
 Route::post('login', [AuthController::class, 'login']); // Login de usuario
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/user/update-profile', [AuthController::class, 'updateProfile']);
+    Route::post('/user/update-profile', [AuthController::class, 'updatePerfil']);
 });

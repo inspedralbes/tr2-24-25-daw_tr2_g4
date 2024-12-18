@@ -76,15 +76,14 @@ class AuthController extends Controller
         return response()->json($request->user());
     }
 
-    // Actualizar el perfil del usuario autenticado
-    public function updateProfile(Request $request)
-    {
 
+    public function updatePerfil(Request $request)
+{
     // Validar los datos enviados
     $validator = Validator::make($request->all(), [
         'username' => 'sometimes|string|max:255|unique:users,username,' . $request->user()->id,
         'email' => 'sometimes|email|max:255|unique:users,email,' . $request->user()->id,
-        'avatar' => 'sometimes|integer', 
+        'avatar' => 'sometimes|nullable|integer', // Asegúrate de que avatar sea un número o nulo
     ]);
 
     if ($validator->fails()) {
@@ -98,15 +97,19 @@ class AuthController extends Controller
         // Actualizar los datos del usuario
         $user->update($request->only(['username', 'email', 'avatar']));
 
+        // Devolver la respuesta
         return response()->json([
             'message' => 'Perfil actualizado correctamente.',
             'user' => $user,
         ], 200);
     } catch (\Exception $e) {
+        // Log de depuración del error
+        \Log::error('Error al actualizar el perfil: ' . $e->getMessage());
         return response()->json([
             'message' => 'Error al actualizar el perfil.',
             'error' => $e->getMessage(),
         ], 500);
     }
 }
+
 }

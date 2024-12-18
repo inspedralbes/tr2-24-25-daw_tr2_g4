@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import { useCounterStore } from '@/stores/counter';
 import { useQuasar } from 'quasar';
 import { useRouter } from 'vue-router';
@@ -14,15 +14,16 @@ const username = ref(useApp.loginInfo.username || '');
 const email = ref(useApp.loginInfo.email || '');
 const avatar = ref(useApp.loginInfo.avatar || 1);
 const nivel = ref(useApp.loginInfo.nivel || '');
-const score = ref(useApp.loginInfo.score || 0); // Ajuste en el puntaje
+const score = ref(useApp.loginInfo.score || 0);
 const errors = ref('');
 const isLoading = ref(false);
 const isEditing = ref(false);
 
 // URL base del backend
-const baseUrl = "http://127.0.0.1:8000"; // Cambia esto si tu backend usa otro puerto o dominio
+const baseUrl = "http://127.0.0.1:8000";
+
 // Método para guardar el perfil
-async function saveProfile() {
+async function editarYguardarPerfil() {
     if (!username.value || !email.value) {
         $q.notify({
             type: 'negative',
@@ -34,6 +35,7 @@ async function saveProfile() {
 
     isLoading.value = true;
 
+    // Mostrar el loading spinner
     $q.loading.show({
         spinner: 'QSpinnerFacebook',
         message: 'Guardando cambios...',
@@ -46,7 +48,7 @@ async function saveProfile() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${useApp.loginInfo.token}`,
+                Authorization: `Bearer ${useApp.loginInfo.token}`, 
             },
             body: JSON.stringify({
                 username: username.value,
@@ -55,31 +57,31 @@ async function saveProfile() {
             }),
         });
 
-        const data = await response.json();
-
         if (!response.ok) {
-            throw new Error(data.message || 'Error al actualizar el perfil.');
+            throw new Error(`Error en el servidor: ${response.statusText}`);
         }
 
-        // Actualizar el estado global (Pinia, Vuex, o lo que utilices)
+        const data = await response.json();
+
         useApp.setLoginInfo({
             loggedIn: true,
-            username: data.user.username, // El nombre de usuario actualizado
-            avatar: data.user.avatar,     // El avatar actualizado
-            email: data.user.email,       // El correo actualizado
-            nivel: data.user.nivel,       // El nivel actualizado
+            username: data.user.username, 
+            avatar: data.user.avatar,     
+            email: data.user.email,      
+            token: useApp.loginInfo.token, 
         });
 
         isEditing.value = false;
 
-        // Mostrar notificación de éxito
         $q.notify({
             type: 'positive',
             message: 'Perfil actualizado con éxito',
+            position: 'top',
+
         });
 
     } catch (error) {
-        console.error('Error al guardar el perfil:', error); // Ver los detalles del error
+        console.error('Error al guardar el perfil:', error);
         errors.value = error.message || 'Hubo un error al guardar el perfil.';
         $q.notify({
             type: 'negative',
@@ -87,12 +89,11 @@ async function saveProfile() {
             position: 'top',
         });
     } finally {
+        // Ocultar el loading spinner
         isLoading.value = false;
         $q.loading.hide();
     }
 }
-
-
 </script>
 
 <template>
@@ -140,7 +141,7 @@ async function saveProfile() {
                     </div>
 
                     <div class="q-mt-md text-center">
-                        <q-btn :loading="isLoading" color="primary" label="Guardar cambios" @click="saveProfile"
+                        <q-btn :loading="isLoading" color="primary" label="Guardar cambios" @click="editarYguardarPerfil"
                             :disable="isLoading" />
                         <q-btn color="negative" label="Cancelar" flat @click="isEditing = false" :disable="isLoading" />
                     </div>

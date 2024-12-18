@@ -107,6 +107,7 @@ async function register_compo() {
       <q-carousel
         swipeable
         animated
+        infinite
         v-model="slide"
         class="q-mt-md"
         style="width: 100px; height: 100px; border-radius: 50%; border: 1px solid #ccc;">
