@@ -25,7 +25,10 @@ export const useCounterStore = defineStore('counter', () => {
 
    
 
+  const SalaActual= ref("");
   
+
+
 
 
   const getLoginInfo = computed(() => loginInfo);
@@ -36,7 +39,7 @@ export const useCounterStore = defineStore('counter', () => {
 
 
   return { 
-    getLoginInfo, loginInfo,setLoginInfo
+    getLoginInfo, loginInfo,setLoginInfo,SalaActual
 
 
   }

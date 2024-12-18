@@ -17,6 +17,9 @@ const props = defineProps({
 const Canastas = ref(0)
 const index = ref(0)
 
+const info= reactive({fallo:false, canasta:0,racha:false})
+
+
 const animaciones = reactive({encestar: false, fallo1: false, fallo2: false, fallo3:false, fallo4:false, fallo5:false,temblor1:false,
                               temblor2:false, llamas:false, tiro_en_llamas:false
 
@@ -52,6 +55,14 @@ function apagarAnimaciones(interrumptor){
 
 }
 
+function reiniciarInfo(){
+
+  info.canasta=0;
+  info.fallo=false;
+  info.racha=false;
+}
+
+
 function apagarAnimaciones_temblores(){
 
   animaciones.temblor1=false;
@@ -63,9 +74,8 @@ function apagarAnimaciones_temblores(){
 let puntosSeguidos=0;
 
 function comprobarPunto(num) {
-
   
-let fallo=false;
+ reiniciarInfo();
 
 let apagar=0;
    
@@ -73,7 +83,7 @@ let apagar=0;
     if (props.data.respuesta_correcta == num) {
        
 
-      if (progress.value < 0.3) {
+    if (progress.value < 0.3) {
         puntosSeguidos++;
         Canastas.value=Canastas.value+3;
     } else if(progress.value < 0.7) {
@@ -110,19 +120,18 @@ let apagar=0;
     }else{
       let aux= Math.floor(Math.random() * 5) + 1;
       animaciones[`fallo${aux}`] = true;
-      fallo=true;
+      info.fallo=true;
 
 
     }
-  console.log(Canastas.value)
+  
   index.value++;
 
   setTimeout(() => {
     apagarAnimaciones(apagar);
   }, 500);
 
-
-  return fallo;
+ 
 }
 
 
@@ -195,17 +204,17 @@ const respuestasMezcladas = computed(() => mezclarRespuestas());
 
 function responder(num){
     
-  let f=comprobarPunto(num);
+  comprobarPunto(num);
 
-  if(f){
+  if(info.fallo){
     setTimeout(() => {
-      emit('siguiente',f); 
+      emit('siguiente',info); 
   }, 800);
 
 
   }else{
 
-    emit('siguiente',f); 
+    emit('siguiente',info); 
   }
 
     reiniciarTemporizador();

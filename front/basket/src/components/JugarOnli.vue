@@ -6,15 +6,24 @@ import Partida from './Partida.vue';
 const data= reactive({});
 
 
-socket.on("datos", (preguntas)=>{
+socket.on('empezar_todos', (preguntas)=>{
 
  data=preguntas;
 
 })
 
 
-function siguiente(info){
+function siguientePregunta(info){
 
+
+if(info.fallo){
+    visibleJuego.value=false
+}else{   
+    
+    index.value++;
+
+
+}
 
 
 }
@@ -25,9 +34,11 @@ function siguiente(info){
 
 <template>
 
-    
+<!--    
 <Partida :data="data" @siguiente="siguientePregunta" ></Partida>
+-->
 
+{{ data }}
 
 </template>
 

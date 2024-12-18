@@ -39,7 +39,7 @@
         </div>
 
         <div class="flex justify-center q-mt-lg">
-          <q-btn @click="hola" color="deep-orange" size="lg" glossy label="Salir de la Sala" class="q-pa-md" />
+          <q-btn @click="salirSala" color="deep-orange" size="lg" glossy label="Salir de la Sala" class="q-pa-md" />
         </div>
       </div>
     </div>
@@ -85,10 +85,11 @@ export default {
       claveActual: "", // Sala actual
       usuarios: [], // Lista de usuarios en la sala
       enSala: false, // Indicador de si el usuario está en una sala
+
     };
   },
   methods: {
-    crearSala() {
+  crearSala() {
       this.socket.emit("create-room");
     },
 
@@ -105,6 +106,10 @@ export default {
     updateRoomView(clave) {
       this.enSala = true;
       this.claveActual = clave;
+      const caja = useCounterStore();
+
+      caja.SalaActual=clave;
+      console.log(caja.SalaActual)
     },
     resetToMenu() {
       this.enSala = false;
@@ -119,7 +124,7 @@ export default {
     console.log("Token enviado al servidor:", token);
 
     this.socket = getSocket(token);
-
+    
      
     this.socket.on("connect", () => {
     console.log("Conectado al servidor con ID:", this.socket.id);
@@ -131,10 +136,12 @@ export default {
 
     this.socket.on("room-created", (claveSala) => {
       this.updateRoomView(claveSala);
+      
     });
 
     this.socket.on("room-joined", (claveSala) => {
       this.updateRoomView(claveSala);
+    
     });
 
     this.socket.on("room-users", ({ room, users }) => {

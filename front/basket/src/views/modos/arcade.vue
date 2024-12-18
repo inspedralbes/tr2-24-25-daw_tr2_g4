@@ -214,7 +214,7 @@ const index=ref(0);
 function siguientePregunta(info){
 
 
-    if(info){
+    if(info.fallo){
         visibleJuego.value=false
     }else{    index.value++;}
 

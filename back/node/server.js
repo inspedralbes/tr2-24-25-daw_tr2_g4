@@ -101,13 +101,45 @@ io.on('connection', async (socket) => {
 
 
 
+    socket.on('empezar',(sala)=>{
 
+        io.to(sala).emit('pregunta', Preguntas[0] );
+        console.log(salas)
+
+    });
+
+    function obtenerIndex(username,sala) {
+       
+        const index = salas[sala].findIndex(user => user.username === username);
+        return index
+      }
+
+
+
+
+    socket.on('cambio_pregunta',(username,sala,tiro)=>{
+        const index= obtenerIndex(username,sala)  
+        let aux=salas[sala][index].index;
+        if(tiro==Preguntas[0].respuesta_correcta){
+            salas[sala][index].puntacion++;
+        }
+        
+        salas[sala][index].index++;
+        aux=salas[sala][index].index;
+
+        socket.emit('pregunta',Preguntas[aux])
+
+        
+        
+    })
 
     socket.on('create-room', () => {
         const claveSala = uuidv4().slice(0, 5); 
         if (!salas[claveSala]) {
             salas[claveSala] = [];  // Inicializamos la sala como un array vacío
         }
+        socket.user.puntacion=0;
+        socket.user.index=0;
         salas[claveSala].push(socket.user);
         socket.join(claveSala);
 
@@ -128,25 +160,40 @@ io.on('connection', async (socket) => {
 
     socket.on('tiro',()=>{
 
-        console.log("hola")
+        console.log(salas)
+    })
+
+    socket.on('pami',()=>{
+
+        socket.emit('adios')
+    })
+
+    socket.on('patodos', (datoss)=>{
+
+        io.to(datoss).emit('todos');
+
+    })
+
+    socket.on('datos',(salita)=>{
+
 
 
 
     })
-
-
 
     socket.on('join-room', (claveSala) => {
         const room = io.sockets.adapter.rooms.get(claveSala);
         if (!salas[claveSala]) {
             salas[claveSala] = [];  // Inicializamos la sala como un array vacío
         }
-        salas[claveSala].push(socket.user);
+         
         if (room) {
             socket.join(claveSala);
             console.log(`Usuario ${socket.user.username} (ID=${socket.user.id}) se unió a la sala: ${claveSala}`);
 
             socket.emit('room-joined', claveSala);
+            socket.user.puntacion=0;
+            socket.user.index=0;
             salas[claveSala].push(socket.user);
 
             console.log(salas)
@@ -165,6 +212,7 @@ io.on('connection', async (socket) => {
 
     socket.on('leave-room', (claveSala) => {
         socket.leave(claveSala);
+
         const room = io.sockets.adapter.rooms.get(claveSala);
         if (room) {
             io.to(claveSala).emit('room-users', {
@@ -174,6 +222,11 @@ io.on('connection', async (socket) => {
                     username: io.sockets.sockets.get(id)?.user?.username || 'Invitado',
                 }))
             });
+        }
+        salas[claveSala].splice(salas[claveSala].indexOf(socket.user), 1);
+        if(salas[claveSala].length===0){
+
+            delete salas[claveSala];
         }
         socket.emit('left-room');
     });
@@ -191,9 +244,16 @@ io.on('connection', async (socket) => {
                             username: io.sockets.sockets.get(id)?.user?.username || 'Invitado',
                         }))
                     });
+                    
+                
+                
                 }
             }
         }
+
+       
+
+
     });
 
     socket.on('disconnect', () => {
