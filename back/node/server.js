@@ -104,6 +104,13 @@ io.on('connection', async (socket) => {
     socket.on('empezar',(sala)=>{
 
         io.to(sala).emit('pregunta', Preguntas[0] );
+            
+        salas[sala].forEach(element => {
+            
+        });
+
+
+
         console.log(salas)
 
     });
@@ -130,6 +137,7 @@ io.on('connection', async (socket) => {
         aux=salas[sala][index].index;
 
         socket.emit('pregunta',Preguntas[aux])
+        console.log(salas[sala][index].puntacion)
 
         
         
