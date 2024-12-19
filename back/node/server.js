@@ -3,71 +3,116 @@ const express = require('express');
 const cors = require('cors');
 const http = require('http');
 const socketIo = require('socket.io');
+const axios = require('axios');  
 
-// Inicializa Express
 const app = express();
 
-// Habilita CORS
 app.use(cors({
-    origin: "*",  // Permitir todos los orígenes
+    origin: "*",  
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true  // Permitir el envío de cookies y credenciales
+    credentials: true  
 }));
 
-// Crea el servidor HTTP
 const server = http.createServer(app);
 
-// Configura Socket.IO
 const io = socketIo(server, {
     cors: {
-        origin: "*",  // Permitir todos los orígenes
+        origin: "*",  
         methods: ["GET", "POST"],
-        credentials: true  // Permitir el envío de cookies y credenciales
+        credentials: true  
     }
 });
 
-io.on('connection', (socket) => {
+io.on('connection', async (socket) => {
     console.log(`Usuario conectado: ${socket.id}`);
 
-    // CREAR
+    const token = socket.handshake.auth.token;
+
+    if (!token) {
+        console.log('Token no proporcionado. Desconectando socket.');
+        socket.disconnect();
+        return;
+    }
+
+    try {
+        const response = await axios.get('http://localhost:8000/api/user', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        socket.user = response.data;
+        console.log('Usuario autenticado:', socket.user); // Confirmar las propiedades que llegan
+    } catch (error) {
+        console.error('Token inválido:', error.response?.data || error.message);
+        socket.disconnect();
+        return;
+    }
+
     socket.on('create-room', () => {
-        const claveSala = uuidv4().slice(0, 5); // Clave de sala de 5 caracteres
+        const claveSala = uuidv4().slice(0, 5); 
         socket.join(claveSala);
         socket.emit('room-created', claveSala);
-        io.to(claveSala).emit('room-users', { room: claveSala, users: [socket.id] });
+        console.log(`Sala creada: ${claveSala} por el usuario: ${socket.user.username} (ID=${socket.user.id})`);
+
+        io.to(claveSala).emit('room-users', {
+            room: claveSala,
+            users: [...io.sockets.adapter.rooms.get(claveSala)].map(id => ({
+                id,
+                username: io.sockets.sockets.get(id)?.user?.username || 'Invitado',
+            })),
+        });
     });
 
-    // UNIR
     socket.on('join-room', (claveSala) => {
         const room = io.sockets.adapter.rooms.get(claveSala);
         if (room) {
             socket.join(claveSala);
+            console.log(`Usuario ${socket.user.username} (ID=${socket.user.id}) se unió a la sala: ${claveSala}`);
+
             socket.emit('room-joined', claveSala);
-            io.to(claveSala).emit('room-users', { room: claveSala, users: [...room] });
+
+            io.to(claveSala).emit('room-users', {
+                room: claveSala,
+                users: [...room].map(id => ({
+                    id,
+                    username: io.sockets.sockets.get(id)?.user?.username || 'Invitado',
+                }))
+            });
         } else {
+            console.log(`Intento de unión a sala inexistente: ${claveSala}`);
             socket.emit('error', 'Sala no encontrada');
         }
     });
 
-    // SALIR
     socket.on('leave-room', (claveSala) => {
         socket.leave(claveSala);
         const room = io.sockets.adapter.rooms.get(claveSala);
         if (room) {
-            io.to(claveSala).emit('room-users', { room: claveSala, users: [...room] });
+            io.to(claveSala).emit('room-users', {
+                room: claveSala,
+                users: [...room].map(id => ({
+                    id,
+                    username: io.sockets.sockets.get(id)?.user?.username || 'Invitado',
+                }))
+            });
         }
         socket.emit('left-room');
     });
 
-    // Manejar la desconexión
     socket.on('disconnecting', () => {
         for (const claveSala of socket.rooms) {
             if (claveSala !== socket.id) {
                 const room = io.sockets.adapter.rooms.get(claveSala);
                 if (room) {
                     const usersActualizados = [...room].filter((id) => id !== socket.id);
-                    io.to(claveSala).emit('room-users', { room: claveSala, users: usersActualizados });
+                    io.to(claveSala).emit('room-users', {
+                        room: claveSala,
+                        users: usersActualizados.map(id => ({
+                            id,
+                            username: io.sockets.sockets.get(id)?.user?.username || 'Invitado',
+                        }))
+                    });
                 }
             }
         }

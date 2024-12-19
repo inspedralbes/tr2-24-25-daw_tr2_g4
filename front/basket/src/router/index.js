@@ -6,6 +6,7 @@ import arcade from '../views/modos/arcade.vue'
 import multijugador from '../views/modos/multijugador.vue'
 import registro from '../views/users/registro.vue'
 import login from '../views/users/login.vue'
+import perfil from '../views/users/perfil.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,6 +25,11 @@ const router = createRouter({
       path: '/user/register',
       name: 'register',
       component: registro,
+    },
+    {
+      path: '/user/perfil',
+      name: 'perfil',
+      component: perfil,
     },
     {
       path: '/jugar/arcade', // Ruta: '/dashboard/profile'
