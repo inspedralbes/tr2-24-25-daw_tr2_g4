@@ -4,8 +4,6 @@ import Arcade2 from '../../components/Partida.vue';
 import Ranking from '../../components/ranking.vue';
 
 
-
-//preguntas y respuestas 
 const data = reactive([
   {
     "id": 1,
