@@ -123,7 +123,22 @@ if(useApp.loginInfo.loggedIn){
             @click="salir"
           ></q-btn>
           </RouterLink>  
+          <br>
+        <RouterLink to="/amigos">
+        <q-btn
+            class="botones_desple"
+            color="primary"
+            label="Amigos"
+            push
+            size="30px"
+            v-close-popup
+            @click="salir"
+          ></q-btn>
+          </RouterLink> 
         </div>
+        
+
+        
 
         <!-- No Loggeado-->
 

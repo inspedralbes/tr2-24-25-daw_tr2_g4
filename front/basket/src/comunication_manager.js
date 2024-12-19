@@ -48,3 +48,20 @@ export async function login(param) {
 
     return data;
 }
+
+
+export async function addFriend(payload) {
+    try {
+        const response = await fetch('/api/friends/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        });
+        return await response.json();
+    } catch (error) {
+        console.error('Error adding friend:', error);
+        return { success: false, message: 'Error adding friend' };
+    }
+}
