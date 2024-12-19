@@ -1,6 +1,5 @@
 <template>
     <main id="main-ranking">
-      <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   
       <div v-if="!juego" class="ranking-container">
         <h1 class="titulo">RANKING</h1>
@@ -27,7 +26,7 @@
         </table>
         
         <div v-if="puntuacion !== null" class="puntuacion-final">
-        <p>Puntuación es: <strong>{{ puntuacion }}</strong></p>
+        <p><strong>{{ puntuacion }}</strong></p>
         </div>
   
         <RouterLink to="/jugar">
@@ -96,7 +95,7 @@
   }
   .puntuacion-final {
   margin-bottom: 20px;
-  font-size: 18px;
+  font-size: 62px;
   color: #ffffff;
   background-color: rgba(0, 0, 0, 0.8);
   padding: 10px;
