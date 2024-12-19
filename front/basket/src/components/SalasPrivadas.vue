@@ -8,6 +8,8 @@
         <input type="text" v-model="claveSala" class="input-sala" placeholder="Clave de la sala" />
         <q-btn @click="unirSala" color="deep-orange" size="25px" class="boton_sala" glossy label="Unir Sala"></q-btn>
 
+        <q-btn color="red-12" size="25px" class="boton-volver" glossy label="Volver"></q-btn>
+
         <RouterLink to="/jugar">
           <q-btn color="red-12" size="25px" class="boton-volver" glossy label="Volver"></q-btn>
         </RouterLink>
@@ -91,6 +93,8 @@ export default {
   methods: {
   crearSala() {
       this.socket.emit("create-room");
+      
+     
     },
 
     unirSala() {
@@ -124,8 +128,7 @@ export default {
     console.log("Token enviado al servidor:", token);
 
     this.socket = getSocket(token);
-    
-     
+
     this.socket.on("connect", () => {
     console.log("Conectado al servidor con ID:", this.socket.id);
     });

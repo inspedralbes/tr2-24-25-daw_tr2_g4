@@ -120,10 +120,12 @@ io.on('connection', async (socket) => {
     socket.on('cambio_pregunta',(username,sala,tiro)=>{
         const index= obtenerIndex(username,sala)  
         let aux=salas[sala][index].index;
-        if(tiro==Preguntas[0].respuesta_correcta){
-            salas[sala][index].puntacion++;
-        }
+      //  if(tiro==Preguntas[0].respuesta_correcta){
+        //    salas[sala][index].puntacion++;
+       // }
         
+       salas[sala][index].puntacion=salas[sala][index].puntacion+tiro;
+
         salas[sala][index].index++;
         aux=salas[sala][index].index;
 

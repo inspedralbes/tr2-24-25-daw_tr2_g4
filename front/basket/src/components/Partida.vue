@@ -85,12 +85,12 @@ let apagar=0;
 
     if (progress.value < 0.3) {
         puntosSeguidos++;
-        Canastas.value=Canastas.value+3;
+        info.canasta=3;
     } else if(progress.value < 0.7) {
-      Canastas.value=Canastas.value+2;
+      info.canasta=2;
       puntosSeguidos=0;
     } else if(progress.value < 1){
-      Canastas.value++;
+      info.canasta=1;
       puntosSeguidos=0;
     }
      
@@ -105,6 +105,7 @@ let apagar=0;
       }
       if(puntosSeguidos>=5){
         apagar=5
+        info.racha=true;
         
       }
 
@@ -121,6 +122,7 @@ let apagar=0;
       let aux= Math.floor(Math.random() * 5) + 1;
       animaciones[`fallo${aux}`] = true;
       info.fallo=true;
+      info.canasta=0;
 
 
     }

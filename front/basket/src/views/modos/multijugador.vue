@@ -4,7 +4,7 @@ import SalasPrivadas from '@/components/SalasPrivadas.vue';
 import JugarOnli from '@/components/JugarOnli.vue';
 import { useCounterStore } from '@/stores/counter'; 
 import getSocket from '@/socket';
-
+import Partida from '@/components/Partida.vue';
 
 const visibleSalas=ref(true);
 const visibleJuego=ref(false);
@@ -31,12 +31,11 @@ function patodos(){
   
 }
 
-function hola(dato){
 
-  socket.emit('cambio_pregunta', store.loginInfo.username, store.SalaActual,dato);
 
+function siguientePregunta(info){
+  socket.emit('cambio_pregunta', store.loginInfo.username, store.SalaActual,info.canasta);
 }
-
 
 
 function holas(){
@@ -60,7 +59,12 @@ function holas(){
 
     socket.on('pregunta',(pregunta)=>{
       data.hola=pregunta;
-      console.log(data)
+      console.log(data.hola)
+      if(visibleJuego.value==false){
+        visibleJuego.value=true;
+        visibleSalas.value=false;
+
+      }
 
     })
 
@@ -87,7 +91,7 @@ function holas(){
     </div>
 
     <div v-if="visibleJuego">
-      <JugarOnli></JugarOnli>
+      <Partida :data="data.hola" @siguiente="siguientePregunta"> </Partida>
 
     </div>
    
