@@ -3,6 +3,8 @@
 </script>
 
 <template>
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
   <main id="main_inicio">
  <div id="div_inicio">
     <h2> BasketBall</h2>
@@ -22,6 +24,8 @@
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
   height: 100vh;
+  font-family: 'Press Start 2P', cursive;
+
 }
 #div_inicio{
 

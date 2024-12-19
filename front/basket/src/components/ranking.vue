@@ -25,6 +25,10 @@
             </tr>
           </tbody>
         </table>
+        
+        <div v-if="puntuacion !== null" class="puntuacion-final">
+        <p>Puntuación es: <strong>{{ puntuacion }}</strong></p>
+        </div>
   
         <RouterLink to="/jugar">
           <q-btn color="red-12" size="25px" class="boton-volver" glossy label="Volver"></q-btn>
@@ -41,6 +45,10 @@
     name: "Ranking",
     props: {
       juego: Boolean, 
+      puntuacion: {
+      type: Number,
+      default: 0,
+    },
     },
     data() {
       return {
@@ -78,7 +86,7 @@
   };
   </script>
   
-  <style scoped>
+<style scoped>
   #main-ranking {
     background-image: url("../assets/bioma/parque.jpg"); 
     background-position: center center;
@@ -86,7 +94,14 @@
     background-attachment: fixed;
     height: 100vh; 
   }
-  
+  .puntuacion-final {
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 10px;
+  border-radius: 8px;
+}
   .ranking-container {
     display: flex;
     flex-direction: column;
@@ -123,13 +138,6 @@
     color: #e5ba0c;
   }
   
-  .ranking-table tr:nth-child(even) {
-    background-color: #2e2e2e;
-  }
-  
-  .ranking-table tr:nth-child(odd) {
-    background-color: #1c1c1c;
-  }
   
   .boton-volver {
     position: fixed;

@@ -23,21 +23,13 @@ export const useCounterStore = defineStore('counter', () => {
     loginInfo.email = email;
   };
 
-   
-
-  
-
 
   const getLoginInfo = computed(() => loginInfo);
 
 
 
-
-
-
   return { 
     getLoginInfo, loginInfo,setLoginInfo
-
 
   }
 })

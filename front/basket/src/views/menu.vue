@@ -75,6 +75,8 @@ if(useApp.loginInfo.loggedIn){
 </script>
 
 <template>
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
   <main id="main_menu">
     
  <div id="div_menu" v-if="visibleOpciones">
@@ -198,7 +200,7 @@ if(useApp.loginInfo.loggedIn){
   grid-template-rows: 1fr 1fr 1fr ; 
   grid-template-columns: 1fr 1fr 1fr;
   height: 100vh; 
-
+  font-family: 'Press Start 2P', cursive;
 
 }
 .menu_avatar{
@@ -226,7 +228,7 @@ if(useApp.loginInfo.loggedIn){
 .botones_menu{
   margin: 10px;
   width: 350px;
-  font-size: 30px;
+  font-size: 26px;
   border: 1px solid black; 
 }
 

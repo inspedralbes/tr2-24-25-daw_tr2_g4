@@ -211,15 +211,15 @@ const data = reactive([
 )
 const visibleJuego= ref(true)
 const index=ref(0);
+const puntuacion = ref(0);
 
-function siguientePregunta(info){
-
-
+function siguientePregunta(info, valorCanasta){
     if(info){
-        visibleJuego.value=false
-    }else{    index.value++;}
-
-
+      visibleJuego.value=false;
+    }else{   
+       index.value++;
+      puntuacion.value += valorCanasta.value;
+    }
 }
 
 
@@ -228,7 +228,7 @@ function siguientePregunta(info){
 <template>
  
     <Arcade2 v-if="visibleJuego" :data="data[index]" @siguiente="siguientePregunta"> </Arcade2>
-    <Ranking v-if="!visibleJuego" />
+    <Ranking v-if="!visibleJuego" :puntuacion="puntuacion"/>
 
 </template>
 

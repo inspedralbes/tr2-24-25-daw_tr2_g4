@@ -1,7 +1,6 @@
 <script setup>
 import { reactive,ref,computed, watch } from 'vue';
 
-
 const props = defineProps({
   data: {
     type: Object,
@@ -15,6 +14,7 @@ const props = defineProps({
 
 
 const Canastas = ref(0)
+const valorCanasta= ref(0)
 const index = ref(0)
 
 const animaciones = reactive({encestar: false, fallo1: false, fallo2: false, fallo3:false, fallo4:false, fallo5:false,temblor1:false,
@@ -75,12 +75,13 @@ let apagar=0;
 
       if (progress.value < 0.3) {
         puntosSeguidos++;
-        Canastas.value=Canastas.value+3;
+        valorCanasta.value=3;
     } else if(progress.value < 0.7) {
-      Canastas.value=Canastas.value+2;
+      valorCanasta.value=2;
       puntosSeguidos=0;
+
     } else if(progress.value < 1){
-      Canastas.value++;
+      valorCanasta.value=1;
       puntosSeguidos=0;
     }
      
@@ -111,10 +112,11 @@ let apagar=0;
       let aux= Math.floor(Math.random() * 5) + 1;
       animaciones[`fallo${aux}`] = true;
       fallo=true;
+      valorCanasta.value=0;
 
 
     }
-  console.log(Canastas.value)
+  console.log('valor de la cansta'+valorCanasta.value)
   index.value++;
 
   setTimeout(() => {
@@ -199,13 +201,13 @@ function responder(num){
 
   if(f){
     setTimeout(() => {
-      emit('siguiente',f); 
+      emit('siguiente',f,valorCanasta); 
   }, 800);
 
 
   }else{
 
-    emit('siguiente',f); 
+    emit('siguiente',f,valorCanasta); 
   }
 
     reiniciarTemporizador();
