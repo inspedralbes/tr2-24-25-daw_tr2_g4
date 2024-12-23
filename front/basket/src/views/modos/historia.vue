@@ -1,11 +1,13 @@
 <template>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
+  <!-- Enlace para volver -->
   <RouterLink to="/jugar">
     <img src="@/assets/imagenes/volver.png" alt="Volver" class="imagen_volver">
   </RouterLink>
 
   <div class="fondo">
+    <!-- Botones de nivel -->
     <div class="niveles">
       <q-btn round class="nivel" style="grid-row: 1; grid-column: 1;" :label="10" @click="loadQuestions(10)"></q-btn>
       <q-btn round class="nivel" style="grid-row: 2; grid-column: 2;" :label="9" @click="loadQuestions(9)"></q-btn>
@@ -19,44 +21,49 @@
       <q-btn round class="nivel" style="grid-row: 10; grid-column: 2;" :label="1" @click="loadQuestions(1)"></q-btn>
     </div>
 
-    <div v-if="question">
-      <p>{{ question.pregunta }}</p> <!-- Muestra solo la primera pregunta -->
+    <div v-if="question" class="pregunta">
+      <p>{{ question.operacion }}</p>  
     </div>
   </div>
 </template>
 
 <script>
-import { getpregunta } from '@/comunication_manager.js';  // Corregido el nombre de la función
+import { getpregunta } from '@/comunication_manager.js';  
 
 export default {
   data() {
     return {
-      question: null, // Almacenamos solo una pregunta
+      question: null,  
     };
   },
   methods: {
+    // Método para cargar la pregunta según el nivel
     async loadQuestions(nivel) {
-  try {
-    const data = await getpregunta(nivel);  // Llama a la función para obtener preguntas
-    this.question = data[0];  // Tomar la primera pregunta del array
-  } catch (error) {
-    console.error('Error loading question:', error);
-  }
-}
+      try {
+        const data = await getpregunta(nivel); 
+        console.log("Pregunta:", data);  
 
-    
+        if (Array.isArray(data) && data.length > 0) {
+          this.question = data[0]; 
+        } else {
+          this.question = data; 
+        }
+      } catch (error) {
+        console.error('Error al cargar la pregunta:', error);
+      }
+    }
   }
 };
 </script>
 
 <style scoped>
 .imagen_volver {
-  position: fixed; 
-  top: 20px; 
+  position: fixed;
+  top: 20px;
   left: 20px;
   width: 40px;
-  border: 2px solid white; 
-  border-radius: 5px; 
+  border: 2px solid white;
+  border-radius: 5px;
 }
 
 .fondo {
@@ -67,7 +74,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0; 
+  margin: 0;
 }
 
 .niveles {
@@ -91,7 +98,7 @@ export default {
   background-size: cover;
   background-position: center;
   color: white;
-  border: 5px solid white; 
+  border: 5px solid white;
 }
 
 .nivel:nth-child(1),
@@ -105,5 +112,13 @@ export default {
 .nivel:nth-child(9),
 .nivel:nth-child(10) {
   background-image: url('@/assets/imagenes/pelotareal.png');
+}
+
+.pregunta {
+  margin-top: 20px;
+  color: white;
+  font-size: 20px;
+  font-family: 'Press Start 2P', cursive;
+  text-align: center;
 }
 </style>

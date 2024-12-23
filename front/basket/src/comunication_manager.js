@@ -38,6 +38,7 @@ export async function login(param) {
     return data;
 }
 
+
 // Función para obtener una pregunta por nivel
 export async function getpregunta(nivel) {
     const URL = `${laravel.URL}/preguntas/nivel/${nivel}`;
@@ -49,5 +50,5 @@ export async function getpregunta(nivel) {
     });
 
     const data = await response.json();
-    return data;  // Devuelve la primera pregunta obtenida
+    return data;  
 }
