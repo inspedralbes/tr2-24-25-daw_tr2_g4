@@ -24,3 +24,4 @@ Route::post('login', [AuthController::class, 'login']); // Login de usuario
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/user/update-profile', [AuthController::class, 'updatePerfil']);
 });
+Route::middleware('auth:sanctum')->post('/user/cambiar-contra', [AuthController::class, 'cambiarContrasena']); 
