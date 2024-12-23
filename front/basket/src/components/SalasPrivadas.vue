@@ -8,11 +8,7 @@
         <input type="text" v-model="claveSala" class="input-sala" placeholder="Clave de la sala" />
         <q-btn @click="unirSala" color="deep-orange" size="25px" class="boton_sala" glossy label="Unir Sala"></q-btn>
 
-        <q-btn color="red-12" size="25px" class="boton-volver" glossy label="Volver"></q-btn>
-
-        <RouterLink to="/jugar">
-          <q-btn color="red-12" size="25px" class="boton-volver" glossy label="Volver"></q-btn>
-        </RouterLink>
+        
       </div>
 
       <div id="room-info" v-else>
@@ -71,22 +67,24 @@ import { ref } from "vue";
 import getSocket from '@/socket';
 
 export default {
-  setup() {
-    const dialog = ref(false); 
-    const backdropFilter = ref("hue-rotate(210deg)"); 
-
-    return {
-      dialog,
-      backdropFilter,
-    };
+   
+  props: {
+    socket: {
+      type: Object,
+      required: true
+    }
   },
   data() {
     return {
-      socket: null,
+     
+      socket: this.socket,
       claveSala: "", // Clave de la sala ingresada por el usuario
       claveActual: "", // Sala actual
       usuarios: [], // Lista de usuarios en la sala
-      enSala: false, // Indicador de si el usuario está en una sala
+      enSala: false,
+      dialog: false,
+      backdropFilter: "hue-rotate(210deg)"
+       
 
     };
   },
@@ -124,14 +122,7 @@ export default {
 
   mounted() {
     const store = useCounterStore();
-    const token = store.getLoginInfo.token; 
-    console.log("Token enviado al servidor:", token);
-
-    this.socket = getSocket(token);
-
-    this.socket.on("connect", () => {
-    console.log("Conectado al servidor con ID:", this.socket.id);
-    });
+    const token = store.getLoginInfo.token;
 
     this.socket.on("connect_error", (err) => {
       console.error("Error al conectar:", err.message);
@@ -161,11 +152,6 @@ export default {
     this.socket.on("error", (message) => {
       alert(message);
     });
-  },
-  beforeDestroy() {
-    if (this.socket) {
-      this.socket.disconnect();
-    }
   },
 };
 </script>

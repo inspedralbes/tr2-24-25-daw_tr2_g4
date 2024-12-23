@@ -25,6 +25,15 @@ export async function register(param) {
     return data;
 }
 
+export async function getPreguntas(nivel) {
+    
+    const URL = `${laravel.URL}/preguntas/nivel/${nivel}`;
+    const response = await fetch(URL);
+    const data = await response.json();
+
+    return data;
+}
+
 export async function login(param) {
     const URL = `${laravel.URL}/login`;
     const response = await fetch(URL, {

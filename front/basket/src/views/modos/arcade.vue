@@ -1,222 +1,47 @@
 <script setup>
-import { reactive, ref } from 'vue';
+import { reactive, ref,onMounted } from 'vue';
 import Arcade2 from '../../components/Partida.vue';
+import { getPreguntas } from '@/comunication_manager'
 
 
 
 
-const data = reactive([
-  {
-    "id": 1,
-    "operacion": "5 + 3",
-    "respuesta_correcta": 8,
-    "respuestaIncorrecta_1": 9,
-    "respuestaIncorrecta_2": 7,
-    "respuestaIncorrecta_3": 10,
-    "modo": "arcade",
-    "duracion": 10
-  },
-  {
-    "id": 2,
-    "operacion": "9 - 4",
-    "respuesta_correcta": 5,
-    "respuestaIncorrecta_1": 3,
-    "respuestaIncorrecta_2": 6,
-    "respuestaIncorrecta_3": 7,
-    "modo": "historia",
-    "duracion": 8
-  },
-  {
-    "id": 3,
-    "operacion": "6 * 2",
-    "respuesta_correcta": 12,
-    "respuestaIncorrecta_1": 10,
-    "respuestaIncorrecta_2": 14,
-    "respuestaIncorrecta_3": 8,
-    "modo": "arcade",
-    "duracion": 12
-  },
-  {
-    "id": 4,
-    "operacion": "15 / 3",
-    "respuesta_correcta": 5,
-    "respuestaIncorrecta_1": 6,
-    "respuestaIncorrecta_2": 4,
-    "respuestaIncorrecta_3": 3,
-    "modo": "historia",
-    "duracion": 7
-  },
-  {
-    "id": 5,
-    "operacion": "7 + 8",
-    "respuesta_correcta": 15,
-    "respuestaIncorrecta_1": 14,
-    "respuestaIncorrecta_2": 16,
-    "respuestaIncorrecta_3": 13,
-    "modo": "arcade",
-    "duracion": 12
-  },
-  {
-    "id": 6,
-    "operacion": "12 - 5",
-    "respuesta_correcta": 7,
-    "respuestaIncorrecta_1": 6,
-    "respuestaIncorrecta_2": 8,
-    "respuestaIncorrecta_3": 9,
-    "modo": "historia",
-    "duracion": 14
-  },
-  {
-    "id": 7,
-    "operacion": "4 * 3",
-    "respuesta_correcta": 12,
-    "respuestaIncorrecta_1": 10,
-    "respuestaIncorrecta_2": 14,
-    "respuestaIncorrecta_3": 9,
-    "modo": "arcade",
-    "duracion": 20
-  },
-  {
-    "id": 8,
-    "operacion": "18 / 2",
-    "respuesta_correcta": 9,
-    "respuestaIncorrecta_1": 8,
-    "respuestaIncorrecta_2": 7,
-    "respuestaIncorrecta_3": 10,
-    "modo": "historia",
-    "duracion": 30
-  },
-  {
-    "id": 9,
-    "operacion": "10 + 5",
-    "respuesta_correcta": 15,
-    "respuestaIncorrecta_1": 14,
-    "respuestaIncorrecta_2": 16,
-    "respuestaIncorrecta_3": 13,
-    "modo": "arcade",
-    "duracion": 25
-  },
-  {
-    "id": 10,
-    "operacion": "20 - 8",
-    "respuesta_correcta": 12,
-    "respuestaIncorrecta_1": 11,
-    "respuestaIncorrecta_2": 13,
-    "respuestaIncorrecta_3": 10,
-    "modo": "historia",
-    "duracion": 20
-  },
-  {
-    "id": 11,
-    "operacion": "3 * 7",
-    "respuesta_correcta": 21,
-    "respuestaIncorrecta_1": 18,
-    "respuestaIncorrecta_2": 24,
-    "respuestaIncorrecta_3": 20,
-    "modo": "arcade",
-    "duracion": 15
-  },
-  {
-    "id": 12,
-    "operacion": "16 / 4",
-    "respuesta_correcta": 4,
-    "respuestaIncorrecta_1": 3,
-    "respuestaIncorrecta_2": 5,
-    "respuestaIncorrecta_3": 6,
-    "modo": "historia",
-    "duracion": 20
-  },
-  {
-    "id": 13,
-    "operacion": "9 + 6",
-    "respuesta_correcta": 15,
-    "respuestaIncorrecta_1": 14,
-    "respuestaIncorrecta_2": 16,
-    "respuestaIncorrecta_3": 13,
-    "modo": "arcade",
-    "duracion": 25
-  },
-  {
-    "id": 14,
-    "operacion": "14 - 7",
-    "respuesta_correcta": 7,
-    "respuestaIncorrecta_1": 6,
-    "respuestaIncorrecta_2": 8,
-    "respuestaIncorrecta_3": 5,
-    "modo": "historia",
-    "duracion": 30
-  },
-  {
-    "id": 15,
-    "operacion": "8 * 2",
-    "respuesta_correcta": 16,
-    "respuestaIncorrecta_1": 14,
-    "respuestaIncorrecta_2": 12,
-    "respuestaIncorrecta_3": 18,
-    "modo": "arcade",
-    "duracion": 20
-  },
-  {
-    "id": 16,
-    "operacion": "24 / 6",
-    "respuesta_correcta": 4,
-    "respuestaIncorrecta_1": 5,
-    "respuestaIncorrecta_2": 3,
-    "respuestaIncorrecta_3": 6,
-    "modo": "historia",
-    "duracion": 25
-  },
-  {
-    "id": 17,
-    "operacion": "11 + 4",
-    "respuesta_correcta": 15,
-    "respuestaIncorrecta_1": 14,
-    "respuestaIncorrecta_2": 16,
-    "respuestaIncorrecta_3": 13,
-    "modo": "arcade",
-    "duracion": 30
-  },
-  {
-    "id": 18,
-    "operacion": "13 - 9",
-    "respuesta_correcta": 4,
-    "respuestaIncorrecta_1": 3,
-    "respuestaIncorrecta_2": 5,
-    "respuestaIncorrecta_3": 6,
-    "modo": "historia",
-    "duracion": 15
-  },
-  {
-    "id": 19,
-    "operacion": "5 * 5",
-    "respuesta_correcta": 25,
-    "respuestaIncorrecta_1": 20,
-    "respuestaIncorrecta_2": 30,
-    "respuestaIncorrecta_3": 24,
-    "modo": "arcade",
-    "duracion": 30
-  },
-  {
-    "id": 20,
-    "operacion": "30 / 5",
-    "respuesta_correcta": 6,
-    "respuestaIncorrecta_1": 5,
-    "respuestaIncorrecta_2": 4,
-    "respuestaIncorrecta_3": 7,
-    "modo": "historia",
-    "duracion": 25
-  }
-]
-)
-const visibleJuego= ref(true)
+const data = reactive({pregunta:""})
+const visibleJuego= ref(false)
 const index=ref(0);
+
+onMounted(() => {
+  rellenarPreguntas();
+  
+    });
+
+
+
+async function rellenarPreguntas(){
+
+  data.pregunta=await getPreguntas(0)
+  console.log(data.pregunta[index.value])
+ 
+    visibleJuego.value=true;
+ 
+}
 
 function siguientePregunta(info){
 
+  console.log("hola");
+  
 
     if(info.fallo){
-        visibleJuego.value=false
-    }else{    index.value++;}
+      
+       
+    }else{   
+       index.value++;
+       console.log(data.pregunta(index))
+      if(index.value>19){
+        rellenarPreguntas();
+        index.value=0;
+      }
+    }
 
 
 }
@@ -226,7 +51,7 @@ function siguientePregunta(info){
 
 <template>
  
-    <Arcade2 v-if="visibleJuego" :data="data[index]" @siguiente="siguientePregunta"> </Arcade2>
+    <Arcade2 v-if="visibleJuego" :data="data.pregunta[index]" @siguiente="siguientePregunta"> </Arcade2>
 
 
 </template>

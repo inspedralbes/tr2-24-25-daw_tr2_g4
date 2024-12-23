@@ -92,7 +92,7 @@ let apagar=0;
     } else if(progress.value < 1){
       info.canasta=1;
       puntosSeguidos=0;
-    }
+    }else{}
      
 
       if(puntosSeguidos==3){
@@ -105,15 +105,11 @@ let apagar=0;
       }
       if(puntosSeguidos>=5){
         apagar=5
-        info.racha=true;
+        info.racha=true; 
+        animaciones.tiro_en_llamas=true;
         
       }
-
-      if(puntosSeguidos>5){
-        animaciones.tiro_en_llamas=true;
-      
-
-      }else{
+      else{
         animaciones.encestar=true;
        
 }
@@ -123,6 +119,7 @@ let apagar=0;
       animaciones[`fallo${aux}`] = true;
       info.fallo=true;
       info.canasta=0;
+      puntosSeguidos=0;
 
 
     }
@@ -205,6 +202,7 @@ function mezclarRespuestas() {
 const respuestasMezcladas = computed(() => mezclarRespuestas());
 
 function responder(num){
+    
     
   comprobarPunto(num);
 

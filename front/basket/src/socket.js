@@ -17,4 +17,13 @@ const getSocket = (token) => {
   return socketInstance;
 };
 
-export default getSocket;
+
+const RemSocket=()=>{
+
+  if (socketInstance) {
+    socketInstance.disconnect();
+    socketInstance = null;  
+  }
+}
+
+export default { getSocket, RemSocket } ;

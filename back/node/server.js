@@ -9,51 +9,18 @@ const app = express();
 
 const salas={};
 
+let Preguntas=[]
+rellenarPreguntas();
+
+async function rellenarPreguntas(){
+    const URL = `http://localhost:8000/api/preguntas/nivel/0`;
+    const response = await fetch(URL);
+    Preguntas=await response.json();
 
 
-const Preguntas=[{
-    "id": 1,
-    "operacion": "5 + 3",
-    "respuesta_correcta": 8,
-    "respuestaIncorrecta_1": 9,
-    "respuestaIncorrecta_2": 7,
-    "respuestaIncorrecta_3": 10,
-    "nivel": 1,
-    "duracion": 15
-  },
-  {
-    "id": 2,
-    "operacion": "2 + 6",
-    "respuesta_correcta": 8,
-    "respuestaIncorrecta_1": 7,
-    "respuestaIncorrecta_2": 9,
-    "respuestaIncorrecta_3": 10,
-    "nivel": 1,
-    "duracion": 9
-  },
-  {
-    "id": 3,
-    "operacion": "7 + 1",
-    "respuesta_correcta": 8,
-    "respuestaIncorrecta_1": 9,
-    "respuestaIncorrecta_2": 10,
-    "respuestaIncorrecta_3": 11,
-    "nivel": 1,
-    "duracion": 20
-  },
-  {
-    "id": 4,
-    "operacion": "15 + 12",
-    "respuesta_correcta": 27,
-    "respuestaIncorrecta_1": 26,
-    "respuestaIncorrecta_2": 28,
-    "respuestaIncorrecta_3": 25,
-    "nivel": 2,
-    "duracion": 22
-  }
+ }
 
 
-]
 
 
 app.use(cors({
@@ -126,6 +93,7 @@ io.on('connection', async (socket) => {
 
     socket.on('cambio_pregunta',(username,sala,tiro)=>{
         const index= obtenerIndex(username,sala)  
+       
         let aux=salas[sala][index].index;
       //  if(tiro==Preguntas[0].respuesta_correcta){
         //    salas[sala][index].puntacion++;
@@ -135,9 +103,15 @@ io.on('connection', async (socket) => {
 
         salas[sala][index].index++;
         aux=salas[sala][index].index;
-
+        console.log(aux)
         socket.emit('pregunta',Preguntas[aux])
-        console.log(salas[sala][index].puntacion)
+        if (aux>18){
+
+            rellenarPreguntas();
+            console.log("relleno")
+            salas[sala][index].index=0;
+        }
+     //   console.log(salas[sala][index].puntacion)
 
         
         
