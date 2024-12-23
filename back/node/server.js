@@ -86,7 +86,7 @@ io.on('connection', async (socket) => {
     }
 
     try {
-        const response = await axios.get('http://localhost:8001/api/user', {
+        const response = await axios.get('http://localhost:8000/api/user', {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
