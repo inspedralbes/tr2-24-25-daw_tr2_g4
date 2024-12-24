@@ -12,7 +12,7 @@ class PreguntaController extends Controller
             $pregunta = Partida::where('nivel', $nivel)->first(); 
 
             if (!$pregunta) {
-                return response()->json(['message' => 'No questions found for this level'], 404);
+                return response()->json(['message' => 'No hay preguntas para este nivel.'], 404);
             }
 
             return response()->json($pregunta);

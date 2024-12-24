@@ -1,6 +1,5 @@
 const laravel = { URL: "http://localhost:8000/api" };
 
-// Función para registrar un usuario
 export async function register(param) {
     const URL = `${laravel.URL}/register`;
     const response = await fetch(URL, {
@@ -20,7 +19,6 @@ export async function register(param) {
     return data;
 }
 
-// Función para iniciar sesión
 export async function login(param) {
     const URL = `${laravel.URL}/login`;
     const response = await fetch(URL, {
@@ -39,7 +37,7 @@ export async function login(param) {
 }
 
 
-// Función para obtener una pregunta por nivel
+// obtener pregunta por nivel
 export async function getpregunta(nivel) {
     const URL = `${laravel.URL}/preguntas/nivel/${nivel}`;
     const response = await fetch(URL, {

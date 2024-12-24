@@ -7,18 +7,18 @@
   </RouterLink>
 
   <div class="fondo">
-    <!-- Botones de nivel -->
+  
     <div class="niveles">
-      <q-btn round class="nivel" style="grid-row: 1; grid-column: 1;" :label="10" @click="loadQuestions(10)"></q-btn>
-      <q-btn round class="nivel" style="grid-row: 2; grid-column: 2;" :label="9" @click="loadQuestions(9)"></q-btn>
-      <q-btn round class="nivel" style="grid-row: 3; grid-column: 3;" :label="8" @click="loadQuestions(8)"></q-btn>
-      <q-btn round class="nivel" style="grid-row: 4; grid-column: 2;" :label="7" @click="loadQuestions(7)"></q-btn>
-      <q-btn round class="nivel" style="grid-row: 5; grid-column: 1;" :label="6" @click="loadQuestions(6)"></q-btn>
-      <q-btn round class="nivel" style="grid-row: 6; grid-column: 2;" :label="5" @click="loadQuestions(5)"></q-btn>
-      <q-btn round class="nivel" style="grid-row: 7; grid-column: 3;" :label="4" @click="loadQuestions(4)"></q-btn>
-      <q-btn round class="nivel" style="grid-row: 8; grid-column: 2;" :label="3" @click="loadQuestions(3)"></q-btn>
-      <q-btn round class="nivel" style="grid-row: 9; grid-column: 1;" :label="2" @click="loadQuestions(2)"></q-btn>
-      <q-btn round class="nivel" style="grid-row: 10; grid-column: 2;" :label="1" @click="loadQuestions(1)"></q-btn>
+      <q-btn round class="nivel" style="grid-row: 1; grid-column: 1;" :label="10" @click="cargarPreguntas(10)"></q-btn>
+      <q-btn round class="nivel" style="grid-row: 2; grid-column: 2;" :label="9" @click="cargarPreguntas(9)"></q-btn>
+      <q-btn round class="nivel" style="grid-row: 3; grid-column: 3;" :label="8" @click="cargarPreguntas(8)"></q-btn>
+      <q-btn round class="nivel" style="grid-row: 4; grid-column: 2;" :label="7" @click="cargarPreguntas(7)"></q-btn>
+      <q-btn round class="nivel" style="grid-row: 5; grid-column: 1;" :label="6" @click="cargarPreguntas(6)"></q-btn>
+      <q-btn round class="nivel" style="grid-row: 6; grid-column: 2;" :label="5" @click="cargarPreguntas(5)"></q-btn>
+      <q-btn round class="nivel" style="grid-row: 7; grid-column: 3;" :label="4" @click="cargarPreguntas(4)"></q-btn>
+      <q-btn round class="nivel" style="grid-row: 8; grid-column: 2;" :label="3" @click="cargarPreguntas(3)"></q-btn>
+      <q-btn round class="nivel" style="grid-row: 9; grid-column: 1;" :label="2" @click="cargarPreguntas(2)"></q-btn>
+      <q-btn round class="nivel" style="grid-row: 10; grid-column: 2;" :label="1" @click="cargarPreguntas(1)"></q-btn>
     </div>
 
     <div v-if="question" class="pregunta">
@@ -37,8 +37,8 @@ export default {
     };
   },
   methods: {
-    // Método para cargar la pregunta según el nivel
-    async loadQuestions(nivel) {
+    // cargar la pregunta según el nivel
+    async cargarPreguntas(nivel) {
       try {
         const data = await getpregunta(nivel); 
         console.log("Pregunta:", data);  
