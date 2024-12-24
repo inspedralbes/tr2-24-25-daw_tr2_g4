@@ -5,7 +5,7 @@ import JugarOnli from '@/components/JugarOnli.vue';
 import { useCounterStore } from '@/stores/counter'; 
 import socketManager from '@/socket'; 
 import Partida from '@/components/Partida.vue';
-
+import Ranking from '@/components/Ranking.vue';
 
 
 const visibleSalas=ref(true);
@@ -18,8 +18,8 @@ console.log("Token enviado al servidor:", token);
 
 const socket = socketManager.getSocket(token);
 
-
-let data= reactive({hola:""});
+let posiciones=reactive({ranking:""})
+let data= reactive({preguntas:""});
 
 function pami(){
   socket.emit('cambio_pregunta', store.loginInfo.username, store.SalaActual);
@@ -63,10 +63,16 @@ function holas(){
 
     })
 
+    socket.on('ranking',(rankings)=>{
+      posiciones.ranking=rankings;
+      
+
+
+    })
 
     socket.on('pregunta',(pregunta)=>{
-      data.hola=pregunta;
-      console.log(data.hola)
+      data.preguntas=pregunta;
+
       
       if(visibleJuego.value==false){
         visibleJuego.value=true;
@@ -89,12 +95,7 @@ function holas(){
       <button @click="pami">cambio</button>
       <button @click="patodos">todos de sala</button>
       
-      
-      {{ data.hola.operacion }}
-      <button @click="hola(data.hola.respuestaIncorrecta_2)" > {{ data.hola.respuestaIncorrecta_2 }}</button>
-      <button @click="hola(data.hola.respuestaIncorrecta_3)" > {{ data.hola.respuestaIncorrecta_3 }}</button>
-      <button @click="hola(data.hola.respuestaIncorrecta_1)" > {{ data.hola.respuestaIncorrecta_1 }}</button>
-      <button @click="hola(data.hola.respuesta_correcta)" > {{ data.hola.respuesta_correcta }}</button>
+       
 
     </div>
 
@@ -106,8 +107,9 @@ function holas(){
     </div>
 
     <div v-if="visibleJuego">
-      <Partida :data="data.hola" @siguiente="siguientePregunta"> </Partida>
-
+      <Ranking :data="posiciones.ranking"></Ranking>
+      <Partida :data="data.preguntas" @siguiente="siguientePregunta"> </Partida>
+      
     </div>
    
   </main>

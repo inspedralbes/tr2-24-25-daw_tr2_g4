@@ -69,17 +69,9 @@ io.on('connection', async (socket) => {
 
 
     socket.on('empezar',(sala)=>{
-
-        io.to(sala).emit('pregunta', Preguntas[0] );
-            
-        salas[sala].forEach(element => {
-            
-        });
-
-
-
-        console.log(salas)
-
+       
+        io.to(sala).emit('pregunta', Preguntas[0]); 
+        emitirRanking(sala)
     });
 
     function obtenerIndex(username,sala) {
@@ -87,9 +79,17 @@ io.on('connection', async (socket) => {
         const index = salas[sala].findIndex(user => user.username === username);
         return index
       }
+    
+    function ordenarRanking(sala){
 
+        salas[sala].sort((a, b) => b.puntacion - a.puntacion);
+      
+    }
 
+    function emitirRanking(sala){
 
+        io.to(sala).emit('ranking', salas[sala]); 
+    }
 
     socket.on('cambio_pregunta',(username,sala,tiro)=>{
         const index= obtenerIndex(username,sala)  
@@ -103,18 +103,14 @@ io.on('connection', async (socket) => {
 
         salas[sala][index].index++;
         aux=salas[sala][index].index;
-        console.log(aux)
         socket.emit('pregunta',Preguntas[aux])
         if (aux>18){
-
             rellenarPreguntas();
-            console.log("relleno")
             salas[sala][index].index=0;
         }
-     //   console.log(salas[sala][index].puntacion)
-
         
-        
+        ordenarRanking(sala)
+        emitirRanking(sala);
     })
 
     socket.on('create-room', () => {
