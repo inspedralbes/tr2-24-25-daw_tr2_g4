@@ -18,7 +18,7 @@ console.log("Token enviado al servidor:", token);
 
 const socket = socketManager.getSocket(token);
 
-let posiciones=reactive({ranking:""})
+let posiciones=ref("")
 let data= reactive({preguntas:""});
 
 function pami(){
@@ -64,7 +64,7 @@ function holas(){
     })
 
     socket.on('ranking',(rankings)=>{
-      posiciones.ranking=rankings;
+      posiciones.value=[...rankings];
       
 
 
@@ -107,7 +107,29 @@ function holas(){
     </div>
 
     <div v-if="visibleJuego">
-      <Ranking :data="posiciones.ranking"></Ranking>
+
+      <table class="ranking-table">
+      <thead>
+        <tr>
+          <th>Avatar</th>
+          <th>Username</th>
+          <th>Puntación</th>
+        </tr>
+      </thead>
+      <transition-group name="rank" tag="tbody">
+        <tr v-for="(player, index) in posiciones" :key="player.username">
+          <td>hola</td>  
+          <td>{{ player.username }}</td>
+          <td>{{ player.puntacion }}</td>
+        </tr>
+      </transition-group>
+    </table>
+
+
+
+
+
+
       <Partida :data="data.preguntas" @siguiente="siguientePregunta"> </Partida>
       
     </div>
@@ -131,5 +153,41 @@ function holas(){
 
 }
 
+.ranking-table {
+
+border-collapse: collapse;
+position: absolute;
+}
+
+ 
+
+.ranking-table th,
+.ranking-table td {
+border: 1px solid #ddd;
+padding: 8px;
+text-align: center;
+}
+
+.ranking-table th {
+background-color: #f2f2f2;
+}
+
+
+
+
+.rank-enter-active,
+.rank-leave-active {
+transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.rank-enter-from,
+.rank-leave-to {
+opacity: 0;
+transform: translateY(20px);
+}
+
+.rank-move {
+transition: transform 0.5s ease;
+}
 
 </style>
