@@ -10,6 +10,7 @@ const visibleSalas=ref(true);
 const visibleJuego=ref(false);
 const store = useCounterStore();
 const token = store.getLoginInfo.token; 
+
 const poderes=reactive({
   caparazon_verde:-1,
   honguito:+1,

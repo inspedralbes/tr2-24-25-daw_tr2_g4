@@ -4,13 +4,63 @@ const cors = require('cors');
 const http = require('http');
 const socketIo = require('socket.io');
 const axios = require('axios');  
+const { log } = require('console');
 
 const app = express();
 
 const salas={};
 let conexiones = {};
-let Preguntas=[]
+let Preguntas=[];
+
+let poderes=[
+    {
+        banana: -1,
+        direccion: -1,
+    },
+    {
+        caparazon_verde: -2,
+        direccion:-1
+    },
+    {
+        caparazon_rojo: -3,
+        direccion:1
+    },
+    {
+        hoguito:+3,
+        direccion:0
+
+    },
+    {
+        bomba: -5,
+        direccion:1
+    },
+    {
+        caparazon_azul:-7,
+        direccion:2
+    },
+    {
+        estrella:+8,
+        direccion:2
+    },
+    {
+        rayo:-5,
+        direccion:2
+    },
+    {
+        bill_bala:10,
+        direccion:2
+    }
+
+
+
+
+]
+
 rellenarPreguntas();
+
+
+
+
 
 async function rellenarPreguntas(){
     const URL = `http://localhost:8000/api/preguntas/nivel/0`;
@@ -59,6 +109,7 @@ io.on('connection', async (socket) => {
             },
         });
         socket.user = response.data;
+        
         console.log('Usuario autenticado:', socket.user); // Confirmar las propiedades que llegan
     } catch (error) {
         console.error('Token inválido:', error.response?.data || error.message);
@@ -79,6 +130,9 @@ io.on('connection', async (socket) => {
         }
        
       
+
+
+         
         
 
     })
@@ -120,8 +174,43 @@ io.on('connection', async (socket) => {
             salas[sala][index].index=0;
         }
         
+        salas[sala][index].darPoder-=tiro;
+        
+        if(salas[sala][index].darPoder<=0){
+
+            darPoderes(salas[sala],index)
+            salas[sala][index].darPoder=15;
+        }
+        
+        
+    
         emitirRanking(sala);
     })
+
+    function darPoderes(data,index){
+
+        if(data[index].poder==null){
+          let aux= ((index+1)*100)/data.length;
+            console.log(aux)
+          if(aux<34){
+            console.log("1")
+          }
+           if(aux>=34 && aux<67){
+            console.log("2");
+            
+           }
+           if(aux>=67){
+            console.log("3")
+           }
+          
+
+
+
+        }
+
+
+    }
+
 
     socket.on('create-room', () => {
         const claveSala = uuidv4().slice(0, 5); 
@@ -129,9 +218,8 @@ io.on('connection', async (socket) => {
             salas[claveSala] = [];  // Inicializamos la sala como un array vacío
         }
        
-        socket.user.puntacion=0;
-        socket.user.index=0;
-        socket.user.socketId=socket.id; 
+       asignarValores()
+
         salas[claveSala].push(socket.user);
         conexiones[socket.id]=socket
         
@@ -150,7 +238,14 @@ io.on('connection', async (socket) => {
 
     });
 
+    function asignarValores(){
+        socket.user.puntacion=0;
+        socket.user.index=0;
+        socket.user.socketId=socket.id; 
+        socket.user.darPoder=15;
+        socket.user.poder=null;
 
+    }
 
     socket.on('tiro',()=>{
 
@@ -168,12 +263,7 @@ io.on('connection', async (socket) => {
 
     })
 
-    socket.on('datos',(salita)=>{
-
-
-
-
-    })
+    
 
     socket.on('join-room', (claveSala) => {
         const room = io.sockets.adapter.rooms.get(claveSala);
@@ -186,9 +276,7 @@ io.on('connection', async (socket) => {
             console.log(`Usuario ${socket.user.username} (ID=${socket.user.id}) se unió a la sala: ${claveSala}`);
 
             socket.emit('room-joined', claveSala);
-            socket.user.puntacion=0;
-            socket.user.index=0; 
-            socket.user.socketId=socket.id; 
+            asignarValores();
             salas[claveSala].push(socket.user);
             conexiones[socket.id]=socket
 
@@ -255,7 +343,7 @@ io.on('connection', async (socket) => {
     socket.on('disconnect', () => {
         console.log(`Usuario desconectado: ${socket.id}`);
         delete conexiones[socket.id]
-        console.log(conexiones);
+         
         
     });
 });
