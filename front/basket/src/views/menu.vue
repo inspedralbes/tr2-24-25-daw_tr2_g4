@@ -5,6 +5,7 @@ import { useRoute } from 'vue-router';
 import { useCounterStore } from '@/stores/counter';
 import { useQuasar, QSpinnerFacebook } from 'quasar'
 import { onBeforeUnmount } from 'vue'
+import socketManager from '@/socket'; 
 
 const $q = useQuasar() 
 
@@ -53,6 +54,7 @@ watch(route, (newRoute, oldRoute) => {
   
   if (newRoute.path === '/jugar') {
     visibleOpciones.value = true;
+    socketManager.RemSocket();
    
   }
 
@@ -79,7 +81,7 @@ if(useApp.loginInfo.loggedIn){
     
  <div id="div_menu" v-if="visibleOpciones">
   <RouterLink to="/jugar/historia" @click="ocultarTot"> <q-btn color="deep-orange" class="botones_menu"   glossy label="Historia"></q-btn></RouterLink>
-  
+ 
    <br>
    <RouterLink to="/jugar/arcade" @click="ocultarTot"> <q-btn color="deep-orange" class="botones_menu"  glossy label="Arcade"></q-btn></RouterLink>
    <br>

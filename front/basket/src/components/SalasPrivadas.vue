@@ -91,7 +91,7 @@ export default {
   methods: {
   crearSala() {
       this.socket.emit("create-room");
-      
+      this.$emit('boton');
      
     },
 
@@ -104,6 +104,7 @@ export default {
     },
     salirSala() {
       this.socket.emit("leave-room", this.claveActual);
+      this.$emit('boton');
     },
     updateRoomView(clave) {
       this.enSala = true;
@@ -122,6 +123,8 @@ export default {
 
   mounted() {
     const store = useCounterStore();
+     
+   
     const token = store.getLoginInfo.token;
 
     this.socket.on("connect_error", (err) => {

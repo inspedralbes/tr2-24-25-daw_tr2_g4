@@ -8,7 +8,7 @@ const axios = require('axios');
 const app = express();
 
 const salas={};
-
+let conexiones = {};
 let Preguntas=[]
 rellenarPreguntas();
 
@@ -66,11 +66,27 @@ io.on('connection', async (socket) => {
         return;
     }
 
+    socket.on('poder',(poder,sala,username)=>{
+        const index=obtenerIndex(username,sala)
+        if(salas[sala][index+1]){
+            salas[sala][index+1].puntacion--;
+            if(salas[sala][index+1].puntacion<0){
+                salas[sala][index+1].puntacion=0;
+            }
+            conexiones[salas[sala][index+1].socketId].emit('tedio',username) 
+            emitirRanking(sala);
+        
+        }
+       
+      
+        
 
+    })
 
     socket.on('empezar',(sala)=>{
        
         io.to(sala).emit('pregunta', Preguntas[0]); 
+       
         emitirRanking(sala)
     });
 
@@ -80,14 +96,9 @@ io.on('connection', async (socket) => {
         return index
       }
     
-    function ordenarRanking(sala){
-
-        salas[sala].sort((a, b) => b.puntacion - a.puntacion);
-      
-    }
 
     function emitirRanking(sala){
-
+        salas[sala].sort((a, b) => b.puntacion - a.puntacion);
         io.to(sala).emit('ranking', salas[sala]); 
     }
 
@@ -109,7 +120,6 @@ io.on('connection', async (socket) => {
             salas[sala][index].index=0;
         }
         
-        ordenarRanking(sala)
         emitirRanking(sala);
     })
 
@@ -118,9 +128,13 @@ io.on('connection', async (socket) => {
         if (!salas[claveSala]) {
             salas[claveSala] = [];  // Inicializamos la sala como un array vacío
         }
+       
         socket.user.puntacion=0;
         socket.user.index=0;
+        socket.user.socketId=socket.id; 
         salas[claveSala].push(socket.user);
+        conexiones[socket.id]=socket
+        
         socket.join(claveSala);
 
         socket.emit('room-created', claveSala);
@@ -173,8 +187,10 @@ io.on('connection', async (socket) => {
 
             socket.emit('room-joined', claveSala);
             socket.user.puntacion=0;
-            socket.user.index=0;
+            socket.user.index=0; 
+            socket.user.socketId=socket.id; 
             salas[claveSala].push(socket.user);
+            conexiones[socket.id]=socket
 
             console.log(salas)
             io.to(claveSala).emit('room-users', {
@@ -238,6 +254,9 @@ io.on('connection', async (socket) => {
 
     socket.on('disconnect', () => {
         console.log(`Usuario desconectado: ${socket.id}`);
+        delete conexiones[socket.id]
+        console.log(conexiones);
+        
     });
 });
 
