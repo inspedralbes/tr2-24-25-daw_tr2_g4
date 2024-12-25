@@ -14,40 +14,49 @@ let Preguntas=[];
 
 let poderes=[
     {
-        banana: -1,
+        poder:"banana",
+        num: -1,
         direccion: -1,
     },
     {
-        caparazon_verde: -2,
+        poder:"caparazon_verde",
+        num: -2,
         direccion:-1
     },
-    {
-        caparazon_rojo: -3,
+    {   
+        poder:"caparazon_rojo",
+        num: -3,
         direccion:1
     },
-    {
-        hoguito:+3,
+    {   
+        poder:"honguito",
+        num:+3,
         direccion:0
 
     },
-    {
-        bomba: -5,
+    {   
+        poder:"bomba",
+        num: -5,
         direccion:1
     },
-    {
-        caparazon_azul:-7,
+    {   
+        poder:"caparazon_azul",
+        num:-7,
         direccion:2
     },
-    {
-        estrella:+8,
+    {   
+        poder:"estrella",
+        num:+8,
         direccion:2
     },
-    {
-        rayo:-5,
+    {   
+        poder:"rayo",
+        num:-5,
         direccion:2
     },
-    {
-        bill_bala:10,
+    {   
+        poder:"bill_bala",
+        num:+10,
         direccion:2
     }
 
@@ -191,6 +200,7 @@ io.on('connection', async (socket) => {
 
         if(data[index].poder==null){
           let numeroAleatorio = Math.floor(Math.random() * 3);  
+          console.log(numeroAleatorio);
           let aux= ((index+1)*100)/data.length;
             console.log(aux)
           if(aux<34){
@@ -214,13 +224,13 @@ io.on('connection', async (socket) => {
                 numeroAleatorio+=6;
             }
 
-
+            console.log(probabilidad);
          
            }
-
+           console.log(numeroAleatorio);
            data[index].poder=poderes[numeroAleatorio];
 
-           
+           socket.emit('poderes', data[index].poder)
           
 
 

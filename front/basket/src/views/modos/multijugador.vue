@@ -10,23 +10,26 @@ const visibleSalas=ref(true);
 const visibleJuego=ref(false);
 const store = useCounterStore();
 const token = store.getLoginInfo.token; 
-
-const poderes=reactive({
-  caparazon_verde:-1,
-  honguito:+1,
-  banana:-1,
-})
-
+ 
 
 
 console.log("Token enviado al servidor:", token);
 socketManager.RemSocket();
 
 const socket = socketManager.getSocket(token);
+const visiblePoder=ref(false);
 
 
+const imagenes=["/src/assets/items/banana.webp", "/src/assets/items/bill_bala.webp",
+"/src/assets/items/bomba.webp", "/src/assets/items/caparazon_azul.webp",
+"/src/assets/items/caparazon_rojo.webp","/src/assets/items/caparazon_verde.webp",
+"/src/assets/items/honguito.webp","/src/assets/items/rayo.webp", "/src/assets/items/estrella.webp"
 
-let posiciones=ref("")
+];
+
+
+let posiciones=ref("");
+let poderes=reactive({data:""})
 let data= reactive({preguntas:""});
 
 function pami(){
@@ -55,7 +58,7 @@ function desconectar(){
 }
 
 function poder(){
-  socket.emit('poder',poderes.banana,store.SalaActual,store.loginInfo.username)
+  socket.emit('poder',-1,store.SalaActual,store.loginInfo.username)
 
 }
 
@@ -79,6 +82,20 @@ function empezar(){
 
     socket.on('ranking',(rankings)=>{
       posiciones.value=[...rankings];
+      
+
+
+    })
+
+    socket.on('poderes',(param)=>{
+      
+      visiblePoder.value=true;
+      poderes.data=param;
+      setTimeout(() => {
+ visiblePoder.value=false;
+}, 1000); 
+     
+      
       
 
 
@@ -138,9 +155,21 @@ const visibleBoton=ref(false);
         </tr>
       </transition-group>
     </table>
-    <button @click="poder"> Banana</button>
+    
 
+    <div class="poder">
 
+      <div class="spin" v-if="visiblePoder">
+        <img v-for="imagen in imagenes" :src="imagen" alt="">
+        <img v-for="imagen in imagenes" :src="imagen" alt="">
+      </div>
+     
+    <div v-else>
+        <img class="static" :src="`/src/assets/items/${poderes.data.poder}.webp`" alt="">
+    </div>
+     
+     
+    </div>
 
 
 
@@ -156,6 +185,44 @@ const visibleBoton=ref(false);
  
 
 <style scoped>
+.poder{
+  width: 120px;
+  height: 120px;
+  border: 1px solid white;
+  position: absolute;
+  right: 0;
+  top:25%;
+  overflow: hidden;
+  
+}
+
+.spin{
+  animation: spin 1s linear;
+
+}
+@keyframes spin {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-800px); /* Altura total de las imágenes visibles */
+  }
+}
+
+.poder img{
+  
+  width: auto;
+  height: 100px;
+    
+}
+
+.static{
+  position: absolute;
+  top: 50%;            
+  left: 50%;           
+  transform: translate(-50%, -50%);
+
+}
 #main-multijugador{
   display: grid;
   grid-template-columns:1fr 1fr 1fr;
