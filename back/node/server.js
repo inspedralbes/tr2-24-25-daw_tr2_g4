@@ -190,18 +190,37 @@ io.on('connection', async (socket) => {
     function darPoderes(data,index){
 
         if(data[index].poder==null){
+          let numeroAleatorio = Math.floor(Math.random() * 3);  
           let aux= ((index+1)*100)/data.length;
             console.log(aux)
           if(aux<34){
-            console.log("1")
+            
           }
            if(aux>=34 && aux<67){
-            console.log("2");
+            let probabilidad=Math.floor(Math.random() * 3);
+            if(probabilidad>0){
+                numeroAleatorio+=3;
+
+            }
+            
             
            }
            if(aux>=67){
-            console.log("3")
+            let probabilidad=Math.floor(Math.random() * 5);
+            if(probabilidad==1){
+                numeroAleatorio+=3;
+            }
+            if(probabilidad>1){
+                numeroAleatorio+=6;
+            }
+
+
+         
            }
+
+           data[index].poder=poderes[numeroAleatorio];
+
+           
           
 
 
