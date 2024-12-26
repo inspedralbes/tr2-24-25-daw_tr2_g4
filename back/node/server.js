@@ -15,48 +15,48 @@ let Preguntas=[];
 let poderes=[
     {
         poder:"banana",
-        num: -1,
+        num: 1,
         direccion: -1,
     },
     {
         poder:"caparazon_verde",
-        num: -2,
+        num: 2,
         direccion:-1
     },
     {   
         poder:"caparazon_rojo",
-        num: -3,
+        num: 3,
         direccion:1
     },
     {   
         poder:"honguito",
-        num:+3,
+        num:3,
         direccion:0
 
     },
     {   
         poder:"bomba",
-        num: -5,
-        direccion:1
-    },
-    {   
-        poder:"caparazon_azul",
-        num:-7,
+        num: 5,
         direccion:2
     },
     {   
         poder:"estrella",
-        num:+8,
+        num:8,
+        direccion:2
+    },
+    {   
+        poder:"caparazon_azul",
+        num:7,
         direccion:2
     },
     {   
         poder:"rayo",
-        num:-5,
+        num:5,
         direccion:2
     },
     {   
         poder:"bill_bala",
-        num:+10,
+        num:10,
         direccion:2
     }
 
@@ -126,22 +126,79 @@ io.on('connection', async (socket) => {
         return;
     }
 
-    socket.on('poder',(poder,sala,username)=>{
-        const index=obtenerIndex(username,sala)
-        if(salas[sala][index+1]){
-            salas[sala][index+1].puntacion--;
-            if(salas[sala][index+1].puntacion<0){
-                salas[sala][index+1].puntacion=0;
-            }
-            conexiones[salas[sala][index+1].socketId].emit('tedio',username) 
-            emitirRanking(sala);
-        
+
+
+    function comprobarCero(datas){
+        if(datas<0){
+            datas=0;
         }
+
+    }
+
+    socket.on('poder',(poder,sala,username)=>{
+        let index=obtenerIndex(username,sala)
        
-      
+        
+        switch (poder.direccion) {
+            case 1:
+                
+                if(salas[sala][index-1]){
+                    salas[sala][index-1].puntacion-=poder.num;
+                    comprobarCero(salas[sala][index-1].puntacion)
+                    conexiones[salas[sala][index-1].socketId].emit('tedio',username) 
+                }
+
+            
+                break;
+            case -1:
+                if(salas[sala][index+1]){
+                    salas[sala][index+1].puntacion-=poder.num;
+                    comprobarCero(salas[sala][index+1].puntacion)
+                    conexiones[salas[sala][index+1].socketId].emit('tedio',username) 
+                }
+             
+                break;
+            case 0:
+                salas[sala][index].puntacion+=poder.num;
+                break;
+            default:
+             
+                if(salas[sala][index].poder.poder==="estrella"){
+                    let aux=index;
+                     
+                    salas[sala][index].puntacion+=poder.num;
+                    emitirRanking(sala);
+                    index=obtenerIndex(username,sala);
+                    aux-=index;
+
+                    for (let i = 1; i <= aux; i++) {
+                        let probabilidad=Math.floor(Math.random() * 2);
+                        console.log(probabilidad)
+                        if(probabilidad==1){
+                           
+                            if(salas[sala][index+i]){
+                                salas[sala][index+i].puntacion-=3;
+                                conexiones[salas[sala][index+i].socketId].emit('tedio',username) 
+                            }
+                            
+
+                        }
+
+                        
+                    }
 
 
-         
+                }
+
+
+
+
+                break;
+        }
+
+
+            salas[sala][index].poder=null;
+            emitirRanking(sala);     
         
 
     })
@@ -185,10 +242,14 @@ io.on('connection', async (socket) => {
         
         salas[sala][index].darPoder-=tiro;
         
+        darPoderes(salas[sala],index)
+
+
+
         if(salas[sala][index].darPoder<=0){
 
-            darPoderes(salas[sala],index)
-            salas[sala][index].darPoder=15;
+         //   darPoderes(salas[sala],index)
+         //   salas[sala][index].darPoder=15;
         }
         
         
@@ -200,9 +261,9 @@ io.on('connection', async (socket) => {
 
         if(data[index].poder==null){
           let numeroAleatorio = Math.floor(Math.random() * 3);  
-          console.log(numeroAleatorio);
+       
           let aux= ((index+1)*100)/data.length;
-            console.log(aux)
+           
           if(aux<34){
             
           }
@@ -224,11 +285,11 @@ io.on('connection', async (socket) => {
                 numeroAleatorio+=6;
             }
 
-            console.log(probabilidad);
+           
          
            }
-           console.log(numeroAleatorio);
-           data[index].poder=poderes[numeroAleatorio];
+           
+           data[index].poder=poderes[5];
 
            socket.emit('poderes', data[index].poder)
           

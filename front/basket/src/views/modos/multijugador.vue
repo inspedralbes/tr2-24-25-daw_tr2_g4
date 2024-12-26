@@ -46,7 +46,7 @@ function patodos(){
 }
 
 socket.on('tedio',(nombre)=>{
-  alert("te dio"+nombre)
+  console.log(nombre)
 })
 
 function siguientePregunta(info){
@@ -57,10 +57,6 @@ function desconectar(){
   socketManager.RemSocket();
 }
 
-function poder(){
-  socket.emit('poder',-1,store.SalaActual,store.loginInfo.username)
-
-}
 
 function empezar(){
       const SalaActual = store.SalaActual;
@@ -94,12 +90,22 @@ function empezar(){
       setTimeout(() => {
  visiblePoder.value=false;
 }, 1000); 
-     
-      
-      
-
+  
 
     })
+
+       
+      
+function usarpoder(){
+
+  if(poderes.data){
+    socket.emit('poder',poderes.data,store.SalaActual,store.loginInfo.username)
+    poderes.data="";
+  }
+
+
+
+}
 
     socket.on('pregunta',(pregunta)=>{
       data.preguntas=pregunta;
@@ -164,8 +170,8 @@ const visibleBoton=ref(false);
         <img v-for="imagen in imagenes" :src="imagen" alt="">
       </div>
      
-    <div v-else>
-        <img class="static" :src="`/src/assets/items/${poderes.data.poder}.webp`" alt="">
+    <div  v-else>
+        <img @click="usarpoder" class="static" :src="`/src/assets/items/${poderes.data.poder}.webp`" alt="">
     </div>
      
      
@@ -208,12 +214,13 @@ const visibleBoton=ref(false);
     transform: translateY(-800px); /* Altura total de las imágenes visibles */
   }
 }
+ 
 
 .poder img{
   
   width: auto;
   height: 100px;
-    
+  
 }
 
 .static{
@@ -221,6 +228,7 @@ const visibleBoton=ref(false);
   top: 50%;            
   left: 50%;           
   transform: translate(-50%, -50%);
+  
 
 }
 #main-multijugador{
