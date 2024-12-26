@@ -163,8 +163,9 @@ io.on('connection', async (socket) => {
                 break;
             default:
              
-                if(salas[sala][index].poder.poder==="estrella"){
-                    let aux=index;
+
+                switch (poder.poder) {
+                    case "estrella": let aux=index;
                      
                     salas[sala][index].puntacion+=poder.num;
                     emitirRanking(sala);
@@ -186,9 +187,15 @@ io.on('connection', async (socket) => {
 
                         
                     }
-
-
+                        
+                        break;
+                
+                    default:
+                        break;
                 }
+
+
+               
 
 
 
