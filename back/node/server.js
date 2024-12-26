@@ -128,9 +128,10 @@ io.on('connection', async (socket) => {
 
 
 
-    function comprobarCero(datas){
-        if(datas<0){
-            datas=0;
+    function comprobarCero(datas,sala){
+
+        if (salas[sala][datas].puntacion<0) {
+            salas[sala][datas].puntacion=0;
         }
 
     }
@@ -144,7 +145,7 @@ io.on('connection', async (socket) => {
                 
                 if(salas[sala][index-1]){
                     salas[sala][index-1].puntacion-=poder.num;
-                    comprobarCero(salas[sala][index-1].puntacion)
+                    comprobarCero(index-1,sala)
                     conexiones[salas[sala][index-1].socketId].emit('tedio',username) 
                 }
 
@@ -153,7 +154,7 @@ io.on('connection', async (socket) => {
             case -1:
                 if(salas[sala][index+1]){
                     salas[sala][index+1].puntacion-=poder.num;
-                    comprobarCero(salas[sala][index+1].puntacion)
+                    comprobarCero(index+i,sala)
                     conexiones[salas[sala][index+1].socketId].emit('tedio',username) 
                 }
              
@@ -162,10 +163,11 @@ io.on('connection', async (socket) => {
                 salas[sala][index].puntacion+=poder.num;
                 break;
             default:
-             
+                let aux=index;
 
                 switch (poder.poder) {
-                    case "estrella": let aux=index;
+                    case "estrella": 
+                   
                      
                     salas[sala][index].puntacion+=poder.num;
                     emitirRanking(sala);
@@ -179,6 +181,8 @@ io.on('connection', async (socket) => {
                            
                             if(salas[sala][index+i]){
                                 salas[sala][index+i].puntacion-=3;
+                                comprobarCero(index+i,sala);
+                              
                                 conexiones[salas[sala][index+i].socketId].emit('tedio',username) 
                             }
                             
@@ -189,6 +193,33 @@ io.on('connection', async (socket) => {
                     }
                         
                         break;
+
+                    case "bill_bala" :
+                    
+                     
+                    salas[sala][index].puntacion+=poder.num;
+                    emitirRanking(sala);
+                    index=obtenerIndex(username,sala);
+                    aux-=index;
+
+                    for (let i = 1; i <= aux; i++) {
+                        
+                     
+                         
+                           
+                            if(salas[sala][index+i]){
+                                salas[sala][index+i].puntacion-=5;
+                                comprobarCero(index+i,sala);
+                                
+                                conexiones[salas[sala][index+i].socketId].emit('tedio',username) 
+                            }
+                        
+
+                        
+                    }
+                    
+                    break;
+
                 
                     default:
                         break;
@@ -296,7 +327,7 @@ io.on('connection', async (socket) => {
          
            }
            
-           data[index].poder=poderes[5];
+           data[index].poder=poderes[8];
 
            socket.emit('poderes', data[index].poder)
           
