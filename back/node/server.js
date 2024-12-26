@@ -219,7 +219,15 @@ io.on('connection', async (socket) => {
                     }
                     
                     break;
+                    case "caparazon_azul":
 
+                        if(salas[sala][0]){
+                            salas[sala][0].puntacion-=poder.num;
+                            comprobarCero(0,sala)
+                            conexiones[salas[sala][0].socketId].emit('tedio',username) 
+                        }
+
+                    break;
                 
                     default:
                         break;
@@ -327,7 +335,7 @@ io.on('connection', async (socket) => {
          
            }
            
-           data[index].poder=poderes[8];
+           data[index].poder=poderes[6];
 
            socket.emit('poderes', data[index].poder)
           
