@@ -146,7 +146,7 @@ io.on('connection', async (socket) => {
                 if(salas[sala][index-1]){
                     salas[sala][index-1].puntacion-=poder.num;
                     comprobarCero(index-1,sala)
-                    conexiones[salas[sala][index-1].socketId].emit('tedio',username) 
+                    conexiones[salas[sala][index-1].socketId].emit('tedio',username,poder) 
                 }
 
             
@@ -154,8 +154,8 @@ io.on('connection', async (socket) => {
             case -1:
                 if(salas[sala][index+1]){
                     salas[sala][index+1].puntacion-=poder.num;
-                    comprobarCero(index+i,sala)
-                    conexiones[salas[sala][index+1].socketId].emit('tedio',username) 
+                    comprobarCero(index+1,sala)
+                    conexiones[salas[sala][index+1].socketId].emit('tedio',username,poder) 
                 }
              
                 break;
@@ -166,6 +166,41 @@ io.on('connection', async (socket) => {
                 let aux=index;
 
                 switch (poder.poder) {
+                    case "rayo":
+                        for (let i = 0; i < salas[sala].length; i++) {
+                         
+                            if(i==index){
+                              
+                            }else{
+                          
+                          
+                            if(salas[sala][i]){
+                                salas[sala][i].puntacion-=poder.num;
+                                comprobarCero(i,sala)
+                                conexiones[salas[sala][i].socketId].emit('tedio',username,poder) 
+                            }
+                        }
+
+
+
+                        }
+                    break;
+
+
+                    case "bomba":
+                    for (let i = 3; i > 0; i--) {
+                         
+                        if(salas[sala][index-i]){
+                            salas[sala][index-i].puntacion-=poder.num;
+                            comprobarCero(index-i,sala)
+                            conexiones[salas[sala][index-i].socketId].emit('tedio',username,poder) 
+                        }
+                        
+                    }
+
+                    break;
+
+
                     case "estrella": 
                    
                      
@@ -183,7 +218,7 @@ io.on('connection', async (socket) => {
                                 salas[sala][index+i].puntacion-=3;
                                 comprobarCero(index+i,sala);
                               
-                                conexiones[salas[sala][index+i].socketId].emit('tedio',username) 
+                                conexiones[salas[sala][index+i].socketId].emit('tedio',username,poder) 
                             }
                             
 
@@ -211,7 +246,7 @@ io.on('connection', async (socket) => {
                                 salas[sala][index+i].puntacion-=5;
                                 comprobarCero(index+i,sala);
                                 
-                                conexiones[salas[sala][index+i].socketId].emit('tedio',username) 
+                                conexiones[salas[sala][index+i].socketId].emit('tedio',username,poder) 
                             }
                         
 
@@ -225,6 +260,15 @@ io.on('connection', async (socket) => {
                             salas[sala][0].puntacion-=poder.num;
                             comprobarCero(0,sala)
                             conexiones[salas[sala][0].socketId].emit('tedio',username) 
+                            let probabilidad=Math.floor(Math.random() * 2);
+                            if(probabilidad==1){
+                                if(salas[sala][1]){
+                                    salas[sala][1].puntacion-=poder.num;
+                                    comprobarCero(1,sala)
+                                    conexiones[salas[sala][1].socketId].emit('tedio',username,poder) 
+                                }
+
+                            }
                         }
 
                     break;
@@ -335,8 +379,8 @@ io.on('connection', async (socket) => {
          
            }
            
-           data[index].poder=poderes[6];
-
+           data[index].poder=poderes[poderessss];
+           poderessss++;
            socket.emit('poderes', data[index].poder)
           
 
@@ -346,8 +390,8 @@ io.on('connection', async (socket) => {
 
 
     }
-
-
+ 
+    let poderessss=0;
     socket.on('create-room', () => {
         const claveSala = uuidv4().slice(0, 5); 
         if (!salas[claveSala]) {

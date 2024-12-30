@@ -31,6 +31,7 @@ const imagenes=["/src/assets/items/banana.webp", "/src/assets/items/bill_bala.we
 let posiciones=ref("");
 let poderes=reactive({data:""})
 let data= reactive({preguntas:""});
+let medio=reactive({poder:"",username:"",num:""});
 
 function pami(){
   socket.emit('cambio_pregunta', store.loginInfo.username, store.SalaActual);
@@ -45,8 +46,11 @@ function patodos(){
   
 }
 
-socket.on('tedio',(nombre)=>{
-  console.log(nombre)
+socket.on('tedio',(nombre,poders)=>{
+  medio.poder=poders.poder;
+  medio.num=poders.num;
+  medio.username=nombre;
+ 
 })
 
 function siguientePregunta(info){
@@ -149,7 +153,14 @@ const visibleBoton=ref(false);
     </div>
 
     <div v-if="visibleJuego">
-
+      <div class="tedioFuera">
+      <div class="tedio">
+        <img :src="`/src/assets/items/${medio.poder}.webp`" alt="">
+      <div>  {{ medio.username }}
+       -{{ medio.num }}
+      </div>
+      </div>
+    </div>
       <table class="ranking-table">
       
       <transition-group name="rank" tag="tbody">
@@ -164,6 +175,7 @@ const visibleBoton=ref(false);
     
 
     <div class="poder">
+
 
       <div class="spin" v-if="visiblePoder">
         <img v-for="imagen in imagenes" :src="imagen" alt="">
@@ -215,6 +227,43 @@ const visibleBoton=ref(false);
   }
 }
  
+.tedioFuera{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  width: 200px;
+  height: 200px;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr; 
+
+}
+
+.tedio div {
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%);
+ grid-row: 2;
+ 
+  
+}
+.tedio img{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
+  height: 70px;
+  grid-row: 1;
+}
+
+
+
+
+
+
 
 .poder img{
   
