@@ -32,6 +32,8 @@ let posiciones=ref("");
 let poderes=reactive({data:""})
 let data= reactive({preguntas:""});
 let medio=reactive({poder:"",username:"",num:""});
+const visibleTedio=ref(false);
+const temblor=ref(false);
 
 function pami(){
   socket.emit('cambio_pregunta', store.loginInfo.username, store.SalaActual);
@@ -47,10 +49,19 @@ function patodos(){
 }
 
 socket.on('tedio',(nombre,poders)=>{
+
   medio.poder=poders.poder;
   medio.num=poders.num;
   medio.username=nombre;
- 
+  visibleTedio.value=true;
+  temblor.value=true;
+  setTimeout(() => {
+        temblor.value=false;
+      }, 200);
+      setTimeout(() => {
+      visibleTedio.value=false;
+      }, 1500);
+   
 })
 
 function siguientePregunta(info){
@@ -152,13 +163,14 @@ const visibleBoton=ref(false);
 
     </div>
 
-    <div v-if="visibleJuego">
-      <div class="tedioFuera">
+    <div v-if="visibleJuego" :class="{'temblor': temblor}">
+      
+      <div v-if="visibleTedio" class="tedioFuera">
       <div class="tedio">
         <img :src="`/src/assets/items/${medio.poder}.webp`" alt="">
-      <div>  {{ medio.username }}
-       -{{ medio.num }}
-      </div>
+      <div class="tedio_num">  {{ medio.username }}</div>
+     <div  class="tedio_nom">  -{{ medio.num }}</div>
+      
       </div>
     </div>
       <table class="ranking-table">
@@ -218,6 +230,27 @@ const visibleBoton=ref(false);
   animation: spin 1s linear;
 
 }
+@keyframes temblor {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-10px);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+  75% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(10px);
+  }
+}
+
+.temblor {
+  animation: temblor 0.2s linear infinite;
+}
 @keyframes spin {
   0% {
     transform: translateY(0);
@@ -233,20 +266,31 @@ const visibleBoton=ref(false);
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  width: 200px;
-  height: 200px;
+  width:150px;
+  height: 150px;
   display: grid;
-  grid-template-rows: 1fr 1fr 1fr; 
+  
+  border-radius: 50%;
 
 }
 
-.tedio div {
+.tedio_nom {
  position: absolute;
- top: 50%;
+ top: 80%;
  left: 50%;
  transform: translate(-50%, -50%);
- grid-row: 2;
+ font-size: 30px;
+  
  
+  
+}
+
+.tedio_num {
+ position: absolute;
+ top: 20%;
+ left: 50%;
+ transform: translate(-50%, -50%);
+ font-size: 30px;
   
 }
 .tedio img{
@@ -256,7 +300,7 @@ const visibleBoton=ref(false);
   transform: translate(-50%, -50%);
   width: auto;
   height: 70px;
-  grid-row: 1;
+ 
 }
 
 
