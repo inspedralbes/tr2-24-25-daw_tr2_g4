@@ -294,15 +294,24 @@ io.on('connection', async (socket) => {
     })
 
 
-
     socket.on('empezar',(sala)=>{
 
         socket.broadcast.to(sala).emit('pregunta', Preguntas[0]);
        
      //  io.to(sala).emit('pregunta', Preguntas[0]);     
+     
+
         
         emitirRanking(sala)
     });
+
+    socket.on('acabar',(sala)=>{
+
+        salas[sala].forEach((user,index) => {
+            conexiones[user.socketId].emit('acabar',index+1, user.puntacion);
+        }) 
+    })
+
 
     function obtenerIndex(username,sala) {
        
@@ -431,21 +440,7 @@ io.on('connection', async (socket) => {
 
     }
 
-    socket.on('tiro',()=>{
-
-        console.log(salas)
-    })
-
-    socket.on('pami',()=>{
-
-        socket.emit('adios')
-    })
-
-    socket.on('patodos', (datoss)=>{
-
-        io.to(datoss).emit('todos');
-
-    })
+ 
 
     
 

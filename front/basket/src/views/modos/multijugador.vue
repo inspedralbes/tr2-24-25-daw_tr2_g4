@@ -15,7 +15,7 @@ const token = store.getLoginInfo.token;
 
 console.log("Token enviado al servidor:", token);
 socketManager.RemSocket();
-
+const visibleFinal=ref(false);
 const socket = socketManager.getSocket(token);
 const visiblePoder=ref(false);
 const visibleRanking=ref(false);
@@ -34,7 +34,7 @@ let data= reactive({preguntas:""});
 let medio=reactive({poder:"",username:"",num:""});
 const visibleTedio=ref(false);
 const temblor=ref(false);
-
+const puntacionFinal=reactive({puntuacion:"",posicion:""})
 
 socket.on('tedio',(nombre,poders)=>{
 
@@ -51,6 +51,22 @@ socket.on('tedio',(nombre,poders)=>{
       }, 1500);
    
 })
+
+
+socket.on('acabar',(index,puntuacion)=>{
+
+  if(visibleRanking.value==false){
+  puntacionFinal.puntuacion=puntuacion;
+  puntacionFinal.posicion=index;
+  visibleJuego.value=false;
+  visibleFinal.value=true;
+
+  }
+
+
+
+})
+
 
 function siguientePregunta(info){
   socket.emit('cambio_pregunta', store.loginInfo.username, store.SalaActual,info.canasta);
@@ -69,7 +85,7 @@ function empezar(){
         visibleSalas.value=false;
 
       }
-
+      temporizador();
 
     }
 
@@ -93,7 +109,35 @@ function empezar(){
 
     })
 
+ const tiempo=ref(10);
+ let interval;
+
+ function temporizador(){
+    console.log("tiempo",tiempo.value)
+      
        
+            if (interval) return; 
+            interval = setInterval(() => {
+                if (tiempo.value > 0) {
+                    tiempo.value--;
+               
+                } else {
+                    clearInterval(interval);
+                    socket.emit('acabar',store.SalaActual);
+                    resetTimer();
+                }
+            }, 1000);
+       
+
+        function resetTimer() {
+            clearInterval(interval);
+            interval = null;
+            tiempo.value = 60;
+         
+        }
+
+
+ }   
       
 function usarpoder(){
 
@@ -105,6 +149,9 @@ function usarpoder(){
 
 
 }
+
+
+  
 
     socket.on('pregunta',(pregunta)=>{
       data.preguntas=pregunta;
@@ -192,10 +239,9 @@ const visibleBoton=ref(false);
     </div>
    
     <div v-if="visibleRanking" >
-
       <div class="bodyR">
       <div class="rankingTotal_ranking-container">
-      
+     <div class="tiempo_raninkg"> {{ tiempo }} </div>
         <table class="rankingTotal_table">
             <thead>
                 <tr class="rankingTotal_tr">
@@ -217,6 +263,15 @@ const visibleBoton=ref(false);
     </div></div>
     </div>
 
+    <div v-if="visibleFinal" >
+
+      <div  >
+        <div class="tiempo_raninkg" >{{ puntacionFinal.posicion }}</div>
+        <div class="tiempo_raninkg">{{ puntacionFinal.puntuacion }}</div>
+      </div>
+
+
+    </div>
 
   </main>
 
@@ -241,13 +296,33 @@ const visibleBoton=ref(false);
             padding: 0;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: top;
             min-height: 100vh;
+            text-align: center;
+            font-size: 30px;
+}
+
+
+.tiempo_raninkg{ 
+  border: 1px solid black;
+  font-size: 100px;
+  font-family: 'DS-Digital';
+  text-shadow: 0 0 5px #f00, 0 0 10px #f00, 0 0 20px #f00, 0 0 30px #f00, 0 0 40px #f00, 0 0 50px #f00;
+  color: rgb(255, 112, 112);
+  background-color: black;
+  grid-column: 2;
+  place-items: center;
+  border: 5px solid rgb(70, 70, 70);
+  width: 170px;
+  margin: 0 auto;
+  text-align: center;
+  
+  
 }
 .rankingTotal_ranking-container {
             width: 90%;
             max-width: 800px;
-            background-color: #fff;
+          
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             overflow: hidden;
@@ -264,10 +339,14 @@ const visibleBoton=ref(false);
             width: 100%;
             border-collapse: collapse;
         }
+        .rankingTotal_table{
+          background-color: white;
+        }
         .rankingTotal_th, .rankingTotal_td {
             padding: 15px;
             text-align: center;
         }
+       
         .rankingTotal_th {
             background-color: #ff7043;
             color: #fff;
