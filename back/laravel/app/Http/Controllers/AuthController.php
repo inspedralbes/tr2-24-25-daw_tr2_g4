@@ -39,7 +39,7 @@ class AuthController extends Controller
         // Respuesta con el usuario y el token
         return response()->json([
             'user' => [
-            'id_users' => $user->id,         
+            'id_user' => $user->id,         
             'username' => $user->username, 
             'email' => $user->email,      
             'avatar' => $user->avatar,      
@@ -67,7 +67,7 @@ class AuthController extends Controller
 
         return response()->json([
         'user' => [
-        'id_users' => $user->id,         
+        'id_user' => $user->id,         
         'username' => $user->username, 
         'email' => $user->email,        
         'avatar' => $user->avatar,      

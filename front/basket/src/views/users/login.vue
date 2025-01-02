@@ -48,7 +48,7 @@ async function aux_login() {
         avatar: data.user.avatar,
         nivel: data.user.nivel,
         token: data.token,
-        id_user: data.user.id_user,
+        id_user: data.user.id_user || data.user.id,
       })
 
       router.push('/jugar')
