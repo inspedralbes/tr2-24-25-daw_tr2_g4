@@ -293,10 +293,14 @@ io.on('connection', async (socket) => {
 
     })
 
+
+
     socket.on('empezar',(sala)=>{
+
+        socket.broadcast.to(sala).emit('pregunta', Preguntas[0]);
        
-        io.to(sala).emit('pregunta', Preguntas[0]); 
-       
+     //  io.to(sala).emit('pregunta', Preguntas[0]);     
+        
         emitirRanking(sala)
     });
 

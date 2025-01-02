@@ -18,7 +18,7 @@ socketManager.RemSocket();
 
 const socket = socketManager.getSocket(token);
 const visiblePoder=ref(false);
-
+const visibleRanking=ref(false);
 
 const imagenes=["/src/assets/items/banana.webp", "/src/assets/items/bill_bala.webp",
 "/src/assets/items/bomba.webp", "/src/assets/items/caparazon_azul.webp",
@@ -64,7 +64,12 @@ function desconectar(){
 function empezar(){
       const SalaActual = store.SalaActual;
       socket.emit('empezar',SalaActual);
-      console.log(SalaActual);
+      visibleRanking.value=true;
+      if(visibleSalas.value==true){
+        visibleSalas.value=false;
+
+      }
+
 
     }
 
@@ -186,6 +191,33 @@ const visibleBoton=ref(false);
       
     </div>
    
+    <div v-if="visibleRanking" >
+
+      <div class="bodyR">
+      <div class="rankingTotal_ranking-container">
+      
+        <table class="rankingTotal_table">
+            <thead>
+                <tr class="rankingTotal_tr">
+                    <th class="rankingTotal_th">Posición</th>
+                    <th class="rankingTotal_th">Avatar</th>
+                    <th class="rankingTotal_th">Username</th>
+                    <th class="rankingTotal_th">Puntos</th>
+                </tr>
+            </thead>
+            <transition-group name="rank" tag="tbody">
+        <tr v-for="(player, index) in posiciones.slice(0, 3)" :key="player.username">
+          <td>{{ index+1 }}</td>
+          <td><img class="foto_ranking" :src="`/public/avatar/boy${player.avatar}.png`" alt="" srcset=""></td>  
+          <td>{{ player.username }}</td>
+          <td>{{ player.puntacion }} </td>
+        </tr>
+      </transition-group>
+        </table>
+    </div></div>
+    </div>
+
+
   </main>
 
 
@@ -204,6 +236,59 @@ const visibleBoton=ref(false);
   overflow: hidden;
   
 }
+.bodyR{
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+}
+.rankingTotal_ranking-container {
+            width: 90%;
+            max-width: 800px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .rankingTotal_ranking-header {
+            background-color: #ff4500;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .rankingTotal_table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .rankingTotal_th, .rankingTotal_td {
+            padding: 15px;
+            text-align: center;
+        }
+        .rankingTotal_th {
+            background-color: #ff7043;
+            color: #fff;
+        }
+        .rankingTotal_tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .rankingTotal_tr:hover {
+            background-color: #ffebee;
+        }
+        .rankingTotal_team {
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .rankingTotal_team img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
 
 .spin{
   animation: spin 1s linear;
