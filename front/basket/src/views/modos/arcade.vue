@@ -2,6 +2,7 @@
 import { reactive, ref,onMounted } from 'vue';
 import Arcade2 from '../../components/Partida.vue';
 import { getPreguntas } from '@/comunication_manager'
+import Partida from '../../components/Partida.vue';
 
 
 
@@ -35,10 +36,12 @@ function siguientePregunta(info){
        
     }else{   
        index.value++;
-       console.log(data.pregunta(index))
+      
       if(index.value>19){
         rellenarPreguntas();
         index.value=0;
+        puntuacion.value=puntuacion.value+info.canasta;
+
       }
     }
 
@@ -50,7 +53,7 @@ function siguientePregunta(info){
 
 <template>
  
-    <Arcade2 v-if="visibleJuego" :data="data.pregunta[index]" @siguiente="siguientePregunta"> </Arcade2>
+    <Partida v-if="visibleJuego" :data="data.pregunta[index]" @siguiente="siguientePregunta"> </Partida>
     <Ranking v-if="!visibleJuego" :puntuacion="puntuacion"/>
 
 </template>
