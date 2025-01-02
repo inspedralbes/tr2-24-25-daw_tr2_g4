@@ -35,18 +35,6 @@ let medio=reactive({poder:"",username:"",num:""});
 const visibleTedio=ref(false);
 const temblor=ref(false);
 
-function pami(){
-  socket.emit('cambio_pregunta', store.loginInfo.username, store.SalaActual);
-
-}
-
-
-function patodos(){
-
-  const SalaActuala = store.SalaActual;
-  socket.emit('patodos',SalaActuala);
-  
-}
 
 socket.on('tedio',(nombre,poders)=>{
 
@@ -81,15 +69,6 @@ function empezar(){
     }
 
 
-    socket.on('adios',()=>{
-      console.log("solo para ti")
-
-    })
-
-    socket.on('todos',()=>{
-      console.log("hola a todos los de la misma sala")
-
-    })
 
     socket.on('ranking',(rankings)=>{
       posiciones.value=[...rankings];
