@@ -9,6 +9,7 @@ import { getPreguntas } from '@/comunication_manager'
 const data = reactive({pregunta:""})
 const visibleJuego= ref(false)
 const index=ref(0);
+const puntuacion = ref(0);
 
 onMounted(() => {
   rellenarPreguntas();
@@ -50,7 +51,7 @@ function siguientePregunta(info){
 <template>
  
     <Arcade2 v-if="visibleJuego" :data="data.pregunta[index]" @siguiente="siguientePregunta"> </Arcade2>
-
+    <Ranking v-if="!visibleJuego" :puntuacion="puntuacion"/>
 
 </template>
 

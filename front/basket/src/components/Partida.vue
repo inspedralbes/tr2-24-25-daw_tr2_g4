@@ -1,7 +1,6 @@
 <script setup>
 import { reactive,ref,computed, watch } from 'vue';
 
-
 const props = defineProps({
   data: {
     type: Object,
@@ -15,6 +14,7 @@ const props = defineProps({
 
 
 const Canastas = ref(0)
+const valorCanasta= ref(0)
 const index = ref(0)
 
 const info= reactive({fallo:false, canasta:0,racha:false})
@@ -89,6 +89,7 @@ let apagar=0;
     } else if(progress.value < 0.7) {
       info.canasta=2;
       puntosSeguidos=0;
+
     } else if(progress.value < 1){
       info.canasta=1;
       puntosSeguidos=0;
