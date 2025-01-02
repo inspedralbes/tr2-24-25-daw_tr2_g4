@@ -1,6 +1,6 @@
 <script setup>
 import { reactive, ref,onMounted } from 'vue';
-import Arcade2 from '../../components/Partida.vue';
+import Ranking from '../../components/ranking.vue';
 import { getPreguntas } from '@/comunication_manager'
 import Partida from '../../components/Partida.vue';
 
@@ -30,9 +30,9 @@ async function rellenarPreguntas(){
 
 function siguientePregunta(info){
 
-
+  
     if(info.fallo){
-      
+      visibleJuego.value=false;
        
     }else{   
        index.value++;
@@ -40,9 +40,11 @@ function siguientePregunta(info){
       if(index.value>19){
         rellenarPreguntas();
         index.value=0;
-        puntuacion.value=puntuacion.value+info.canasta;
+        
 
       }
+
+      puntuacion.value+=info.canasta;
     }
 
 
