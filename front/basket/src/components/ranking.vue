@@ -68,11 +68,9 @@ export default {
 
       if (userInfo.loggedIn && userInfo.id_user) {
         try {
-          // Verificar si el jugador ya tiene una puntuación en el ranking
           const existingRank = this.rankings.find(rank => rank.id_user === userInfo.id_user);
 
           if (existingRank) {
-            // Si ya existe, actualizar solo si la nueva puntuación es mayor
             if (this.puntuacion > existingRank.puntuacion) {
               await axios.put(`http://127.0.0.1:8000/api/ranking/${existingRank.id}`, {
                 puntuacion: this.puntuacion,
@@ -82,7 +80,6 @@ export default {
               console.log('La nueva puntuación no es mayor, no se actualiza');
             }
           } else {
-            // Si no existe, guardar una nueva entrada en el ranking
             await axios.post('http://127.0.0.1:8000/api/ranking', {
               id_users: userInfo.id_user,
               puntuacion: this.puntuacion,
@@ -90,7 +87,6 @@ export default {
             console.log('Puntuación guardada con éxito');
           }
           
-          // Recargar el ranking después de guardar la puntuación
           this.fetchRanking();
         } catch (error) {
           console.error('Error al guardar la puntuación:', error);
@@ -109,22 +105,22 @@ export default {
       });
 
       try {
-        // Obtener el ranking actualizado desde el servidor
+        
         const response = await axios.get("http://127.0.0.1:8000/api/ranking");
-        this.rankings = response.data;  // Actualizar el ranking en el frontend
+        this.rankings = response.data; 
       } catch (err) {
         this.error = "No se pudo cargar la tabla de ranking.";
         console.error(err);
       } finally {
         this.loading = false;
-        this.$q.loading.hide();  // Ocultar el spinner
+        this.$q.loading.hide();  
       }
     },
   },
   mounted() {
     console.log('Llamando a guardarPuntuacion manualmente');
-    this.guardarPuntuacion();  // Guardar puntuación cuando el componente se monte
-    this.fetchRanking();  // Cargar el ranking
+    this.guardarPuntuacion();  
+    this.fetchRanking();  
   }
 };
 </script>
