@@ -46,14 +46,16 @@ async function register_compo() {
     console.log(data);
 
   if (data.errors == undefined) {
-    const appStore = useCounterStore();
-
-    appStore.setLoginInfo({
-      loggedIn: true,
-      username: data.user.username,
-      avatar: data.user.avatar,
-      nivel: data.user.nivel,
-    });
+    const appStore = useCounterStore()
+      appStore.setLoginInfo({
+        loggedIn: true,
+        username: data.user.username,
+        email:data.user.email,
+        avatar: data.user.avatar,
+        nivel: data.user.nivel,
+        token: data.token,
+        id_user: data.user.id_user || data.user.id,
+      })
     router.push('/jugar');
   } else {
     errors.errores = data.errors;
