@@ -28,8 +28,6 @@ async function rellenarPreguntas(){
 
 function siguientePregunta(info){
 
-  console.log("hola");
-  
 
     if(info.fallo){
       
