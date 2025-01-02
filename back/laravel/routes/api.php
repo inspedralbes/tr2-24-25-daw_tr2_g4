@@ -22,4 +22,6 @@ Route::post('login', [AuthController::class, 'login']); // Login de usuario
 
 Route::get('/preguntas/nivel/{nivel}', [PreguntaController::class, 'obtenerPreguntasPorNivel']);
 
+Route::post('/ranking', [RankingController::class, 'store']);
 Route::get('/ranking', [RankingController::class, 'getRanking']);
+

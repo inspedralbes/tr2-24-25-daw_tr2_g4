@@ -10,17 +10,19 @@ export const useCounterStore = defineStore('counter', () => {
     email:'',
     avatar: '',
     nivel:'',
-    token:''
+    token:'',
+    id_user: null,
   });
 
 
-  const setLoginInfo = ({loggedIn,username,email,avatar,nivel,token }) => {
+  const setLoginInfo = ({loggedIn,username,email,avatar,nivel,token,id_user }) => {
     loginInfo.loggedIn = loggedIn;
     loginInfo.username = username;
     loginInfo.avatar = avatar;
     loginInfo.nivel= nivel;
     loginInfo.token = token;
     loginInfo.email = email;
+    loginInfo.id_user = id_user;
   };
 
 

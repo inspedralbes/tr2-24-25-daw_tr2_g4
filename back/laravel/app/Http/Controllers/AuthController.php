@@ -38,25 +38,26 @@ class AuthController extends Controller
         $user = User::where('username', $request->username)->first();
         // Respuesta con el usuario y el token
         return response()->json([
-            'user' => $user,
-            'token' => $token
-        ], 201);
+            'user' => [
+            'id_users' => $user->id,         
+            'username' => $user->username, 
+            'email' => $user->email,      
+            'avatar' => $user->avatar,      
+        ],
+        'token' => $token,
+            ],201);
     }
 
     // Login de usuario
     public function login(Request $request)
     {
-        
 
-        // Buscar el usuario por username
         $user = User::where('username', $request->username)->first();
 
-        // Verificar las credenciales
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json(['message' => 'Credenciales inválidas'], 401);
         }
 
-        // Comprobar si ya tiene un token
         if (!$user->personal_access_token) {
             $token = $user->createToken('auth_token')->plainTextToken;
             $user->update(['personal_access_token' => $token]);
@@ -65,12 +66,16 @@ class AuthController extends Controller
         }
 
         return response()->json([
-            'user' => $user,
-            'token' => $token
-        ]);
+        'user' => [
+        'id_users' => $user->id,         
+        'username' => $user->username, 
+        'email' => $user->email,        
+        'avatar' => $user->avatar,      
+    ],
+    'token' => $token,
+        ],201);
     }
 
-    // Obtener los detalles del usuario autenticado
     public function user(Request $request)
     {
         return response()->json($request->user());

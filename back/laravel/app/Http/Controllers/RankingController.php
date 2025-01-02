@@ -7,10 +7,26 @@ use Illuminate\Http\Request;
 
 class RankingController extends Controller
 {
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'id_users' => 'required|exists:users,id',
+            'puntuacion' => 'required|numeric',
+        ]);
+
+        $ranking = new Ranking();
+        $ranking->id_users = $validated['id_users'];
+        $ranking->puntuacion = $validated['puntuacion'];
+        $ranking->save();
+
+        return response()->json(['message' => 'Puntuación guardada con éxito'], 201);
+    }
+
     public function getRanking()
     {
         $rankings = Ranking::with('user:id,username')
-            ->orderBy('puntuacion', 'desc')
+            ->orderBy('puntuacion', 'desc')  
+            ->take(5)
             ->get();
 
         $result = $rankings->map(function ($ranking) {
