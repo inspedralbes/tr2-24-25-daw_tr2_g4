@@ -1,12 +1,19 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import musica from './components/musica.vue';
 </script>
 
 <template>
-  <RouterView />
+  <musica class="a021"></musica>
+ <RouterView />
+  
 </template>
 
 <style scoped>
+
+.a021{
+position: absolute;
+padding-left: 50px;
+}
 
 </style>

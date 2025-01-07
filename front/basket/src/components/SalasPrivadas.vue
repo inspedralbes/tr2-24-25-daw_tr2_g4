@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="menu-mult">
-      <h1 class="text-center text-white bg-deep-orange q-pa-md no-margin">Salas Privadas</h1>
+      <h1 class="text-center text-white bg-deep-orange q-pa-md no-margin"><br>Salas Privadas</h1>
 
       <div v-if="!enSala" class="boton-grid">
         <q-btn @click="crearSala" color="deep-orange" size="25px" class="boton_sala" glossy label="Crear Sala"></q-btn>

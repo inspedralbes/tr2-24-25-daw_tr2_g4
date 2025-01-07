@@ -5,7 +5,8 @@ import { useRoute } from 'vue-router';
 import { useCounterStore } from '@/stores/counter';
 import { useQuasar, QSpinnerFacebook } from 'quasar'
 import { onBeforeUnmount } from 'vue'
-import socketManager from '@/socket'; 
+import socketManager from '@/socket';
+import musica from '@/components/musica.vue';
 
 const $q = useQuasar() 
 
@@ -80,7 +81,7 @@ if(useApp.loginInfo.loggedIn){
         <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
   <main id="main_menu">
-    
+     
  <div id="div_menu" v-if="visibleOpciones">
   <RouterLink to="/jugar/historia" @click="ocultarTot"> <q-btn color="deep-orange" class="botones_menu"   glossy label="Historia"></q-btn></RouterLink>
  

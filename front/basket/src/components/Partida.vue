@@ -1,6 +1,6 @@
 <script setup>
-import { reactive,ref,computed, watch } from 'vue';
-
+import { reactive,ref,computed, watch, onMounted, onUnmounted } from 'vue';
+import { useCounterStore } from '@/stores/counter';
 const props = defineProps({
   data: {
     type: Object,
@@ -11,6 +11,25 @@ const props = defineProps({
 
 
 },)
+
+
+onMounted(() => {
+  const useApp = useCounterStore();
+  
+      if (useApp.ActivarMusica) {
+        useApp.ApagarMusica();
+        
+      }
+     
+    });
+
+    onUnmounted(() => {
+      const useApp = useCounterStore();
+      if (useApp.ActivarMusica==false) {
+        useApp.EncenderMusica();
+        
+      }
+    });
 
 
 const Canastas = ref(0)

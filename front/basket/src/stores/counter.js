@@ -4,6 +4,15 @@ import { defineStore } from 'pinia'
 export const useCounterStore = defineStore('counter', () => {
   
 
+    const ActivarMusica=ref(true);
+
+  const ApagarMusica = () => {
+      ActivarMusica.value=false;
+  }
+  const EncenderMusica = () => {
+      ActivarMusica.value=true;
+  }
+
   const loginInfo = reactive({
     loggedIn: false,
     username: '',
@@ -38,7 +47,7 @@ export const useCounterStore = defineStore('counter', () => {
 
 
   return { 
-    getLoginInfo, loginInfo,setLoginInfo
+    getLoginInfo, loginInfo,setLoginInfo,ActivarMusica,SalaActual, ApagarMusica, EncenderMusica
 
 
   }
