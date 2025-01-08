@@ -27,15 +27,14 @@
       </div>
 
     </q-btn-dropdown>
-    <audio ref="audio" :src="currentTrack.url" autoplay></audio>
+    <audio ref="audio" :src="currentTrack.url" autoplay  ></audio>
     </div>
   </template>
   
   <script setup>
   import { ref, reactive, onMounted, onUnmounted,computed } from 'vue';
   import { useCounterStore } from '@/stores/counter';
-    
-    
+  
 
     function mezclarMusica() {
     const aux = [
@@ -49,7 +48,7 @@
         { name: 'Rick Flair', artist: 'Anuel AA', url: '/songs/Rick Flair (Clean) - Anuel AA .mp3' },
         { name: 'I KNOW', artist: 'I KNOW', url: '/songs/Travis Scott - I KNOW _ (Official Audio).mp3' },
       ];
-
+     
     return aux.sort(() => Math.random() - 0.5);
 }
       const parado=ref(false)
@@ -57,10 +56,11 @@
       const playlist =  mezclarMusica();
       console.log(playlist)
     const useApp = useCounterStore();
-    const ActivarMusica = computed(() => useApp.ActivarMusica);;
-     
-      
-      const audio = ref(null);
+    const ActivarMusica = computed(() => useApp.ActivarMusica);
+  
+        
+  const audio = ref(null);
+ 
       const currentTrackIndex = ref(0);
   
      
@@ -105,7 +105,6 @@
         updateTrack();
       };
   
-     
   
   </script>
   
@@ -117,11 +116,12 @@
     flex-direction: column;
     align-items: center;
     padding: 1rem;
-    
+   
     border-radius: 8px;
     max-width: 100px;
   }
   .music-info {
+    margin-top: 5px;
     margin-bottom: 1rem;
     text-align: center;
   }

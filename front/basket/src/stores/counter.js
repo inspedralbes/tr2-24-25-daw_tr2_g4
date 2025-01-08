@@ -1,5 +1,6 @@
-import { ref, computed, reactive } from 'vue'
-import { defineStore } from 'pinia'
+// store/counter.js
+import { ref, computed, reactive } from 'vue';
+import { defineStore } from 'pinia';
 
 export const useCounterStore = defineStore('counter', () => {
   
@@ -16,7 +17,7 @@ export const useCounterStore = defineStore('counter', () => {
   const loginInfo = reactive({
     loggedIn: false,
     username: '',
-    email:'',
+    email: '',
     avatar: '',
     nivel:'',
     token:'',
@@ -28,7 +29,8 @@ export const useCounterStore = defineStore('counter', () => {
     loginInfo.loggedIn = loggedIn;
     loginInfo.username = username;
     loginInfo.avatar = avatar;
-    loginInfo.nivel= nivel;
+    loginInfo.nivel = nivel;
+    loginInfo.email = email;
     loginInfo.token = token;
     loginInfo.email = email;
     loginInfo.id_user = id_user;
