@@ -21,6 +21,15 @@ function ocultarTot() {
   visibleOpciones.value = false;
 }
 
+function verificarHistoria() {
+  if (!useApp.loginInfo.loggedIn) {
+    mostrarDialogoMultijugador.value = true;
+  } else {
+    router.push('/jugar/historia');
+  }
+}
+
+
 function verificarMultijugador() {
   if (!useApp.loginInfo.loggedIn) {
     mostrarDialogoMultijugador.value = true;
@@ -87,9 +96,9 @@ if (useApp.loginInfo.loggedIn) {
 
   <main id="main_menu">
     <div id="div_menu" v-if="visibleOpciones">
-      <RouterLink to="/jugar/historia" @click="ocultarTot">
-        <q-btn color="deep-orange" class="botones_menu" glossy label="Historia"></q-btn>
-      </RouterLink>
+      
+        <q-btn color="deep-orange" class="botones_menu" glossy label="Historia" @click="verificarHistoria"></q-btn>
+      
 
       <br>
       <q-btn color="deep-orange" class="botones_menu" glossy label="Arcade" @click="verificarArcade"></q-btn>
@@ -173,7 +182,7 @@ if (useApp.loginInfo.loggedIn) {
         </q-card-section>
 
         <q-card-section class="q-pt-none">
-          <p>Registrate para jugar multijugador.</p>
+          <p>Registrate para jugar este modo.</p>
         </q-card-section>
 
         <q-card-actions align="right">
