@@ -1,10 +1,10 @@
 <template>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
-  <!-- Enlace para volver 
+  <!-- Enlace para volver -->
   <RouterLink to="/jugar">
     <img src="@/assets/imagenes/volver.png" alt="Volver" class="imagen_volver">
-  </RouterLink>-->
+  </RouterLink>
 
   <div class="fondo">
   
@@ -19,7 +19,6 @@
       <q-btn round class="nivel" style="grid-row: 8; grid-column: 2;" :label="3" @click="cargarPreguntas(3)"></q-btn>
       <q-btn round class="nivel" style="grid-row: 9; grid-column: 1;" :label="2" @click="cargarPreguntas(2)"></q-btn>
       <q-btn round class="nivel" style="grid-row: 10; grid-column: 2;" :label="1" @click="cargarPreguntas(1)"></q-btn>
-    
     </div>
 
     <div v-if="question" class="pregunta">
@@ -29,7 +28,32 @@
 </template>
 
 <script>
- 
+import { getpregunta } from '@/comunication_manager.js';  
+
+export default {
+  data() {
+    return {
+      question: null,  
+    };
+  },
+  methods: {
+    // cargar la pregunta según el nivel
+    async cargarPreguntas(nivel) {
+      try {
+        const data = await getpregunta(nivel); 
+        console.log("Pregunta:", data);  
+
+        if (Array.isArray(data) && data.length > 0) {
+          this.question = data[0]; 
+        } else {
+          this.question = data; 
+        }
+      } catch (error) {
+        console.error('Error al cargar la pregunta:', error);
+      }
+    }
+  }
+};
 </script>
 
 <style scoped>
