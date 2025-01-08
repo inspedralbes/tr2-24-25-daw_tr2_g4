@@ -1,8 +1,46 @@
 {
-  "hash": "f046e7ba",
+  "hash": "dcb5f239",
   "configHash": "e4849c74",
-  "lockfileHash": "590e57ac",
-  "browserHash": "ccd7d58e",
-  "optimized": {},
-  "chunks": {}
+  "lockfileHash": "fc099b87",
+  "browserHash": "9299a40f",
+  "optimized": {
+    "vue": {
+      "src": "../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
+      "file": "vue.js",
+      "fileHash": "7748ac9b",
+      "needsInterop": false
+    },
+    "pinia": {
+      "src": "../../node_modules/pinia/dist/pinia.mjs",
+      "file": "pinia.js",
+      "fileHash": "54f0e601",
+      "needsInterop": false
+    },
+    "quasar": {
+      "src": "../../node_modules/quasar/dist/quasar.client.js",
+      "file": "quasar.js",
+      "fileHash": "2e74391c",
+      "needsInterop": false
+    },
+    "quasar/lang/es": {
+      "src": "../../node_modules/quasar/lang/es.js",
+      "file": "quasar_lang_es.js",
+      "fileHash": "fd2288e4",
+      "needsInterop": false
+    },
+    "vue-router": {
+      "src": "../../node_modules/vue-router/dist/vue-router.mjs",
+      "file": "vue-router.js",
+      "fileHash": "4b991083",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-AYVSL3LM": {
+      "file": "chunk-AYVSL3LM.js"
+    },
+    "chunk-IJV5NOMV": {
+      "file": "chunk-IJV5NOMV.js"
+    }
+  }
 }
