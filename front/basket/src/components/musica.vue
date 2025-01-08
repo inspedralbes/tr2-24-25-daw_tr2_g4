@@ -117,11 +117,12 @@
     flex-direction: column;
     align-items: center;
     padding: 1rem;
-    
+   
     border-radius: 8px;
     max-width: 100px;
   }
   .music-info {
+    margin-top: 5px;
     margin-bottom: 1rem;
     text-align: center;
   }
