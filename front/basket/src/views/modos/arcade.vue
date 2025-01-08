@@ -1,52 +1,16 @@
 <script setup>
-import { reactive, ref, onMounted } from 'vue';
+import { ref, reactive, onMounted } from 'vue';
 import Ranking from '../../components/ranking.vue';
-import { getPreguntas } from '@/comunication_manager';
 import Partida from '../../components/Partida.vue';
-
-import imagen3 from '@/assets/images/3.png';
-import imagen2 from '@/assets/images/2.png';
-import imagen1 from '@/assets/images/1.png';
-import imagenGo from '@/assets/images/go.png';
-import marioAudio from '@/assets/audio/mario-kart-8-countdown.mp3';
+import Temporizador from '../../components/temporizador.vue';
+import { getPreguntas } from '@/comunication_manager';
 
 const data = reactive({ pregunta: "" });
 const visibleJuego = ref(false);
 const index = ref(0);
 const puntuacion = ref(0);
-
-const temporizador = ref(null);
-const mostrarTempo = ref(true);
 const cargando = ref(true);
-
-const imagenActual = ref(imagen3); 
-
-onMounted(() => {
-  iniciarTemporizador();
-});
-
-async function iniciarTemporizador() {
-  const imagenes = [imagen3, imagen2, imagen1, imagenGo];
-
-  const audio = new Audio(marioAudio);
-  audio.play();
-
-  let i = 0;
-
-  const intervalo = setInterval(() => {
-    imagenActual.value = imagenes[i]; 
-    i++;
-
-    if (i >= imagenes.length) {
-      clearInterval(intervalo);
-
-      setTimeout(() => {
-        mostrarTempo.value = false;
-        rellenarPreguntas();
-      }, 1000);
-    }
-  }, 1000); 
-}
+const mostrarTempo = ref(true);
 
 async function rellenarPreguntas() {
   cargando.value = true;
@@ -67,16 +31,19 @@ function siguientePregunta(info) {
     puntuacion.value += info.canasta;
   }
 }
+
+function ocultarTemporizador() {
+  mostrarTempo.value = false;
+  rellenarPreguntas();  
+}
 </script>
 
 <template>
   <main class="main">
-    <div v-if="mostrarTempo" class="temporizador">
-      <img :src="imagenActual" alt="Temporizador" class="imagen-temporizador" />
-    </div>
+    <Temporizador v-if="mostrarTempo" @complete="ocultarTemporizador" />
 
     <Partida v-if="!cargando && visibleJuego && !mostrarTempo" :data="data.pregunta[index]" @siguiente="siguientePregunta" />
-    <Ranking v-if="!cargando && !visibleJuego && !mostrarTempo" :puntuacion="puntuacion" />
+    <Ranking v-if="!cargando && !visibleJuego" :puntuacion="puntuacion" />
   </main>
 </template>
 
@@ -90,21 +57,5 @@ function siguientePregunta(info) {
   background-attachment: fixed;
   height: 100vh;
   position: relative;
-}
-
-.temporizador {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.imagen-temporizador {
-  width: 30%;
-  max-width: 300px;
 }
 </style>
