@@ -105,20 +105,18 @@ async function register_compo() {
 
     <!-- Selección de avatar -->
     <div class="q-mb-md text-center">
-      <span>Selecciona tu avatar</span>
+      <span>Desliza para seleccionar tu avatar</span>
       <q-carousel
         swipeable
         animated
+        infinite
         v-model="slide"
         class="q-mt-md"
         style="width: 100px; height: 100px; border-radius: 50%; border: 1px solid #ccc;">
-        <q-carousel-slide :name="1" img-src="/public/avatar/boy1.png" />
-        <q-carousel-slide :name="2" img-src="/public/avatar/boy2.png" />
-        <q-carousel-slide :name="3" img-src="/public/avatar/boy3.png" />
-        <q-carousel-slide :name="4" img-src="/public/avatar/boy4.png" />
-        <q-carousel-slide :name="5" img-src="/public/avatar/boy5.png" />
-        <q-carousel-slide :name="6" img-src="/public/avatar/boy6.png" />
-        <q-carousel-slide :name="7" img-src="/public/avatar/boy7.png" />
+        <q-carousel-slide :name="1" img-src="/public/avatar/foto1.png" />
+        <q-carousel-slide :name="2" img-src="/public/avatar/foto2.png" />
+        <q-carousel-slide :name="3" img-src="/public/avatar/foto3.png" />
+        <q-carousel-slide :name="4" img-src="/public/avatar/foto4.png" />
       </q-carousel>
     </div>
 
@@ -158,4 +156,5 @@ async function register_compo() {
 .q-mt-md {
   margin-top: 16px;
 }
+
 </style>
