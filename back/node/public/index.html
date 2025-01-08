@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salas Privadas</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        .hidden { display: none; }
+        #room-info { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Salas Privadas</h1>
+    <div id="menu">
+        <button id="create-room">Crear Sala</button>
+        <input type="text" id="room-key" placeholder="Clave de la sala">
+        <button id="join-room">Unirse a Sala</button>
+    </div>
+    <div id="room-info" class="hidden">
+        <h2>Sala: <span id="current-room"></span></h2>
+        <h3>Usuarios en la sala:</h3>
+        <ul id="user-list"></ul>
+        <button id="leave-room">Salir de la Sala</button>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
