@@ -20,16 +20,16 @@
       <q-btn round class="nivel" :class="{'NoDisponible': colores[1]==1, 'Superado': colores[1]==2}" style="grid-row: 9; grid-column: 1;" :label="2" @click="cargarPreguntas(2)"></q-btn>
       <q-btn round class="nivel" :class="{'NoDisponible': colores[0]==1, 'Superado': colores[0]==2}" style="grid-row: 10; grid-column: 2;" :label="1" @click="cargarPreguntas(1)"></q-btn>
     </div>
-
+  </div>
+ 
      
       <div class="jugar" v-if="visibleJugar">
         <q-linear-progress :value="progress" color="red" class="progreso"> </q-linear-progress>
         <Partida_Historia :data="data.preguntas[index]" @siguiente="siguientePregunta"> </Partida_Historia>
 
       </div>
+   
 
-
-  </div>
 </template>
 
 <script setup> 
@@ -41,7 +41,8 @@ import { useCounterStore } from '@/stores/counter';
 const progress = ref(0.0);
 const index=ref(0);
 const canastas=ref(0);
-const nivel= ref("")
+const nivel= ref("");
+const nivelActual= ref("");
   const useApp = useCounterStore();
 
 
@@ -74,11 +75,16 @@ const nivel= ref("")
 
   if(canastas.value==3){
     alert("ganaste");
-    
 
-    useApp.loginInfo.nivel++;
+    if(useApp.loginInfo.nivel>nivelActual.value){
+    
+    }else{
+      useApp.loginInfo.nivel++;
     nivel.value = useApp.loginInfo.nivel
     niveles();
+
+    }
+   
   }else{
     alert("perdiste");
     
@@ -112,6 +118,7 @@ canastas.value=0;
 data.preguntas=await getPreguntas(i);
 console.log(data.preguntas)
 visibleJugar.value=true;
+nivelActual.value=i;
 
   
 }
