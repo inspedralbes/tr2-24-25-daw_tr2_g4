@@ -6,7 +6,14 @@
     <img style="right: inherit;" src="@/assets/imagenes/volver.png" alt="Volver" class="imagen_volver">
   </RouterLink>
 
-  <div class="fondo">
+  <div class="jugar" v-if="visibleJugar">
+        <q-linear-progress :value="progress" color="red" class="progreso"> </q-linear-progress>
+        <Partida_Historia :data="data.preguntas[index]" @siguiente="siguientePregunta"> </Partida_Historia>
+
+      </div>
+
+
+  <div class="fondo" v-else>
   
     <div class="niveles">
       <q-btn round class="nivel" :class="{'NoDisponible': colores[9]==1, 'Superado': colores[9]==2}" style="grid-row: 1; grid-column: 2;" :label="10" @click="cargarPreguntas(10)"></q-btn>
@@ -23,11 +30,7 @@
   </div>
  
      
-      <div class="jugar" v-if="visibleJugar">
-        <q-linear-progress :value="progress" color="red" class="progreso"> </q-linear-progress>
-        <Partida_Historia :data="data.preguntas[index]" @siguiente="siguientePregunta"> </Partida_Historia>
-
-      </div>
+     
    
 
 </template>
