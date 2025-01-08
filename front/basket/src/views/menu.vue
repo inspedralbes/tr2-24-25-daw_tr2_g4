@@ -39,6 +39,7 @@ function verificarArcade() {
 
 const route = useRoute();
 
+
 async function salir() {
   $q.loading.show({
     spinner: QSpinnerFacebook,
@@ -50,11 +51,12 @@ async function salir() {
   });
 
   try {
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
     useApp.setLoginInfo({
       loggedIn: false,
       username: '',
+      email: '',
       email: '',
       avatar: '',
       nivel: '',
@@ -130,10 +132,10 @@ if (useApp.loginInfo.loggedIn) {
 
           <!-- No Loggeado -->
           <div class="menu_avatar" v-else>
-            <q-avatar size="90px">
-              <img src="/public/avatar/boy1.png" />
+            <!-- Avatar de invitado con selección aleatoria -->
+            <q-avatar class="custom-avatar">
+              <img :src="`/public/avatar/foto${getRandomAvatar()}.png`" />
             </q-avatar>
-
             <div style="font-size: 30px">Invitado</div>
 
             <RouterLink to="/user/login">
@@ -182,12 +184,40 @@ if (useApp.loginInfo.loggedIn) {
         </q-card-actions>
       </q-card>
     </q-dialog>
+            <RouterLink to="/user/login">
+              <q-btn
+                class="botones_desple"
+                color="primary"
+                label="Login"
+                push
+                size="25px"
+                v-close-popup
+              ></q-btn>
+            </RouterLink>
+            <br>
+            <RouterLink to="/user/register">
+              <q-btn
+                class="botones_desple"
+                color="primary"
+                label="Registrarse"
+                push
+                size="25px"
+                v-close-popup
+              ></q-btn>
+            </RouterLink>
+          </div>
+        </div>
+      </q-btn-dropdown>
+    </div>
   </main>
 </template>
 
+
 <style scoped>
 #main_menu {
+#main_menu {
   display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr;
   height: 100vh;
@@ -196,12 +226,19 @@ if (useApp.loginInfo.loggedIn) {
 
 .menu_avatar {
   text-align: center;
+.menu_avatar {
+  text-align: center;
 }
+
+.enlaces {
 
 .enlaces {
   text-decoration: none;
   color: inherit;
+  color: inherit;
 }
+
+.div_user {
 
 .div_user {
   height: 400px;
@@ -209,11 +246,13 @@ if (useApp.loginInfo.loggedIn) {
 }
 
 #div_menu {
+#div_menu {
   text-align: center;
   grid-column: 2;
   grid-row: 2;
 }
 
+.botones_menu {
 .botones_menu {
   margin: 10px;
   width: 350px;
@@ -222,10 +261,14 @@ if (useApp.loginInfo.loggedIn) {
 }
 
 .botones_desple {
+.botones_desple {
   margin-top: 10px;
   width: 250px;
   font-size: 100px;
+  width: 220px;
 }
+
+.user_menu {
 
 .user_menu {
   height: 20%;
@@ -234,5 +277,23 @@ if (useApp.loginInfo.loggedIn) {
   grid-row: 3;
   align-self: center;
   justify-self: right;
+}
+
+/* Estilos personalizados para el avatar */
+.custom-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 </style>

@@ -20,8 +20,7 @@ Route::apiResource('partidas', PartidaController::class)->middleware('auth:sanct
 Route::post('register', [AuthController::class, 'register']); // Registro de usuario
 Route::post('login', [AuthController::class, 'login']); // Login de usuario
 
-Route::get('/preguntas/nivel/{nivel}', [PreguntaController::class, 'obtenerPreguntasPorNivel']);
-
-Route::post('/ranking', [RankingController::class, 'store']);
-Route::get('/ranking', [RankingController::class, 'getRanking']);
-
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/user/update-profile', [AuthController::class, 'updatePerfil']);
+});
+Route::middleware('auth:sanctum')->post('/user/cambiar-contra', [AuthController::class, 'cambiarContrasena']); 
