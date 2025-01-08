@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 import marioAudio from '@/assets/audio/mario-kart-8-countdown.mp3';
 import imagen3 from '@/assets/images/3.png';
 import imagen2 from '@/assets/images/2.png';
@@ -23,25 +23,34 @@ const iniciarTemporizador = () => {
     console.error('No se pudo reproducir el audio:', error);
   });
 
-  const imagenes = [imagen3, imagen2, imagen1, imagenGo]; 
+  const imagenes = [imagen3, imagen2, imagen1, imagenGo];
   let i = 0;
 
   intervalo = setInterval(() => {
-    imagenActual.value = imagenes[i]; 
-    temporizador.value = 3 - i; 
+    imagenActual.value = imagenes[i];  
+    temporizador.value = 3 - i;  
     i++;
 
     if (i >= imagenes.length) {
       clearInterval(intervalo); 
       setTimeout(() => {
-        props.onComplete();
-      }, 1000); 
+        props.onComplete();  
+      }, 1000);  
     }
   }, 1000);
 };
 
+const detenerAudio = () => {
+  audio.pause(); 
+  audio.currentTime = 0; 
+};
+
 onMounted(() => {
-  iniciarTemporizador();  
+  iniciarTemporizador();
+});
+
+onBeforeUnmount(() => {
+  detenerAudio();  
 });
 
 </script>
