@@ -42,20 +42,6 @@ export async function login(param) {
     });
 
     const data = await response.json();
+    console.log(data)
     return data;
-}
-
-
-// obtener pregunta por nivel
-export async function getpregunta(nivel) {
-    const URL = `${laravel.URL}/preguntas/nivel/${nivel}`;
-    const response = await fetch(URL, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    });
-
-    const data = await response.json();
-    return data;  
 }

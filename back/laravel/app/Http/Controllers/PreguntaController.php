@@ -9,7 +9,7 @@ class PreguntaController extends Controller
     public function obtenerPreguntasPorNivel($nivel)
     {
         try {
-            $pregunta = Partida::where('nivel', $nivel)->first(); 
+            $pregunta = Partida::where('nivel', $nivel)->get();
 
             if (!$pregunta) {
                 return response()->json(['message' => 'No hay preguntas para este nivel.'], 404);

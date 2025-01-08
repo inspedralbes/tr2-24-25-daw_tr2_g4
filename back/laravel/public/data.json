@@ -7,7 +7,7 @@
     "respuestaIncorrecta_2": 7,
     "respuestaIncorrecta_3": 10,
     "nivel": 1,
-    "duracion": 15
+    "duracion": 24
   },
   {
     "id": 2,
@@ -17,8 +17,7 @@
     "respuestaIncorrecta_2": 9,
     "respuestaIncorrecta_3": 10,
     "nivel": 1,
-    "duracion": 9
-  },
+    "duracion": 24  },
   {
     "id": 3,
     "operacion": "7 + 1",
@@ -27,7 +26,7 @@
     "respuestaIncorrecta_2": 10,
     "respuestaIncorrecta_3": 11,
     "nivel": 1,
-    "duracion": 20
+    "duracion": 24
   },
   {
     "id": 4,
@@ -37,7 +36,7 @@
     "respuestaIncorrecta_2": 28,
     "respuestaIncorrecta_3": 25,
     "nivel": 2,
-    "duracion": 22
+    "duracion": 24
   },
   {
     "id": 5,
@@ -47,7 +46,7 @@
     "respuestaIncorrecta_2": 33,
     "respuestaIncorrecta_3": 30,
     "nivel": 2,
-    "duracion": 17
+    "duracion": 24
   },
   {
     "id": 6,
@@ -67,7 +66,7 @@
     "respuestaIncorrecta_2": 4,
     "respuestaIncorrecta_3": 3,
     "nivel": 3,
-    "duracion": 16
+    "duracion": 24
   },
   {
     "id": 8,
@@ -77,7 +76,7 @@
     "respuestaIncorrecta_2": 4,
     "respuestaIncorrecta_3": 7,
     "nivel": 3,
-    "duracion": 18
+    "duracion": 24
   },
   {
     "id": 9,
@@ -87,7 +86,7 @@
     "respuestaIncorrecta_2": 6,
     "respuestaIncorrecta_3": 7,
     "nivel": 3,
-    "duracion": 11
+    "duracion": 24
   },
   {
     "id": 10,
@@ -97,7 +96,7 @@
     "respuestaIncorrecta_2": 14,
     "respuestaIncorrecta_3": 13,
     "nivel": 4,
-    "duracion": 19
+    "duracion": 24
   },
   {
     "id": 11,
@@ -107,7 +106,7 @@
     "respuestaIncorrecta_2": 15,
     "respuestaIncorrecta_3": 16,
     "nivel": 4,
-    "duracion": 14
+    "duracion": 24
   },
   {
     "id": 12,
@@ -117,7 +116,7 @@
     "respuestaIncorrecta_2": 19,
     "respuestaIncorrecta_3": 16,
     "nivel": 4,
-    "duracion": 12
+    "duracion": 24
   },
   {
     "id": 13,
@@ -127,8 +126,7 @@
     "respuestaIncorrecta_2": 13,
     "respuestaIncorrecta_3": 10,
     "nivel": 5,
-    "duracion": 8
-  },
+    "duracion": 24  },
   {
     "id": 14,
     "operacion": "2 x 5",
@@ -137,8 +135,7 @@
     "respuestaIncorrecta_2": 11,
     "respuestaIncorrecta_3": 12,
     "nivel": 5,
-    "duracion": 6
-  },
+    "duracion": 24  },
   {
     "id": 15,
     "operacion": "6 x 2",
@@ -147,7 +144,7 @@
     "respuestaIncorrecta_2": 11,
     "respuestaIncorrecta_3": 14,
     "nivel": 5,
-    "duracion": 20
+    "duracion": 24
   },
   {
     "id": 16,
@@ -157,7 +154,7 @@
     "respuestaIncorrecta_2": 85,
     "respuestaIncorrecta_3": 82,
     "nivel": 6,
-    "duracion": 23
+    "duracion": 24
   },
   {
     "id": 17,
@@ -167,7 +164,7 @@
     "respuestaIncorrecta_2": 85,
     "respuestaIncorrecta_3": 86,
     "nivel": 6,
-    "duracion": 19
+    "duracion": 24
   },
   {
     "id": 18,
@@ -177,7 +174,7 @@
     "respuestaIncorrecta_2": 105,
     "respuestaIncorrecta_3": 102,
     "nivel": 6,
-    "duracion": 21
+    "duracion": 24
   },
   {
     "id": 19,
@@ -187,7 +184,7 @@
     "respuestaIncorrecta_2": 5,
     "respuestaIncorrecta_3": 6,
     "nivel": 7,
-    "duracion": 16
+    "duracion": 24
   },
   {
     "id": 20,
@@ -197,7 +194,7 @@
     "respuestaIncorrecta_2": 1,
     "respuestaIncorrecta_3": 4,
     "nivel": 7,
-    "duracion": 11
+    "duracion": 24
   },
   {
     "id": 21,
@@ -207,7 +204,7 @@
     "respuestaIncorrecta_2": 2,
     "respuestaIncorrecta_3": 5,
     "nivel": 7,
-    "duracion": 10
+    "duracion": 24
   },
   {
     "id": 22,
@@ -217,7 +214,7 @@
     "respuestaIncorrecta_2": 8,
     "respuestaIncorrecta_3": 9,
     "nivel": 8,
-    "duracion": 13
+    "duracion": 24
   },
   {
     "id": 23,
@@ -227,7 +224,7 @@
     "respuestaIncorrecta_2": 9,
     "respuestaIncorrecta_3": 10,
     "nivel": 8,
-    "duracion": 22
+    "duracion": 24
   },
   {
     "id": 24,
@@ -247,7 +244,7 @@
     "respuestaIncorrecta_2": 832,
     "respuestaIncorrecta_3": 483,
     "nivel": 9,
-    "duracion": 15
+    "duracion": 24
   },
   {
     "id": 26,
@@ -257,7 +254,7 @@
     "respuestaIncorrecta_2": 1492,
     "respuestaIncorrecta_3": 1489,
     "nivel": 9,
-    "duracion": 23
+    "duracion": 24
   },
   {
     "id": 27,
@@ -267,7 +264,7 @@
     "respuestaIncorrecta_2": 6660,
     "respuestaIncorrecta_3": 293,
     "nivel": 9,
-    "duracion": 18
+    "duracion": 24
   },   
   {
     "id": 28,
@@ -287,7 +284,7 @@
     "respuestaIncorrecta_2": 3012,
     "respuestaIncorrecta_3": 50034,
     "nivel": 10,
-    "duracion": 18
+    "duracion": 24
   },
   {
     "id": 30,
@@ -297,7 +294,7 @@
     "respuestaIncorrecta_2": 2345,
     "respuestaIncorrecta_3": 2435,
     "nivel": 10,
-    "duracion": 18
+    "duracion": 24
   },
     {
       "id": 31,

@@ -3,60 +3,157 @@
 
   <!-- Enlace para volver -->
   <RouterLink to="/jugar">
-    <img src="@/assets/imagenes/volver.png" alt="Volver" class="imagen_volver">
+    <img style="right: inherit;" src="@/assets/imagenes/volver.png" alt="Volver" class="imagen_volver">
   </RouterLink>
 
   <div class="fondo">
   
     <div class="niveles">
-      <q-btn round class="nivel" style="grid-row: 1; grid-column: 1;" :label="10" @click="cargarPreguntas(10)"></q-btn>
-      <q-btn round class="nivel" style="grid-row: 2; grid-column: 2;" :label="9" @click="cargarPreguntas(9)"></q-btn>
-      <q-btn round class="nivel" style="grid-row: 3; grid-column: 3;" :label="8" @click="cargarPreguntas(8)"></q-btn>
-      <q-btn round class="nivel" style="grid-row: 4; grid-column: 2;" :label="7" @click="cargarPreguntas(7)"></q-btn>
-      <q-btn round class="nivel" style="grid-row: 5; grid-column: 1;" :label="6" @click="cargarPreguntas(6)"></q-btn>
-      <q-btn round class="nivel" style="grid-row: 6; grid-column: 2;" :label="5" @click="cargarPreguntas(5)"></q-btn>
-      <q-btn round class="nivel" style="grid-row: 7; grid-column: 3;" :label="4" @click="cargarPreguntas(4)"></q-btn>
-      <q-btn round class="nivel" style="grid-row: 8; grid-column: 2;" :label="3" @click="cargarPreguntas(3)"></q-btn>
-      <q-btn round class="nivel" style="grid-row: 9; grid-column: 1;" :label="2" @click="cargarPreguntas(2)"></q-btn>
-      <q-btn round class="nivel" style="grid-row: 10; grid-column: 2;" :label="1" @click="cargarPreguntas(1)"></q-btn>
+      <q-btn round class="nivel" :class="{'NoDisponible': colores[9]==1, 'Superado': colores[9]==2}" style="grid-row: 1; grid-column: 2;" :label="10" @click="cargarPreguntas(10)"></q-btn>
+      <q-btn round class="nivel " :class="{'NoDisponible': colores[8]==1, 'Superado': colores[8]==2}" style="grid-row: 2; grid-column: 3;" :label="9" @click="cargarPreguntas(9)"></q-btn>
+      <q-btn round class="nivel" :class="{'NoDisponible': colores[7]==1, 'Superado': colores[7]==2}" style="grid-row: 3; grid-column: 3;" :label="8" @click="cargarPreguntas(8)"></q-btn>
+      <q-btn round class="nivel" :class="{'NoDisponible': colores[6]==1, 'Superado': colores[6]==2}" style="grid-row: 4; grid-column: 2;" :label="7" @click="cargarPreguntas(7)"></q-btn>
+      <q-btn round class="nivel" :class="{'NoDisponible': colores[5]==1, 'Superado': colores[5]==2}" style="grid-row: 5; grid-column: 1;" :label="6" @click="cargarPreguntas(6)"></q-btn>      
+      <q-btn round class="nivel" :class="{'NoDisponible': colores[4]==1, 'Superado': colores[4]==2}" style="grid-row: 6; grid-column: 2;" :label="5" @click="cargarPreguntas(5)"></q-btn>
+      <q-btn round class="nivel" :class="{'NoDisponible': colores[3]==1, 'Superado': colores[3]==2}" style="grid-row: 7; grid-column: 3;" :label="4" @click="cargarPreguntas(4)"></q-btn>
+      <q-btn round class="nivel" :class="{'NoDisponible': colores[2]==1, 'Superado': colores[2]==2}" style="grid-row: 8; grid-column: 2;" :label="3" @click="cargarPreguntas(3)"></q-btn> 
+      <q-btn round class="nivel" :class="{'NoDisponible': colores[1]==1, 'Superado': colores[1]==2}" style="grid-row: 9; grid-column: 1;" :label="2" @click="cargarPreguntas(2)"></q-btn>
+      <q-btn round class="nivel" :class="{'NoDisponible': colores[0]==1, 'Superado': colores[0]==2}" style="grid-row: 10; grid-column: 2;" :label="1" @click="cargarPreguntas(1)"></q-btn>
     </div>
 
-    <div v-if="question" class="pregunta">
-      <p>{{ question.operacion }}</p>  
-    </div>
+     
+      <div class="jugar" v-if="visibleJugar">
+        <q-linear-progress :value="progress" color="red" class="progreso"> </q-linear-progress>
+        <Partida_Historia :data="data.preguntas[index]" @siguiente="siguientePregunta"> </Partida_Historia>
+
+      </div>
+
+
   </div>
 </template>
 
-<script>
-import { getpregunta } from '@/comunication_manager.js';  
+<script setup> 
+import { reactive, ref } from 'vue';
+import Partida_Historia from '@/components/Partida_Historia.vue';
+import { getPreguntas } from '@/comunication_manager';
+import { useCounterStore } from '@/stores/counter';
 
-export default {
-  data() {
-    return {
-      question: null,  
-    };
-  },
-  methods: {
-    // cargar la pregunta según el nivel
-    async cargarPreguntas(nivel) {
-      try {
-        const data = await getpregunta(nivel); 
-        console.log("Pregunta:", data);  
+const progress = ref(0.0);
+const index=ref(0);
+const canastas=ref(0);
+const nivel= ref("")
+  const useApp = useCounterStore();
 
-        if (Array.isArray(data) && data.length > 0) {
-          this.question = data[0]; 
-        } else {
-          this.question = data; 
-        }
-      } catch (error) {
-        console.error('Error al cargar la pregunta:', error);
-      }
-    }
+
+
+
+  function siguientePregunta(info){
+   
+
+    if(info.fallo){
+ 
+   
+}else{   
+ canastas.value++
+   progress.value+=0.3; 
   }
-};
+
+
+
+
+
+
+  if(index.value<2){
+    index.value++;
+   
+}else{
+
+  setTimeout(() => {
+  visibleJugar.value=false;
+ 
+
+  if(canastas.value==3){
+    alert("ganaste");
+    
+
+    useApp.loginInfo.nivel++;
+    nivel.value = useApp.loginInfo.nivel
+    niveles();
+  }else{
+    alert("perdiste");
+    
+   
+   
+    }
+  
+  }, 800);
+
+
+}
+
+
+  
+
+
+
+
+
+}
+
+const visibleJugar=ref(false)
+nivel.value = useApp.loginInfo.nivel;
+
+const data= reactive({preguntas:""})
+
+async function cargarPreguntas(i){
+progress.value=0.0;
+index.value=0;
+canastas.value=0;
+data.preguntas=await getPreguntas(i);
+console.log(data.preguntas)
+visibleJugar.value=true;
+
+  
+}
+
+const colores= reactive([1,1,1,1,1,1,1,1,1,1]);
+niveles();
+
+
+function niveles(){
+
+  for (let index = nivel.value-1; index >= 0; index--) {
+  colores[index]=2;
+  
+}
+
+colores[nivel.value]=0;
+
+}
+
+
+
+
+
 </script>
 
 <style scoped>
+.progreso{
+  height: 20px;
+
+
+}
+.NoDisponible{
+  filter: grayscale(100%);
+
+}
+.Superado{
+  filter: hue-rotate(120deg);
+}
+
+
+
+
 .imagen_volver {
   position: fixed;
   top: 20px;
@@ -68,8 +165,11 @@ export default {
 
 .fondo {
   background-image: url('@/assets/imagenes/fondo1.jpg');
-  background-size: cover;
+  background-size: 500px 1000px;
   background-position: center;
+  background-repeat: no-repeat;
+  width: 100vw;  
+  height: 100vh; 
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -112,6 +212,9 @@ export default {
 .nivel:nth-child(9),
 .nivel:nth-child(10) {
   background-image: url('@/assets/imagenes/pelotareal.png');
+  
+
+
 }
 
 .pregunta {

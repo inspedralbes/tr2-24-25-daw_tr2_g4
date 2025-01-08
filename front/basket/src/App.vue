@@ -13,7 +13,8 @@ import musica from './components/musica.vue';
 
 .a021{
 position: absolute;
-padding-left: 50px;
+right: 0; 
+margin-right: 20px;
 }
 
 </style>
