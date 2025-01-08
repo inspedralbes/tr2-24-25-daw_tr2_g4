@@ -12,17 +12,15 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: masket
-      MYSQL_USER: user
-      MYSQL_PASSWORD: user
 
     ports:
-      - 3010:3306
+      - 1000:3306
     volumes:
       # Per guardar les dades de forma persistent
       # La carpeta de l'esquerra HA D'EXISTIR
       - ./mysql_data:/var/lib/mysql
       # Per crear algunes taules al primer inici
-      - ./back/takeOutFit.sql:/docker-entrypoint-initdb.d/dades.sql
+      - ./back/laravel.sql:/docker-entrypoint-initdb.d/laravel.sql
 
   adminer:
     image: adminer
