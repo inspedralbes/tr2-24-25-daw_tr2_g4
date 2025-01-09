@@ -26,32 +26,13 @@ services:
       - "9092:8080"  # Exponiendo el puerto de Adminer
 
   # Servicio de la aplicación Laravel (back)
-  app:
-    build:
-      context: ./back/laravel  # Ruta a la carpeta de Laravel
-      dockerfile: Dockerfile  # Asegúrate de que Dockerfile esté en ./back/laravel
+  laravel:
+    build: ./back/laravel  # Ruta a la carpeta de Laravel
     volumes:
-      - ./back/laravel:/var/www/html  # Montar el directorio Laravel
+      - ./back/laravel:/var/www/ # Montar el directorio Laravel
+    working_dir: /var/www/
     ports:
       - "8000:8000"  # Exponiendo el puerto 8000
     depends_on:
       - db  # Asegura que db esté levantado antes que Laravel
-
-  # Servicio de la aplicación Node.js
-  app_node:
-    build:
-      context: ./back/node  # Ruta a tu directorio de Node.js (asegurate que 'Dockerfile' esté aquí)
-      dockerfile: Dockerfile  # Asegúrate de que Dockerfile esté en ./back/node
-    ports:
-      - "8080:8080"  # Exponiendo el puerto 8080
-    volumes:
-      - ./back/node:/usr/src/app  # Montando la carpeta de Node.js
-    depends_on:
-      - db  # Si la app Node necesita la base de datos MySQL
-    environment:
-      MYSQL_HOST: db  # Nombre del servicio de la base de datos
-      MYSQL_PORT: 3306
-      MYSQL_DATABASE: masket
-      MYSQL_USER: laravel
-      MYSQL_PASSWORD: secret
-    command: ["node", "server.js"]  # Comando para ejecutar la aplicación Node.js
+    command: bash -c "composer install && php artisan key:generate && php artisan migrate && php artisan serve --host=0.0.0.0"
