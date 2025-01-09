@@ -1,3 +1,4 @@
+version: '3.8'
 
 services:
   # Servicio de la base de datos MySQL
@@ -10,31 +11,47 @@ services:
       MYSQL_USER: laravel
       MYSQL_PASSWORD: secret
     ports:
-      - "1000:3306"
+      - "1000:3306"  # Mapeo de puertos
     volumes:
-      # Persistencia de datos
-      - ./mysql_data:/var/lib/mysql
-      # Archivo SQL para inicializar la base de datos
-      - ./back/laravel.sql:/docker-entrypoint-initdb.d/laravel.sql
-  
+      - ./mysql_data:/var/lib/mysql  # Persistencia de datos
+      - ./back/laravel.sql:/docker-entrypoint-initdb.d/laravel.sql  # Archivo SQL para inicializar
 
   # Adminer para gestionar la base de datos
   adminer:
     image: adminer
     restart: always
     depends_on:
-      - db
+      - db  # Asegura que db esté levantado primero
     ports:
-      - "9092:8080"
-   
+      - "9092:8080"  # Exponiendo el puerto de Adminer
 
+  # Servicio de la aplicación Laravel (back)
   app:
     build:
-      context: ./back/laravel
-      dockerfile: Dockerfile
+      context: ./back/laravel  # Ruta a la carpeta de Laravel
+      dockerfile: Dockerfile  # Asegúrate de que Dockerfile esté en ./back/laravel
     volumes:
-      - .:/var/www/html
+      - ./back/laravel:/var/www/html  # Montar el directorio Laravel
     ports:
-      - "8000:8000" 
+      - "8000:8000"  # Exponiendo el puerto 8000
     depends_on:
-      - db
+      - db  # Asegura que db esté levantado antes que Laravel
+
+  # Servicio de la aplicación Node.js
+  app_node:
+    build:
+      context: ./back/node  # Ruta a tu directorio de Node.js (asegurate que 'Dockerfile' esté aquí)
+      dockerfile: Dockerfile  # Asegúrate de que Dockerfile esté en ./back/node
+    ports:
+      - "8080:8080"  # Exponiendo el puerto 8080
+    volumes:
+      - ./back/node:/usr/src/app  # Montando la carpeta de Node.js
+    depends_on:
+      - db  # Si la app Node necesita la base de datos MySQL
+    environment:
+      MYSQL_HOST: db  # Nombre del servicio de la base de datos
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: masket
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: secret
+    command: ["node", "server.js"]  # Comando para ejecutar la aplicación Node.js
