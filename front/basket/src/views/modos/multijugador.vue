@@ -4,7 +4,7 @@ import SalasPrivadas from '@/components/SalasPrivadas.vue';
 import { useCounterStore } from '@/stores/counter'; 
 import socketManager from '@/socket'; 
 import Partida from '@/components/Partida.vue';
-
+import Temporizador from '@/components/temporizador.vue';
 
 const visibleSalas=ref(true);
 const visibleJuego=ref(false);
@@ -19,6 +19,7 @@ const visibleFinal=ref(false);
 const socket = socketManager.getSocket(token);
 const visiblePoder=ref(false);
 const visibleRanking=ref(false);
+const visibleTempo=ref(false);
 
 const imagenes=["/src/assets/items/banana.webp", "/src/assets/items/bill_bala.webp",
 "/src/assets/items/bomba.webp", "/src/assets/items/caparazon_azul.webp",
@@ -77,15 +78,29 @@ function desconectar(){
 }
 
 
+
 function empezar(){
-      const SalaActual = store.SalaActual;
-      socket.emit('empezar',SalaActual);
-      visibleRanking.value=true;
+  visibleTempo.value=true;  
       if(visibleSalas.value==true){
         visibleSalas.value=false;
+        
+      } 
+ 
+      
+    }
+    
+    
+    function tempoAcabado(){
+      visibleTempo.value = false;
 
-      }
+      const SalaActual = store.SalaActual;
+      socket.emit('empezar',SalaActual);
+
+     
+     
+      visibleRanking.value=true;
       temporizador();
+     
 
     }
 
@@ -109,7 +124,7 @@ function empezar(){
 
     })
 
- const tiempo=ref(10);
+ const tiempo=ref(60);
  let interval;
 
  function temporizador(){
@@ -153,7 +168,7 @@ function usarpoder(){
 
   
 
-    socket.on('pregunta',(pregunta)=>{
+      socket.on('pregunta',(pregunta)=>{
       data.preguntas=pregunta;
 
       
@@ -182,18 +197,18 @@ const visibleBoton=ref(false);
      
       <q-btn v-if="visibleBoton" color="orange" @click="empezar" size="25px" class="boton-volver" glossy label="Empezar"></q-btn>
      
-      
-       
-
     </div>
 
+     
+   
+    
     <RouterLink to="/jugar">
           <q-btn color="red-12" @click="desconectar" size="25px" class="boton-volver" glossy label="Volver"></q-btn>
         </RouterLink>
 
 
     </div>
-
+    <Temporizador v-if="visibleTempo" @complete="tempoAcabado"/>
     <div v-if="visibleJuego" :class="{'temblor': temblor}">
       
       <div v-if="visibleTedio" class="tedioFuera">
