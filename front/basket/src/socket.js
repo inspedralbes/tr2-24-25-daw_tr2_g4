@@ -7,7 +7,7 @@ const getSocket = (token) => {
   if (!socketInstance) {
     console.log("Token enviado al servidor:", token);
     socketInstance = io("http://a23diemujper.juego.daw.inspedralbes.cat:20070", {
-  //  socketInstance = io("localhost:20070", {
+ //  socketInstance = io("localhost:20070", {
       transports: ["websocket"],
       withCredentials: true,
       auth: {
