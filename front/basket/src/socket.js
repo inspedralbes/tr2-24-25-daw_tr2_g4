@@ -6,7 +6,7 @@ const getSocket = (token) => {
   // Si no existe la instancia, la creamos
   if (!socketInstance) {
     console.log("Token enviado al servidor:", token);
-    socketInstance = io("http://localhost:3000", {
+    socketInstance = io("http://a23diemujper.juego.daw.inspedralbes.cat:2070", {
       transports: ["websocket"],
       withCredentials: true,
       auth: {

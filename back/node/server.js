@@ -72,7 +72,7 @@ rellenarPreguntas();
 
 
 async function rellenarPreguntas(){
-    const URL = `http://localhost:8000/api/preguntas/nivel/0`;
+    const URL = `http://a23diemujper.juego.daw.inspedralbes.cat/laravel/api/preguntas/nivel/0`;
     const response = await fetch(URL);
     Preguntas=await response.json();
 
