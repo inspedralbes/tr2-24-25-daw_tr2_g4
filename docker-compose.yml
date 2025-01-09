@@ -1,9 +1,8 @@
-version: '3.8'
 
 services:
   # Servicio de la base de datos MySQL
   db:
-    image: mysql:8.0
+    image: mysql:8.2.0
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -17,8 +16,7 @@ services:
       - ./mysql_data:/var/lib/mysql
       # Archivo SQL para inicializar la base de datos
       - ./back/laravel.sql:/docker-entrypoint-initdb.d/laravel.sql
-    networks:
-      - laravel-network
+  
 
   # Adminer para gestionar la base de datos
   adminer:
@@ -27,22 +25,16 @@ services:
     depends_on:
       - db
     ports:
-      - "9091:8080"
-    networks:
-      - laravel-network
+      - "9092:8080"
+   
 
-  # Servicio de Laravel (aplicación)
   app:
     build:
-      context: .
+      context: ./back/laravel
       dockerfile: Dockerfile
     volumes:
       - .:/var/www/html
     ports:
-      - "8000:8000" # Laravel servirá en el puerto 8000
+      - "8000:8000" 
     depends_on:
       - db
-    command: php artisan serve --host=0.0.0.0 --port=8000
-    networks:
-      - laravel-network
-
