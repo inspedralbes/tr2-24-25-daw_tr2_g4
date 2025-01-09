@@ -122,7 +122,7 @@ if (useApp.loginInfo.loggedIn) {
           <!-- Loggeado -->
           <div class="menu_avatar" v-if="visibleLog">
             <q-avatar size="90px">
-              <img :src="`/public/avatar/boy${useApp.loginInfo.avatar}.png`" />
+              <img :src="`/avatar/boy${useApp.loginInfo.avatar}.png`" />
             </q-avatar>
 
             <div style="font-size: 30px">{{ useApp.loginInfo.username }}</div>
@@ -140,7 +140,7 @@ if (useApp.loginInfo.loggedIn) {
           <!-- No Loggeado -->
           <div class="menu_avatar" v-else>
             <q-avatar size="90px">
-              <img src="/public/avatar/boy1.png" />
+              <img src="/avatar/boy1.png" />
             </q-avatar>
 
             <div style="font-size: 30px">Invitado</div>

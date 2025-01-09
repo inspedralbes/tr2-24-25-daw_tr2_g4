@@ -74,7 +74,7 @@
           if (existingRank) {
             // Si ya existe, acualiz solo si la nueva puntuacion es mayor
             if (this.puntuacion > existingRank.puntuacion) {
-              await axios.put(`http://127.0.0.1:8000/api/ranking/${existingRank.id}`, {
+              await axios.put(`http://a23diemujper.juego.daw.inspedralbes.cat/laravel/public/api/ranking/${existingRank.id}`, {
                 puntuacion: this.puntuacion,
               });
               console.log('Puntuación actualizada con éxito');
@@ -83,7 +83,7 @@
             }
           } else {
             // Si no existe, guardar una nueva puntuacin en el ranking
-            await axios.post('http://127.0.0.1:8000/api/ranking', {
+            await axios.post('http://a23diemujper.juego.daw.inspedralbes.cat/laravel/public/api/ranking', {
               id_users: userInfo.id_user,
               puntuacion: this.puntuacion,
             });
@@ -109,7 +109,7 @@
         });
   
         try {
-          const response = await axios.get("http://127.0.0.1:8000/api/ranking");
+          const response = await axios.get("http://a23diemujper.juego.daw.inspedralbes.cat/laravel/public/api/ranking");
           this.rankings = response.data;
         } catch (err) {
           this.error = "No se pudo cargar la tabla de ranking.";

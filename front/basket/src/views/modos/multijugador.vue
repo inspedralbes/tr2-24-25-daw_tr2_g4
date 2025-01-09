@@ -20,10 +20,10 @@ const socket = socketManager.getSocket(token);
 const visiblePoder=ref(false);
 const visibleRanking=ref(false);
 
-const imagenes=["/src/assets/items/banana.webp", "/src/assets/items/bill_bala.webp",
-"/src/assets/items/bomba.webp", "/src/assets/items/caparazon_azul.webp",
-"/src/assets/items/caparazon_rojo.webp","/src/assets/items/caparazon_verde.webp",
-"/src/assets/items/honguito.webp","/src/assets/items/rayo.webp", "/src/assets/items/estrella.webp"
+const imagenes=["/items/banana.webp", "/items/bill_bala.webp",
+"/items/bomba.webp", "/items/caparazon_azul.webp",
+"/items/caparazon_rojo.webp","/items/caparazon_verde.webp",
+"/items/honguito.webp","/items/rayo.webp", "/items/estrella.webp"
 
 ];
 
@@ -109,7 +109,7 @@ function empezar(){
 
     })
 
- const tiempo=ref(10);
+ const tiempo=ref(60);
  let interval;
 
  function temporizador(){
@@ -198,7 +198,7 @@ const visibleBoton=ref(false);
       
       <div v-if="visibleTedio" class="tedioFuera">
       <div class="tedio">
-        <img :src="`/src/assets/items/${medio.poder}.webp`" alt="">
+        <img :src="`/items/${medio.poder}.webp`" alt="">
       <div class="tedio_num">  {{ medio.username }}</div>
      <div  class="tedio_nom">  -{{ medio.num }}</div>
       
@@ -209,7 +209,7 @@ const visibleBoton=ref(false);
       <transition-group name="rank" tag="tbody">
         <tr :class="{'yoMismo': player.username === store.loginInfo.username}" v-for="(player, index) in posiciones.slice(0, 3)" :key="player.username">
           <td>{{ index+1 }}</td>
-          <td><img class="foto_ranking" :src="`/public/avatar/boy${player.avatar}.png`" alt="" srcset=""></td>  
+          <td><img class="foto_ranking" :src="`/avatar/boy${player.avatar}.png`" alt="" srcset=""></td>  
        
           <td>{{ player.puntacion }} </td>
         </tr>
@@ -226,7 +226,7 @@ const visibleBoton=ref(false);
       </div>
      
     <div  v-else>
-        <img @click="usarpoder" class="static" :src="`/src/assets/items/${poderes.data.poder}.webp`" alt="">
+        <img @click="usarpoder" class="static" :src="`/items/${poderes.data.poder}.webp`" alt="">
     </div>
      
      
@@ -254,7 +254,7 @@ const visibleBoton=ref(false);
             <transition-group name="rank" tag="tbody">
         <tr v-for="(player, index) in posiciones.slice(0, 3)" :key="player.username">
           <td>{{ index+1 }}</td>
-          <td><img class="foto_ranking" :src="`/public/avatar/boy${player.avatar}.png`" alt="" srcset=""></td>  
+          <td><img class="foto_ranking" :src="`/avatar/boy${player.avatar}.png`" alt="" srcset=""></td>  
           <td>{{ player.username }}</td>
           <td>{{ player.puntacion }} </td>
         </tr>

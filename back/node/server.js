@@ -72,7 +72,7 @@ rellenarPreguntas();
 
 
 async function rellenarPreguntas(){
-    const URL = `http://a23diemujper.juego.daw.inspedralbes.cat/laravel/api/preguntas/nivel/0`;
+    const URL = `http://a23diemujper.juego.daw.inspedralbes.cat/laravel/public/api/preguntas/nivel/0`;
     const response = await fetch(URL);
     Preguntas=await response.json();
 
@@ -112,7 +112,7 @@ io.on('connection', async (socket) => {
     }
 
     try {
-        const response = await axios.get(URL, {
+        const response = await axios.get("http://a23diemujper.juego.daw.inspedralbes.cat/laravel/public/api/user", {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -344,11 +344,6 @@ io.on('connection', async (socket) => {
         }
         
         salas[sala][index].darPoder-=tiro;
-        
-        darPoderes(salas[sala],index)
-
-
-
         if(salas[sala][index].darPoder<=0){
 
            darPoderes(salas[sala],index)
@@ -527,7 +522,7 @@ io.on('connection', async (socket) => {
     });
 });
 
-const PORT = 3000;
+const PORT = 20070;
 server.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
