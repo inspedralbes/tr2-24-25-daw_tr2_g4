@@ -9,6 +9,9 @@ import router from './router'
 import App from './App.vue'
 import '@quasar/extras/eva-icons/eva-icons.css'
 import { Loading } from 'quasar'
+import piniaPersistedState from 'pinia-plugin-persistedstate'
+const pinia = createPinia()
+pinia.use(piniaPersistedState) 
 
 const app = createApp(App)
 
@@ -19,7 +22,7 @@ app.use(Quasar, {
   lang: quasarLang,
 })
 
-app.use(createPinia())
+app.use(pinia)
 app.use(router)
 
 app.mount('#app')
