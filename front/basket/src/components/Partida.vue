@@ -250,6 +250,9 @@ function responder(num){
   <main id="main_arcade">
      
  <div class="body_arcade">
+  <RouterLink to="/jugar">
+    <img style="right: inherit;" src="@/assets/imagenes/volver.png" alt="Volver" class="imagen_volver">
+  </RouterLink> 
    <!--
   <h4  >Puntos:  {{ Canastas }} </h4>
   
@@ -498,6 +501,14 @@ function responder(num){
 }
 
 
+.imagen_volver {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 40px;
+  border: 2px solid white;
+  border-radius: 5px;
+}
 
 
 
