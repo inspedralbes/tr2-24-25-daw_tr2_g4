@@ -351,8 +351,8 @@ io.on('connection', async (socket) => {
 
         if(salas[sala][index].darPoder<=0){
 
-         //   darPoderes(salas[sala],index)
-         //   salas[sala][index].darPoder=15;
+           darPoderes(salas[sala],index)
+           salas[sala][index].darPoder=15;
         }
         
         
@@ -392,8 +392,8 @@ io.on('connection', async (socket) => {
          
            }
            
-           data[index].poder=poderes[poderessss];
-           poderessss++;
+           data[index].poder=poderes[numeroAleatorio];
+          
            socket.emit('poderes', data[index].poder)
           
 
@@ -404,7 +404,7 @@ io.on('connection', async (socket) => {
 
     }
  
-    let poderessss=0;
+ 
     socket.on('create-room', () => {
         const claveSala = uuidv4().slice(0, 5); 
         if (!salas[claveSala]) {
