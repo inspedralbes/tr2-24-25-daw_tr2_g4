@@ -91,6 +91,13 @@ if (useApp.loginInfo.loggedIn) {
   visibleLog.value = false;
 }
 
+const avatar= getRandomAvatar();
+// avatar aleatorio 
+const getRandomAvatar = () => {
+  const randomIndex = Math.floor(Math.random() * 4);
+  return randomIndex
+};
+
 </script>
 
 <template>
@@ -142,7 +149,7 @@ if (useApp.loginInfo.loggedIn) {
           <!-- No Loggeado -->
           <div class="menu_avatar" v-else>
             <q-avatar size="90px">
-              <img src="/avatar/boy1.png" />
+              <img :src="`/avatar/boy${avatar}.png`"  />
             </q-avatar>
 
             <div style="font-size: 30px">Invitado</div>
@@ -197,8 +204,7 @@ if (useApp.loginInfo.loggedIn) {
 </template>
 
 
-<style scoped>
-#main_menu {
+<style scoped> 
 #main_menu {
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
@@ -207,52 +213,43 @@ if (useApp.loginInfo.loggedIn) {
   height: 100vh;
   font-family: 'Press Start 2P', cursive;
 }
-
-.menu_avatar {
-  text-align: center;
+ 
 .menu_avatar {
   text-align: center;
 }
-
-.enlaces {
+ 
 
 .enlaces {
   text-decoration: none;
   color: inherit;
   color: inherit;
 }
-
-.div_user {
+ 
 
 .div_user {
   height: 400px;
   width: 300px;
 }
-
-#div_menu {
+ 
 #div_menu {
   text-align: center;
   grid-column: 2;
   grid-row: 2;
 }
-
-.botones_menu {
+ 
 .botones_menu {
   margin: 10px;
   width: 350px;
   font-size: 26px;
   border: 1px solid black;
 }
-
-.botones_desple {
+ 
 .botones_desple {
   margin-top: 10px;
   width: 250px;
   font-size: 100px;
 }
-
-.user_menu {
-
+ 
 .user_menu {
   height: 20%;
   margin-top: 40px;
