@@ -461,14 +461,7 @@ const visibleBoton=ref(false);
  
 }
 
-
-
-
-
-
-
 .poder img{
-  
   width: auto;
   height: 100px;
   
@@ -480,13 +473,11 @@ const visibleBoton=ref(false);
   left: 50%;           
   transform: translate(-50%, -50%);
   
-
 }
 #main-multijugador{
   display: grid;
   grid-template-columns:1fr 1fr 1fr;
- 
-   
+    
 }
 .body_multijugador{
   grid-column: 2;
@@ -494,7 +485,6 @@ const visibleBoton=ref(false);
 }
 
 .ranking-table {
-
 border-collapse: collapse;
 position: absolute;
 font-size: 20px;

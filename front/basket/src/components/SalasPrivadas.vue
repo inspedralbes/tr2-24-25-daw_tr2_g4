@@ -1,14 +1,14 @@
 <template>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
   <div>
     <div class="menu-mult">
-      <h1 class="text-center text-white bg-deep-orange q-pa-md no-margin"><br>Salas Privadas</h1>
+      <h1 class="text-center text-white bg-deep-orange q-pa-md no-margin salas-header"><br>Salas Privadas</h1>
 
       <div v-if="!enSala" class="boton-grid">
         <q-btn @click="crearSala" color="deep-orange" size="25px" class="boton_sala" glossy label="Crear Sala"></q-btn>
         <input type="text" v-model="claveSala" class="input-sala" placeholder="Clave de la sala" />
         <q-btn @click="unirSala" color="deep-orange" size="25px" class="boton_sala" glossy label="Unir Sala"></q-btn>
-
-        
       </div>
 
       <div id="room-info" v-else>
@@ -67,7 +67,6 @@ import { ref } from "vue";
 import getSocket from '@/socket';
 
 export default {
-   
   props: {
     socket: {
       type: Object,
@@ -76,7 +75,6 @@ export default {
   },
   data() {
     return {
-     
       socket: this.socket,
       claveSala: "", // Clave de la sala ingresada por el usuario
       claveActual: "", // Sala actual
@@ -84,15 +82,12 @@ export default {
       enSala: false,
       dialog: false,
       backdropFilter: "hue-rotate(210deg)"
-       
-
     };
   },
   methods: {
-  crearSala() {
+    crearSala() {
       this.socket.emit("create-room");
       this.$emit('boton');
-     
     },
 
     unirSala() {
@@ -111,8 +106,8 @@ export default {
       this.claveActual = clave;
       const caja = useCounterStore();
 
-      caja.SalaActual=clave;
-      console.log(caja.SalaActual)
+      caja.SalaActual = clave;
+      console.log(caja.SalaActual);
     },
     resetToMenu() {
       this.enSala = false;
@@ -123,8 +118,6 @@ export default {
 
   mounted() {
     const store = useCounterStore();
-     
-   
     const token = store.getLoginInfo.token;
 
     this.socket.on("connect_error", (err) => {
@@ -133,16 +126,14 @@ export default {
 
     this.socket.on("room-created", (claveSala) => {
       this.updateRoomView(claveSala);
-      
     });
 
     this.socket.on("room-joined", (claveSala) => {
       this.updateRoomView(claveSala);
-    
     });
 
     this.socket.on("room-users", ({ room, users }) => {
-      console.log(`Usuarios en la sala ${room}:`, users); 
+      console.log(`Usuarios en la sala ${room}:`, users);
       
       this.claveActual = room;
       this.usuarios = users;
@@ -163,6 +154,7 @@ export default {
 .menu-mult {
   text-align: center;
   grid-column: 2;
+  font-size: 20px;
 }
 
 .boton-grid {
@@ -172,6 +164,7 @@ export default {
   justify-items: center;
   align-items: center;
   margin-top: 20px;
+  font-family: 'Press Start 2P', cursive;
 }
 
 .input-sala {
@@ -180,20 +173,21 @@ export default {
   padding: 10px;
   font-size: 16px;
   text-align: center;
+  font-family: 'Press Start 2P', cursive;
 }
 
 .boton_sala {
   width: 90%;
   font-size: 18px;
+  font-family: 'Press Start 2P', cursive;
 }
 
-.boton-volver {
-  position: fixed;
-  bottom: 20px;
-  transform: translateX(-50%);
-  width: 200px;
-  font-size: 18px;
-  padding: 10px;
-  text-align: center;
+/* Nuevo estilo para hacer el header más pequeño */
+.salas-header {
+  font-size: 25px;
+  padding: 0px; 
+  margin-top: 10px; 
+  font-family: 'Press Start 2P', cursive;
+
 }
 </style>
