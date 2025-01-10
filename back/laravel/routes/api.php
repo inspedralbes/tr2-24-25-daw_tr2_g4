@@ -25,3 +25,4 @@ Route::get('/preguntas/nivel/{nivel}', [PreguntaController::class, 'obtenerPregu
 Route::post('/ranking', [RankingController::class, 'store']);
 Route::get('/ranking', [RankingController::class, 'getRanking']);
 
+Route::post('nivel', [AuthController::class, 'nivel']); 

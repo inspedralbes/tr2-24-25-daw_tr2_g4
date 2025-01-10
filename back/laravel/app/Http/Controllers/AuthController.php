@@ -82,4 +82,25 @@ class AuthController extends Controller
     {
         return response()->json($request->user());
     }
+
+    public function nivel(Request $request)
+    {
+     $id = $request->input('id');
+    $nivel = $request->input('nivel');
+
+    // Buscar al usuario por ID
+    $user = User::find($id);
+
+    if (!$user) {
+        return response()->json(['error' => 'User not found'], 404);
+    }
+
+    // Actualizar el nombre del usuario
+    $user->nivel = $nivel;
+    $user->save();
+    }
+
+
+
+
 }
