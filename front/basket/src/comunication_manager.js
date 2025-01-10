@@ -1,4 +1,4 @@
-const laravel = { URL: "http://localhost:8000/api" }
+export const laravel = { URL: "http://localhost:8000/api" }
 
 export async function register(param) {
     const URL = `${laravel.URL}/register`;
@@ -24,6 +24,9 @@ export async function register(param) {
 
     return data;
 }
+
+
+
 
 export async function login(param) {
     const URL = `${laravel.URL}/login`;
