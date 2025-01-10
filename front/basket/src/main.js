@@ -17,10 +17,11 @@ const app = createApp(App)
 
 app.use(Quasar, {
   plugins: {
-    Loading, // Aquí añades el plugin Loading
+    Loading,
+    Notify,
   },
   lang: quasarLang,
-})
+});
 
 app.use(pinia)
 app.use(router)

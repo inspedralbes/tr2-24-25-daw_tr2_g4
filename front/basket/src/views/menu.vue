@@ -48,6 +48,7 @@ function verificarArcade() {
 
 const route = useRoute();
 
+
 async function salir() {
   $q.loading.show({
     spinner: QSpinnerFacebook,
@@ -59,11 +60,12 @@ async function salir() {
   });
 
   try {
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
     useApp.setLoginInfo({
       loggedIn: false,
       username: '',
+      email: '',
       email: '',
       avatar: '',
       nivel: '',
@@ -194,9 +196,12 @@ if (useApp.loginInfo.loggedIn) {
   </main>
 </template>
 
+
 <style scoped>
 #main_menu {
+#main_menu {
   display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr;
   height: 100vh;
@@ -205,12 +210,19 @@ if (useApp.loginInfo.loggedIn) {
 
 .menu_avatar {
   text-align: center;
+.menu_avatar {
+  text-align: center;
 }
+
+.enlaces {
 
 .enlaces {
   text-decoration: none;
   color: inherit;
+  color: inherit;
 }
+
+.div_user {
 
 .div_user {
   height: 400px;
@@ -218,11 +230,13 @@ if (useApp.loginInfo.loggedIn) {
 }
 
 #div_menu {
+#div_menu {
   text-align: center;
   grid-column: 2;
   grid-row: 2;
 }
 
+.botones_menu {
 .botones_menu {
   margin: 10px;
   width: 350px;
@@ -231,10 +245,13 @@ if (useApp.loginInfo.loggedIn) {
 }
 
 .botones_desple {
+.botones_desple {
   margin-top: 10px;
   width: 250px;
   font-size: 100px;
 }
+
+.user_menu {
 
 .user_menu {
   height: 20%;

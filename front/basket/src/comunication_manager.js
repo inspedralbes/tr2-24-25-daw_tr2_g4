@@ -1,4 +1,4 @@
-const laravel = { URL: "http://a23diemujper.juego.daw.inspedralbes.cat/laravel/public/api" };
+export const laravel = { URL: "http://localhost:8000/api" }
 
 export async function register(param) {
     const URL = `${laravel.URL}/register`;
@@ -27,6 +27,9 @@ export async function getPreguntas(nivel) {
 
     return data;
 }
+
+
+
 
 export async function login(param) {
     const URL = `${laravel.URL}/login`;
