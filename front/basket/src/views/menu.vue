@@ -1,5 +1,4 @@
 <script setup>
-
 import { ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useCounterStore } from '@/stores/counter';
@@ -28,7 +27,6 @@ function verificarHistoria() {
     router.push('/jugar/historia');
   }
 }
-
 
 function verificarMultijugador() {
   if (!useApp.loginInfo.loggedIn) {
@@ -88,7 +86,6 @@ if (useApp.loginInfo.loggedIn) {
 } else {
   visibleLog.value = false;
 }
-
 </script>
 
 <template>
@@ -96,15 +93,11 @@ if (useApp.loginInfo.loggedIn) {
 
   <main id="main_menu">
     <div id="div_menu" v-if="visibleOpciones">
-      
-        <q-btn color="deep-orange" class="botones_menu" glossy label="Historia" @click="verificarHistoria"></q-btn>
-      
-
+      <q-btn color="deep-orange" class="botones_menu" glossy label="Historia" @click="verificarHistoria"></q-btn>
       <br>
       <q-btn color="deep-orange" class="botones_menu" glossy label="Arcade" @click="verificarArcade"></q-btn>
       <br>
-      <q-btn color="deep-orange" class="botones_menu" glossy label="Multijugador"
-        @click="verificarMultijugador"></q-btn>
+      <q-btn color="deep-orange" class="botones_menu" glossy label="Multijugador" @click="verificarMultijugador"></q-btn>
       <br>
       <RouterLink to="/" @click="ocultarTot">
         <q-btn color="deep-orange" class="botones_menu" glossy label="Volver"></q-btn>
@@ -128,11 +121,11 @@ if (useApp.loginInfo.loggedIn) {
             <div style="font-size: 30px">{{ useApp.loginInfo.username }}</div>
 
             <RouterLink to="/user/perfil">
-              <q-btn class="botones_desple" color="primary" label="Perfil" push size="30px" v-close-popup></q-btn>
+              <q-btn class="botones_desple" color="deep-orange" label="Perfil" push size="30px" v-close-popup></q-btn>
             </RouterLink>
             <br />
             <RouterLink to="/jugar">
-              <q-btn class="botones_desple" color="primary" label="Log out" push size="30px" v-close-popup
+              <q-btn class="botones_desple" color="deep-orange" label="Log out" push size="30px" v-close-popup
                 @click="salir"></q-btn>
             </RouterLink>
           </div>
@@ -146,11 +139,11 @@ if (useApp.loginInfo.loggedIn) {
             <div style="font-size: 30px">Invitado</div>
 
             <RouterLink to="/user/login">
-              <q-btn class="botones_desple" color="primary" label="Login" push size="30px" v-close-popup></q-btn>
+              <q-btn class="botones_desple" color="deep-orange" label="Login" push size="30px" v-close-popup></q-btn>
             </RouterLink>
             <br />
             <RouterLink to="/user/register">
-              <q-btn class="botones_desple" color="primary" label="Registrarse" push size="30px" v-close-popup></q-btn>
+              <q-btn class="botones_desple" color="deep-orange" label="Registrarse" push size="30px" v-close-popup></q-btn>
             </RouterLink>
           </div>
         </div>
