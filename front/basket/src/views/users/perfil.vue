@@ -7,7 +7,6 @@ import { useRouter } from 'vue-router';
 const $q = useQuasar();
 const router = useRouter();
 const useApp = useCounterStore();
-
 const nombreUsuario = ref(useApp.loginInfo.username || '');
 const correo = ref(useApp.loginInfo.email || '');
 const avatar = ref(useApp.loginInfo.avatar || 1);
@@ -149,24 +148,25 @@ async function editarYGuardarPerfil() {
                     </div>
                 </div>
 
-                <!-- Formulario de edición de perfil -->
+               
                 <div v-if="editando">
-                    <q-input v-model="nombreUsuario" label="Nombre de usuario" filled class="q-mb-md"
-                        :disable="cargando" />
-                    <q-input v-model="correo" label="Correo electrónico" filled type="email" class="q-mb-md"
-                        :disable="cargando" />
+    <q-input v-model="nombreUsuario" label="Nombre de usuario" filled class="q-mb-md" :disable="cargando" />
+    <q-input v-model="correo" label="Correo electrónico" filled type="email" class="q-mb-md" :disable="cargando" />
 
-                    <div class="text-center q-mt-md">
-                        <q-carousel v-model="avatar" swipeable infinite animated :disable="cargando"
-                            style="width: 100px; height: 100px; border-radius: 50%; border: 1px solid #ccc;">
-                            <q-carousel-slide v-for="i in 4" :key="i" :name="i"
-                                :img-src="`/public/avatar/foto${i}.png`" />
-                        </q-carousel <div class="q-mt-md text-center">
-                        <q-btn :loading="cargando" color="primary" label="Guardar cambios" @click="editarYGuardarPerfil"
-                            :disable="cargando" />
-                        <q-btn color="negative" label="Cancelar" flat @click="editando = false" :disable="cargando" />
-                    </div>
-                </div>
+    <div class="text-center q-mt-md">
+        <q-carousel v-model="avatar" swipeable infinite animated :disable="cargando"
+            style="width: 100px; height: 100px; border-radius: 50%; border: 1px solid #ccc;">
+            <q-carousel-slide v-for="i in 4" :key="i" :name="i" :img-src="`/public/avatar/foto${i}.png`" />
+        </q-carousel>  
+    </div>
+
+    <div class="q-mt-md text-center">
+        <q-btn :loading="cargando" color="primary" label="Guardar cambios" @click="editarYGuardarPerfil"
+            :disable="cargando" />
+        <q-btn color="negative" label="Cancelar" flat @click="editando = false" :disable="cargando" />
+    </div>
+</div>
+
 
                 <!-- Modal para cambiar la contraseña -->
                 <q-dialog v-model="mostrarCambioContrasena">
