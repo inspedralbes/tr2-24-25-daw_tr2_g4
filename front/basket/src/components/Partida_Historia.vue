@@ -32,6 +32,8 @@ onMounted(() => {
     });
  
 const valorCanasta= ref(0)
+
+const tiroHecho=ref(false)
 const index = ref(0)
 
 const info= reactive({fallo:false, canasta:0,racha:false})
@@ -206,8 +208,18 @@ function iniciarTemporizador() {
 
 
 const emit = defineEmits();
+ const foto=ref("");
+ foto.value=Math.floor((props.data.nivel - 1) / 2 + 1);
 
+const styleFondo = computed(() => ({
+      backgroundImage: `url('/bioma/${foto.value}.jpg')`,
+      backgroundPosition: 'center 150%',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'auto',
+    }));
 
+    console.log(styleFondo.value)
+ 
 
 function mezclarRespuestas() {
   const respuestas = [
@@ -220,7 +232,6 @@ function mezclarRespuestas() {
 
 
 }
-const tiroHecho=ref(false)
 const respuestasMezcladas = computed(() => mezclarRespuestas());
 
 function responder(num){
@@ -242,7 +253,7 @@ function responder(num){
 </script>
 
 <template>
-  <main id="main_arcade">
+  <main id="main_arcade" :style="styleFondo">
      
  <div class="body_arcade">
    <!--
@@ -527,10 +538,6 @@ function responder(num){
   grid-template-columns:1fr 1fr 1fr  ;
   grid-template-rows: 1fr 1fr ;
   max-height: 100svh;
-  background-image: url("../assets/bioma/parque.jpg"); 
-  background-position: center 150% ;
-  background-repeat: no-repeat; 
-  background-size: auto;
  
     }
 
