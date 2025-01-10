@@ -91,13 +91,8 @@ if (useApp.loginInfo.loggedIn) {
   visibleLog.value = false;
 }
 
-const avatar= getRandomAvatar();
-// avatar aleatorio 
-const getRandomAvatar = () => {
-  const randomIndex = Math.floor(Math.random() * 4);
-  return randomIndex
-};
-
+const avatar= Math.floor(Math.random() * 4);
+ 
 </script>
 
 <template>

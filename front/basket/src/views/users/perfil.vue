@@ -141,7 +141,7 @@ async function editarYGuardarPerfil() {
                     </q-item>
                     <div class="text-center q-mt-md">
                         <q-avatar>
-                            <img :src="`/public/avatar/foto${avatar}.png`" />
+                            <img :src="`/avatar/boy${avatar}.png`" />
                         </q-avatar>
                     </div>
                     <div class="q-mt-md text-center">
@@ -158,7 +158,7 @@ async function editarYGuardarPerfil() {
     <div class="text-center q-mt-md">
         <q-carousel v-model="avatar" swipeable infinite animated :disable="cargando"
             style="width: 100px; height: 100px; border-radius: 50%; border: 1px solid #ccc;">
-            <q-carousel-slide v-for="i in 4" :key="i" :name="i" :img-src="`/public/avatar/foto${i}.png`" />
+            <q-carousel-slide v-for="i in 4" :key="i" :name="i" :img-src="`/avatar/boy${i}.png`" />
         </q-carousel>  
     </div>
 
