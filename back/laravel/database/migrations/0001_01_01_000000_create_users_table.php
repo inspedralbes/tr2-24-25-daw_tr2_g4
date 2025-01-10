@@ -16,7 +16,7 @@ return new class extends Migration
                 $table->string('username')->unique();
                 $table->string('email')->unique(); 
                 $table->string('password');
-                $table->integer('nivel')->default(1); 
+                $table->integer('nivel')->default(0); 
                 $table->integer('avatar'); 
                 $table->rememberToken();
                 $table->timestamps();
