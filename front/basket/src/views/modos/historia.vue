@@ -38,7 +38,8 @@
     <!-- Botones de acción -->
     <div class="alert-buttons">
       <q-btn label="Reintentar" @click="reiniciarJuego" color="black" class="boton-alerta"></q-btn>
-      <q-btn label="Siguiente" @click="siguienteNivel" color="black" class="boton-alerta"></q-btn>
+      <!-- Solo mostrar el botón de "Siguiente" si el jugador ha ganado Y no está en el nivel 10 -->
+      <q-btn v-if="gameResult === 'ganaste' && nivelActual !== 10" label="Siguiente" @click="siguienteNivel" color="black" class="boton-alerta"></q-btn>
       <q-btn icon="close" @click="cerrarAlerta" color="red" class="cerrar-alerta"></q-btn>
     </div>
   </div>
@@ -79,7 +80,12 @@ function siguientePregunta(info) {
         gameResult.value = "ganaste"; 
         isGameFinished.value = true;
 
-        if (useApp.loginInfo.nivel > nivelActual.value) {
+        if (nivelActual.value === 10) {
+          // Si es nivel 10, no permitimos continuar, solo muestra la alerta final
+          gameMessage.value = "¡Felicidades, has completado todos los niveles!";
+          gameResult.value = "ganaste";
+        } else if (useApp.loginInfo.nivel > nivelActual.value) {
+          // No hacer nada si el nivel ya está superado
         } else {
           useApp.loginInfo.nivel++;
           nivel.value = useApp.loginInfo.nivel;
@@ -128,13 +134,14 @@ function reiniciarJuego() {
 function siguienteNivel() {
   // Carga el siguiente nivel
   let siguienteNivel = nivelActual.value + 1;
+  
   if (siguienteNivel <= 10) {
     cargarPreguntas(siguienteNivel);
     isGameFinished.value = false;
   } else {
     gameMessage.value = "¡Felicidades, has completado todos los niveles!";
     gameResult.value = "ganaste";
-    isGameFinished.value = true;
+    isGameFinished.value = true; // Esto hará que se muestre la alerta inmediatamente
   }
 }
 
@@ -144,8 +151,8 @@ function cerrarAlerta() {
 }
 </script>
 
-
-<style scoped>.progreso {
+<style scoped>
+.progreso {
   height: 20px;
 }
 
@@ -238,17 +245,14 @@ function cerrarAlerta() {
   text-align: center;
   font-family: 'Press Start 2P', cursive;
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
-  z-index: 1000;
 }
 
 .alerta.ganaste {
   background-color: #4caf50;
-  border: 2px solid rgb(102, 186, 102);
 }
 
 .alerta.perdiste {
-  background-color: #f44336;
-  border: 2px solid red;
+  background-color: #d10e00;
 }
 
 .boton-alerta {
@@ -265,7 +269,7 @@ function cerrarAlerta() {
   border-radius: 5px;
   margin-bottom: 10px;
   width: 100%;
-  
+  margin-top: 30px; 
 }
 
 .alert-buttons {
