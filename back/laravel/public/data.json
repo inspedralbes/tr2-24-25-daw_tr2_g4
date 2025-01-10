@@ -296,206 +296,910 @@
     "nivel": 10,
     "duracion": 24
   },
-    {
-      "id": 31,
-      "operacion": "2 + 6",
-      "respuesta_correcta": 8,
-      "respuestaIncorrecta_1": 7,
-      "respuestaIncorrecta_2": 9,
-      "respuestaIncorrecta_3": 10,
-      "nivel": 0,
-      "duracion": 24
-    },
-    {
-      "id": 32,
-      "operacion": "7 + 1",
-      "respuesta_correcta": 8,
-      "respuestaIncorrecta_1": 9,
-      "respuestaIncorrecta_2": 10,
-      "respuestaIncorrecta_3": 11,
-      "nivel": 0,
-      "duracion": 24
-    },
-    {
-      "id": 33,
-      "operacion": "15 + 12",
-      "respuesta_correcta": 27,
-      "respuestaIncorrecta_1": 26,
-      "respuestaIncorrecta_2": 28,
-      "respuestaIncorrecta_3": 25,
-      "nivel": 0,
-      "duracion": 24
-    },
-    {
-      "id": 34,
-      "operacion": "23 + 9",
-      "respuesta_correcta": 32,
-      "respuestaIncorrecta_1": 31,
-      "respuestaIncorrecta_2": 33,
-      "respuestaIncorrecta_3": 30,
-      "nivel": 0,
-      "duracion": 24
-    },
-    {
-      "id": 35,
-      "operacion": "14 + 19",
-      "respuesta_correcta": 33,
-      "respuestaIncorrecta_1": 32,
-      "respuestaIncorrecta_2": 34,
-      "respuestaIncorrecta_3": 35,
-      "nivel": 0,
-      "duracion": 24
-    },
-    {
-      "id": 36,
-      "operacion": "9 - 4",
-      "respuesta_correcta": 5,
-      "respuestaIncorrecta_1": 6,
-      "respuestaIncorrecta_2": 4,
-      "respuestaIncorrecta_3": 3,
-      "nivel": 0,
-      "duracion": 24
-    },
-    {
-      "id": 37,
-      "operacion": "8 - 3",
-      "respuesta_correcta": 5,
-      "respuestaIncorrecta_1": 6,
-      "respuestaIncorrecta_2": 4,
-      "respuestaIncorrecta_3": 7,
-      "nivel": 0,
-      "duracion": 24
-    },
-    {
-      "id": 38,
-      "operacion": "6 - 1",
-      "respuesta_correcta": 5,
-      "respuestaIncorrecta_1": 4,
-      "respuestaIncorrecta_2": 6,
-      "respuestaIncorrecta_3": 7,
-      "nivel": 0,
-      "duracion": 24
-    },
-    {
-      "id": 39,
-      "operacion": "23 - 8",
-      "respuesta_correcta": 15,
-      "respuestaIncorrecta_1": 16,
-      "respuestaIncorrecta_2": 14,
-      "respuestaIncorrecta_3": 13,
-      "nivel": 0,
-      "duracion": 24
-    },
-    {
-      "id": 40,
-      "operacion": "18 - 4",
-      "respuesta_correcta": 14,
-      "respuestaIncorrecta_1": 13,
-      "respuestaIncorrecta_2": 15,
-      "respuestaIncorrecta_3": 16,
-      "nivel": 0,
-      "duracion": 24
-    },
-    {
-      "id": 41,
-      "operacion": "27 - 9",
-      "respuesta_correcta": 18,
-      "respuestaIncorrecta_1": 17,
-      "respuestaIncorrecta_2": 19,
-      "respuestaIncorrecta_3": 16,
-      "nivel": 0,
-      "duracion": 24
-    },
-    {
-      "id": 42,
-      "operacion": "4 x 3",
-      "respuesta_correcta": 12,
-      "respuestaIncorrecta_1": 11,
-      "respuestaIncorrecta_2": 13,
-      "respuestaIncorrecta_3": 10,
-      "nivel": 0,
-      "duracion": 24
-    },
-    {
-      "id": 43,
-      "operacion": "2 x 5",
-      "respuesta_correcta": 10,
-      "respuestaIncorrecta_1": 9,
-      "respuestaIncorrecta_2": 11,
-      "respuestaIncorrecta_3": 12,
-      "nivel": 0,
-      "duracion": 24
-    },
-    {
-      "id": 44,
-      "operacion": "6 x 2",
-      "respuesta_correcta": 12,
-      "respuestaIncorrecta_1": 13,
-      "respuestaIncorrecta_2": 11,
-      "respuestaIncorrecta_3": 14,
-      "nivel": 0,
-      "duracion": 24
-    },
-    {
-      "id": 45,
-      "operacion": "12 x 7",
-      "respuesta_correcta": 84,
-      "respuestaIncorrecta_1": 83,
-      "respuestaIncorrecta_2": 85,
-      "respuestaIncorrecta_3": 82,
-      "nivel": 0,
-      "duracion": 24
-    },
-    {
-      "id": 46,
-      "operacion": "14 x 6",
-      "respuesta_correcta": 84,
-      "respuestaIncorrecta_1": 83,
-      "respuestaIncorrecta_2": 85,
-      "respuestaIncorrecta_3": 86,
-      "nivel": 0,
-      "duracion": 24
-    },
-    {
-      "id": 47,
-      "operacion": "13 x 8",
-      "respuesta_correcta": 104,
-      "respuestaIncorrecta_1": 103,
-      "respuestaIncorrecta_2": 105,
-      "respuestaIncorrecta_3": 102,
-      "nivel": 0,
-      "duracion": 24
-    },
-    {
-      "id": 48,
-      "operacion": "8 ÷ 2",
-      "respuesta_correcta": 4,
-      "respuestaIncorrecta_1": 3,
-      "respuestaIncorrecta_2": 5,
-      "respuestaIncorrecta_3": 6,
-      "nivel": 0,
-      "duracion": 24
-    },
-    {
-      "id": 49,
-      "operacion": "6 ÷ 3",
-      "respuesta_correcta": 2,
-      "respuestaIncorrecta_1": 3,
-      "respuestaIncorrecta_2": 1,
-      "respuestaIncorrecta_3": 4,
-      "nivel": 0,
-      "duracion": 24
-    },
-    {
-      "id": 50,
-      "operacion": "9 ÷ 3",
-      "respuesta_correcta": 3,
-      "respuestaIncorrecta_1": 4,
-      "respuestaIncorrecta_2": 2,
-      "respuestaIncorrecta_3": 5,
-      "nivel": 0,
-      "duracion": 24
-    }
+  {
+    "id": 31,
+    "operacion": "2 + 6",
+    "respuesta_correcta": 8,
+    "respuestaIncorrecta_1": 7,
+    "respuestaIncorrecta_2": 9,
+    "respuestaIncorrecta_3": 10,
+    "nivel": 0,
+    "duracion": 12
+  },
+  {
+    "id": 32,
+    "operacion": "7 + 1",
+    "respuesta_correcta": 8,
+    "respuestaIncorrecta_1": 9,
+    "respuestaIncorrecta_2": 10,
+    "respuestaIncorrecta_3": 11,
+    "nivel": 0,
+    "duracion": 10
+  },
+  {
+    "id": 33,
+    "operacion": "15 + 12",
+    "respuesta_correcta": 27,
+    "respuestaIncorrecta_1": 26,
+    "respuestaIncorrecta_2": 28,
+    "respuestaIncorrecta_3": 25,
+    "nivel": 0,
+    "duracion": 13
+  },
+  {
+    "id": 34,
+    "operacion": "23 + 9",
+    "respuesta_correcta": 32,
+    "respuestaIncorrecta_1": 31,
+    "respuestaIncorrecta_2": 33,
+    "respuestaIncorrecta_3": 30,
+    "nivel": 0,
+    "duracion": 9
+  },
+  {
+    "id": 35,
+    "operacion": "14 + 19",
+    "respuesta_correcta": 33,
+    "respuestaIncorrecta_1": 32,
+    "respuestaIncorrecta_2": 34,
+    "respuestaIncorrecta_3": 35,
+    "nivel": 0,
+    "duracion": 11
+  },
+  {
+    "id": 36,
+    "operacion": "9 - 4",
+    "respuesta_correcta": 5,
+    "respuestaIncorrecta_1": 6,
+    "respuestaIncorrecta_2": 4,
+    "respuestaIncorrecta_3": 3,
+    "nivel": 0,
+    "duracion": 7
+  },
+  {
+    "id": 37,
+    "operacion": "8 - 3",
+    "respuesta_correcta": 5,
+    "respuestaIncorrecta_1": 6,
+    "respuestaIncorrecta_2": 4,
+    "respuestaIncorrecta_3": 7,
+    "nivel": 0,
+    "duracion": 14
+  },
+  {
+    "id": 38,
+    "operacion": "6 - 1",
+    "respuesta_correcta": 5,
+    "respuestaIncorrecta_1": 4,
+    "respuestaIncorrecta_2": 6,
+    "respuestaIncorrecta_3": 7,
+    "nivel": 0,
+    "duracion": 8
+  },
+  {
+    "id": 39,
+    "operacion": "23 - 8",
+    "respuesta_correcta": 15,
+    "respuestaIncorrecta_1": 16,
+    "respuestaIncorrecta_2": 14,
+    "respuestaIncorrecta_3": 13,
+    "nivel": 0,
+    "duracion": 9
+  },
+  {
+    "id": 40,
+    "operacion": "18 - 4",
+    "respuesta_correcta": 14,
+    "respuestaIncorrecta_1": 13,
+    "respuestaIncorrecta_2": 15,
+    "respuestaIncorrecta_3": 16,
+    "nivel": 0,
+    "duracion": 12
+  },
+  {
+    "id": 41,
+    "operacion": "27 - 9",
+    "respuesta_correcta": 18,
+    "respuestaIncorrecta_1": 17,
+    "respuestaIncorrecta_2": 19,
+    "respuestaIncorrecta_3": 16,
+    "nivel": 0,
+    "duracion": 15
+  },
+  {
+    "id": 42,
+    "operacion": "4 x 3",
+    "respuesta_correcta": 12,
+    "respuestaIncorrecta_1": 11,
+    "respuestaIncorrecta_2": 13,
+    "respuestaIncorrecta_3": 10,
+    "nivel": 0,
+    "duracion": 13
+  },
+  {
+    "id": 43,
+    "operacion": "2 x 5",
+    "respuesta_correcta": 10,
+    "respuestaIncorrecta_1": 9,
+    "respuestaIncorrecta_2": 11,
+    "respuestaIncorrecta_3": 12,
+    "nivel": 0,
+    "duracion": 8
+  },
+  {
+    "id": 44,
+    "operacion": "6 x 2",
+    "respuesta_correcta": 12,
+    "respuestaIncorrecta_1": 13,
+    "respuestaIncorrecta_2": 11,
+    "respuestaIncorrecta_3": 14,
+    "nivel": 0,
+    "duracion": 14
+  },
+  {
+    "id": 45,
+    "operacion": "12 x 7",
+    "respuesta_correcta": 84,
+    "respuestaIncorrecta_1": 83,
+    "respuestaIncorrecta_2": 85,
+    "respuestaIncorrecta_3": 82,
+    "nivel": 0,
+    "duracion": 9
+  },
+  {
+    "id": 46,
+    "operacion": "14 x 6",
+    "respuesta_correcta": 84,
+    "respuestaIncorrecta_1": 83,
+    "respuestaIncorrecta_2": 85,
+    "respuestaIncorrecta_3": 86,
+    "nivel": 0,
+    "duracion": 7
+  },
+  {
+    "id": 47,
+    "operacion": "13 x 8",
+    "respuesta_correcta": 104,
+    "respuestaIncorrecta_1": 103,
+    "respuestaIncorrecta_2": 105,
+    "respuestaIncorrecta_3": 102,
+    "nivel": 0,
+    "duracion": 11
+  },
+  {
+    "id": 48,
+    "operacion": "8 ÷ 2",
+    "respuesta_correcta": 4,
+    "respuestaIncorrecta_1": 3,
+    "respuestaIncorrecta_2": 5,
+    "respuestaIncorrecta_3": 6,
+    "nivel": 0,
+    "duracion": 13
+  },
+  {
+    "id": 49,
+    "operacion": "6 ÷ 3",
+    "respuesta_correcta": 2,
+    "respuestaIncorrecta_1": 3,
+    "respuestaIncorrecta_2": 1,
+    "respuestaIncorrecta_3": 4,
+    "nivel": 0,
+    "duracion": 12
+  },
+  {
+    "id": 50,
+    "operacion": "9 ÷ 3",
+    "respuesta_correcta": 3,
+    "respuestaIncorrecta_1": 4,
+    "respuestaIncorrecta_2": 2,
+    "respuestaIncorrecta_3": 5,
+    "nivel": 0,
+    "duracion": 10
+  },{
+    "id": 51,
+    "operacion": "3 + 4",
+    "respuesta_correcta": 7,
+    "respuestaIncorrecta_1": 6,
+    "respuestaIncorrecta_2": 8,
+    "respuestaIncorrecta_3": 9,
+    "nivel": 0,
+    "duracion": 12
+  },
+  {
+    "id": 52,
+    "operacion": "5 + 9",
+    "respuesta_correcta": 14,
+    "respuestaIncorrecta_1": 13,
+    "respuestaIncorrecta_2": 15,
+    "respuestaIncorrecta_3": 16,
+    "nivel": 0,
+    "duracion": 8
+  },
+  {
+    "id": 53,
+    "operacion": "16 - 7",
+    "respuesta_correcta": 9,
+    "respuestaIncorrecta_1": 8,
+    "respuestaIncorrecta_2": 10,
+    "respuestaIncorrecta_3": 11,
+    "nivel": 0,
+    "duracion": 14
+  },
+  {
+    "id": 54,
+    "operacion": "10 x 3",
+    "respuesta_correcta": 30,
+    "respuestaIncorrecta_1": 29,
+    "respuestaIncorrecta_2": 31,
+    "respuestaIncorrecta_3": 32,
+    "nivel": 0,
+    "duracion": 7
+  },
+  {
+    "id": 55,
+    "operacion": "4 x 6",
+    "respuesta_correcta": 24,
+    "respuestaIncorrecta_1": 23,
+    "respuestaIncorrecta_2": 25,
+    "respuestaIncorrecta_3": 26,
+    "nivel": 0,
+    "duracion": 13
+  },
+  {
+    "id": 56,
+    "operacion": "8 ÷ 4",
+    "respuesta_correcta": 2,
+    "respuestaIncorrecta_1": 3,
+    "respuestaIncorrecta_2": 1,
+    "respuestaIncorrecta_3": 4,
+    "nivel": 0,
+    "duracion": 10
+  },
+  {
+    "id": 57,
+    "operacion": "9 + 11",
+    "respuesta_correcta": 20,
+    "respuestaIncorrecta_1": 19,
+    "respuestaIncorrecta_2": 21,
+    "respuestaIncorrecta_3": 18,
+    "nivel": 0,
+    "duracion": 15
+  },
+  {
+    "id": 58,
+    "operacion": "12 - 5",
+    "respuesta_correcta": 7,
+    "respuestaIncorrecta_1": 6,
+    "respuestaIncorrecta_2": 8,
+    "respuestaIncorrecta_3": 9,
+    "nivel": 0,
+    "duracion": 9
+  },
+  {
+    "id": 59,
+    "operacion": "20 ÷ 4",
+    "respuesta_correcta": 5,
+    "respuestaIncorrecta_1": 6,
+    "respuestaIncorrecta_2": 4,
+    "respuestaIncorrecta_3": 3,
+    "nivel": 0,
+    "duracion": 14
+  },
+  {
+    "id": 60,
+    "operacion": "18 ÷ 3",
+    "respuesta_correcta": 6,
+    "respuestaIncorrecta_1": 5,
+    "respuestaIncorrecta_2": 7,
+    "respuestaIncorrecta_3": 4,
+    "nivel": 0,
+    "duracion": 12
+  },
+  {
+    "id": 61,
+    "operacion": "7 + 5",
+    "respuesta_correcta": 12,
+    "respuestaIncorrecta_1": 11,
+    "respuestaIncorrecta_2": 13,
+    "respuestaIncorrecta_3": 14,
+    "nivel": 0,
+    "duracion": 11
+  },
+  {
+    "id": 62,
+    "operacion": "9 + 8",
+    "respuesta_correcta": 17,
+    "respuestaIncorrecta_1": 16,
+    "respuestaIncorrecta_2": 18,
+    "respuestaIncorrecta_3": 19,
+    "nivel": 0,
+    "duracion": 14
+  },
+  {
+    "id": 63,
+    "operacion": "11 - 3",
+    "respuesta_correcta": 8,
+    "respuestaIncorrecta_1": 7,
+    "respuestaIncorrecta_2": 9,
+    "respuestaIncorrecta_3": 10,
+    "nivel": 0,
+    "duracion": 9
+  },
+  {
+    "id": 64,
+    "operacion": "15 - 6",
+    "respuesta_correcta": 9,
+    "respuestaIncorrecta_1": 8,
+    "respuestaIncorrecta_2": 10,
+    "respuestaIncorrecta_3": 11,
+    "nivel": 0,
+    "duracion": 13
+  },
+  {
+    "id": 65,
+    "operacion": "4 x 5",
+    "respuesta_correcta": 20,
+    "respuestaIncorrecta_1": 19,
+    "respuestaIncorrecta_2": 21,
+    "respuestaIncorrecta_3": 22,
+    "nivel": 0,
+    "duracion": 8
+  },
+  {
+    "id": 66,
+    "operacion": "6 x 4",
+    "respuesta_correcta": 24,
+    "respuestaIncorrecta_1": 23,
+    "respuestaIncorrecta_2": 25,
+    "respuestaIncorrecta_3": 26,
+    "nivel": 0,
+    "duracion": 7
+  },
+  {
+    "id": 67,
+    "operacion": "9 ÷ 3",
+    "respuesta_correcta": 3,
+    "respuestaIncorrecta_1": 4,
+    "respuestaIncorrecta_2": 2,
+    "respuestaIncorrecta_3": 5,
+    "nivel": 0,
+    "duracion": 12
+  },
+  {
+    "id": 68,
+    "operacion": "20 ÷ 5",
+    "respuesta_correcta": 4,
+    "respuestaIncorrecta_1": 3,
+    "respuestaIncorrecta_2": 5,
+    "respuestaIncorrecta_3": 6,
+    "nivel": 0,
+    "duracion": 11
+  },
+  {
+    "id": 69,
+    "operacion": "18 + 7",
+    "respuesta_correcta": 25,
+    "respuestaIncorrecta_1": 24,
+    "respuestaIncorrecta_2": 26,
+    "respuestaIncorrecta_3": 27,
+    "nivel": 0,
+    "duracion": 14
+  },
+  {
+    "id": 70,
+    "operacion": "14 + 10",
+    "respuesta_correcta": 24,
+    "respuestaIncorrecta_1": 23,
+    "respuestaIncorrecta_2": 25,
+    "respuestaIncorrecta_3": 26,
+    "nivel": 0,
+    "duracion": 10
+  },
+  {
+    "id": 71,
+    "operacion": "6 + 7",
+    "respuesta_correcta": 13,
+    "respuestaIncorrecta_1": 12,
+    "respuestaIncorrecta_2": 14,
+    "respuestaIncorrecta_3": 15,
+    "nivel": 0,
+    "duracion": 9
+  },
+  {
+    "id": 72,
+    "operacion": "8 x 4",
+    "respuesta_correcta": 32,
+    "respuestaIncorrecta_1": 31,
+    "respuestaIncorrecta_2": 33,
+    "respuestaIncorrecta_3": 34,
+    "nivel": 0,
+    "duracion": 12
+  },
+  {
+    "id": 73,
+    "operacion": "13 - 4",
+    "respuesta_correcta": 9,
+    "respuestaIncorrecta_1": 8,
+    "respuestaIncorrecta_2": 10,
+    "respuestaIncorrecta_3": 11,
+    "nivel": 0,
+    "duracion": 7
+  },
+  {
+    "id": 74,
+    "operacion": "16 ÷ 4",
+    "respuesta_correcta": 4,
+    "respuestaIncorrecta_1": 3,
+    "respuestaIncorrecta_2": 5,
+    "respuestaIncorrecta_3": 6,
+    "nivel": 0,
+    "duracion": 8
+  },
+  {
+    "id": 75,
+    "operacion": "10 ÷ 2",
+    "respuesta_correcta": 5,
+    "respuestaIncorrecta_1": 4,
+    "respuestaIncorrecta_2": 6,
+    "respuestaIncorrecta_3": 3,
+    "nivel": 0,
+    "duracion": 10
+  },
+  {
+    "id": 76,
+    "operacion": "25 ÷ 5",
+    "respuesta_correcta": 5,
+    "respuestaIncorrecta_1": 4,
+    "respuestaIncorrecta_2": 6,
+    "respuestaIncorrecta_3": 7,
+    "nivel": 0,
+    "duracion": 12
+  },
+  {
+    "id": 77,
+    "operacion": "30 - 11",
+    "respuesta_correcta": 19,
+    "respuestaIncorrecta_1": 18,
+    "respuestaIncorrecta_2": 20,
+    "respuestaIncorrecta_3": 21,
+    "nivel": 0,
+    "duracion": 13
+  },
+  {
+    "id": 78,
+    "operacion": "8 x 6",
+    "respuesta_correcta": 48,
+    "respuestaIncorrecta_1": 47,
+    "respuestaIncorrecta_2": 49,
+    "respuestaIncorrecta_3": 50,
+    "nivel": 0,
+    "duracion": 14
+  },
+  {
+    "id": 79,
+    "operacion": "10 + 13",
+    "respuesta_correcta": 23,
+    "respuestaIncorrecta_1": 22,
+    "respuestaIncorrecta_2": 24,
+    "respuestaIncorrecta_3": 25,
+    "nivel": 0,
+    "duracion": 9
+  },
+  {
+    "id": 80,
+    "operacion": "5 x 7",
+    "respuesta_correcta": 35,
+    "respuestaIncorrecta_1": 34,
+    "respuestaIncorrecta_2": 36,
+    "respuestaIncorrecta_3": 37,
+    "nivel": 0,
+    "duracion": 8
+  },
+  {
+    "id": 81,
+    "operacion": "3 x 7",
+    "respuesta_correcta": 21,
+    "respuestaIncorrecta_1": 20,
+    "respuestaIncorrecta_2": 22,
+    "respuestaIncorrecta_3": 23,
+    "nivel": 0,
+    "duracion": 11
+  },
+  {
+    "id": 82,
+    "operacion": "18 + 6",
+    "respuesta_correcta": 24,
+    "respuestaIncorrecta_1": 23,
+    "respuestaIncorrecta_2": 25,
+    "respuestaIncorrecta_3": 26,
+    "nivel": 0,
+    "duracion": 13
+  },
+  {
+    "id": 83,
+    "operacion": "21 - 4",
+    "respuesta_correcta": 17,
+    "respuestaIncorrecta_1": 16,
+    "respuestaIncorrecta_2": 18,
+    "respuestaIncorrecta_3": 19,
+    "nivel": 0,
+    "duracion": 10
+  },
+  {
+    "id": 84,
+    "operacion": "12 ÷ 3",
+    "respuesta_correcta": 4,
+    "respuestaIncorrecta_1": 3,
+    "respuestaIncorrecta_2": 5,
+    "respuestaIncorrecta_3": 6,
+    "nivel": 0,
+    "duracion": 9
+  },
+  {
+    "id": 85,
+    "operacion": "8 + 14",
+    "respuesta_correcta": 22,
+    "respuestaIncorrecta_1": 21,
+    "respuestaIncorrecta_2": 23,
+    "respuestaIncorrecta_3": 24,
+    "nivel": 0,
+    "duracion": 7
+  },
+  {
+    "id": 86,
+    "operacion": "10 - 3",
+    "respuesta_correcta": 7,
+    "respuestaIncorrecta_1": 6,
+    "respuestaIncorrecta_2": 8,
+    "respuestaIncorrecta_3": 9,
+    "nivel": 0,
+    "duracion": 14
+  },
+  {
+    "id": 87,
+    "operacion": "13 + 9",
+    "respuesta_correcta": 22,
+    "respuestaIncorrecta_1": 21,
+    "respuestaIncorrecta_2": 23,
+    "respuestaIncorrecta_3": 24,
+    "nivel": 0,
+    "duracion": 10
+  },
+  {
+    "id": 88,
+    "operacion": "11 x 3",
+    "respuesta_correcta": 33,
+    "respuestaIncorrecta_1": 32,
+    "respuestaIncorrecta_2": 34,
+    "respuestaIncorrecta_3": 35,
+    "nivel": 0,
+    "duracion": 12
+  },
+  {
+    "id": 89,
+    "operacion": "6 + 15",
+    "respuesta_correcta": 21,
+    "respuestaIncorrecta_1": 20,
+    "respuestaIncorrecta_2": 22,
+    "respuestaIncorrecta_3": 23,
+    "nivel": 0,
+    "duracion": 13
+  },
+  {
+    "id": 90,
+    "operacion": "5 x 9",
+    "respuesta_correcta": 45,
+    "respuestaIncorrecta_1": 44,
+    "respuestaIncorrecta_2": 46,
+    "respuestaIncorrecta_3": 47,
+    "nivel": 0,
+    "duracion": 11
+  },
+  {
+    "id": 91,
+    "operacion": "7 + 12",
+    "respuesta_correcta": 19,
+    "respuestaIncorrecta_1": 18,
+    "respuestaIncorrecta_2": 20,
+    "respuestaIncorrecta_3": 21,
+    "nivel": 0,
+    "duracion": 7
+  },
+  {
+    "id": 92,
+    "operacion": "10 ÷ 5",
+    "respuesta_correcta": 2,
+    "respuestaIncorrecta_1": 3,
+    "respuestaIncorrecta_2": 1,
+    "respuestaIncorrecta_3": 4,
+    "nivel": 0,
+    "duracion": 9
+  },
+  {
+    "id": 93,
+    "operacion": "24 ÷ 6",
+    "respuesta_correcta": 4,
+    "respuestaIncorrecta_1": 5,
+    "respuestaIncorrecta_2": 3,
+    "respuestaIncorrecta_3": 6,
+    "nivel": 0,
+    "duracion": 10
+  },
+  {
+    "id": 94,
+    "operacion": "13 + 15",
+    "respuesta_correcta": 28,
+    "respuestaIncorrecta_1": 27,
+    "respuestaIncorrecta_2": 29,
+    "respuestaIncorrecta_3": 30,
+    "nivel": 0,
+    "duracion": 8
+  },
+  {
+    "id": 95,
+    "operacion": "7 x 8",
+    "respuesta_correcta": 56,
+    "respuestaIncorrecta_1": 55,
+    "respuestaIncorrecta_2": 57,
+    "respuestaIncorrecta_3": 58,
+    "nivel": 0,
+    "duracion": 11
+  },
+  {
+    "id": 96,
+    "operacion": "9 + 16",
+    "respuesta_correcta": 25,
+    "respuestaIncorrecta_1": 24,
+    "respuestaIncorrecta_2": 26,
+    "respuestaIncorrecta_3": 27,
+    "nivel": 0,
+    "duracion": 14
+  },
+  {
+    "id": 97,
+    "operacion": "12 - 7",
+    "respuesta_correcta": 5,
+    "respuestaIncorrecta_1": 4,
+    "respuestaIncorrecta_2": 6,
+    "respuestaIncorrecta_3": 7,
+    "nivel": 0,
+    "duracion": 9
+  },
+  {
+    "id": 98,
+    "operacion": "10 x 6",
+    "respuesta_correcta": 60,
+    "respuestaIncorrecta_1": 59,
+    "respuestaIncorrecta_2": 61,
+    "respuestaIncorrecta_3": 62,
+    "nivel": 0,
+    "duracion": 12
+  },
+  {
+    "id": 99,
+    "operacion": "18 ÷ 3",
+    "respuesta_correcta": 6,
+    "respuestaIncorrecta_1": 5,
+    "respuestaIncorrecta_2": 7,
+    "respuestaIncorrecta_3": 8,
+    "nivel": 0,
+    "duracion": 10
+  },
+  {
+    "id": 100,
+    "operacion": "25 + 16",
+    "respuesta_correcta": 41,
+    "respuestaIncorrecta_1": 40,
+    "respuestaIncorrecta_2": 42,
+    "respuestaIncorrecta_3": 43,
+    "nivel": 0,
+    "duracion": 14
+  },
+  {
+    "id": 101,
+    "operacion": "14 + 5",
+    "respuesta_correcta": 19,
+    "respuestaIncorrecta_1": 18,
+    "respuestaIncorrecta_2": 20,
+    "respuestaIncorrecta_3": 21,
+    "nivel": 0,
+    "duracion": 8
+  },
+  {
+    "id": 102,
+    "operacion": "9 x 5",
+    "respuesta_correcta": 45,
+    "respuestaIncorrecta_1": 44,
+    "respuestaIncorrecta_2": 46,
+    "respuestaIncorrecta_3": 47,
+    "nivel": 0,
+    "duracion": 12
+  },
+  {
+    "id": 103,
+    "operacion": "20 ÷ 4",
+    "respuesta_correcta": 5,
+    "respuestaIncorrecta_1": 4,
+    "respuestaIncorrecta_2": 6,
+    "respuestaIncorrecta_3": 7,
+    "nivel": 0,
+    "duracion": 10
+  },
+  {
+    "id": 104,
+    "operacion": "17 - 8",
+    "respuesta_correcta": 9,
+    "respuestaIncorrecta_1": 8,
+    "respuestaIncorrecta_2": 10,
+    "respuestaIncorrecta_3": 11,
+    "nivel": 0,
+    "duracion": 9
+  },
+  {
+    "id": 105,
+    "operacion": "13 + 14",
+    "respuesta_correcta": 27,
+    "respuestaIncorrecta_1": 26,
+    "respuestaIncorrecta_2": 28,
+    "respuestaIncorrecta_3": 29,
+    "nivel": 0,
+    "duracion": 7
+  },
+  {
+    "id": 106,
+    "operacion": "8 x 3",
+    "respuesta_correcta": 24,
+    "respuestaIncorrecta_1": 23,
+    "respuestaIncorrecta_2": 25,
+    "respuestaIncorrecta_3": 26,
+    "nivel": 0,
+    "duracion": 11
+  },
+  {
+    "id": 107,
+    "operacion": "6 + 10",
+    "respuesta_correcta": 16,
+    "respuestaIncorrecta_1": 15,
+    "respuestaIncorrecta_2": 17,
+    "respuestaIncorrecta_3": 18,
+    "nivel": 0,
+    "duracion": 12
+  },
+  {
+    "id": 108,
+    "operacion": "18 - 9",
+    "respuesta_correcta": 9,
+    "respuestaIncorrecta_1": 8,
+    "respuestaIncorrecta_2": 10,
+    "respuestaIncorrecta_3": 11,
+    "nivel": 0,
+    "duracion": 7
+  },
+  {
+    "id": 109,
+    "operacion": "11 + 16",
+    "respuesta_correcta": 27,
+    "respuestaIncorrecta_1": 26,
+    "respuestaIncorrecta_2": 28,
+    "respuestaIncorrecta_3": 29,
+    "nivel": 0,
+    "duracion": 8
+  },
+  {
+    "id": 110,
+    "operacion": "14 x 2",
+    "respuesta_correcta": 28,
+    "respuestaIncorrecta_1": 27,
+    "respuestaIncorrecta_2": 29,
+    "respuestaIncorrecta_3": 30,
+    "nivel": 0,
+    "duracion": 10
+  },
+  {
+    "id": 111,
+    "operacion": "20 ÷ 2",
+    "respuesta_correcta": 10,
+    "respuestaIncorrecta_1": 9,
+    "respuestaIncorrecta_2": 11,
+    "respuestaIncorrecta_3": 12,
+    "nivel": 0,
+    "duracion": 13
+  },
+  {
+    "id": 112,
+    "operacion": "16 - 4",
+    "respuesta_correcta": 12,
+    "respuestaIncorrecta_1": 11,
+    "respuestaIncorrecta_2": 13,
+    "respuestaIncorrecta_3": 14,
+    "nivel": 0,
+    "duracion": 9
+  },
+  {
+    "id": 113,
+    "operacion": "8 x 2",
+    "respuesta_correcta": 16,
+    "respuestaIncorrecta_1": 15,
+    "respuestaIncorrecta_2": 17,
+    "respuestaIncorrecta_3": 18,
+    "nivel": 0,
+    "duracion": 7
+  },
+  {
+    "id": 114,
+    "operacion": "6 + 3",
+    "respuesta_correcta": 9,
+    "respuestaIncorrecta_1": 8,
+    "respuestaIncorrecta_2": 10,
+    "respuestaIncorrecta_3": 11,
+    "nivel": 0,
+    "duracion": 10
+  },
+  {
+    "id": 115,
+    "operacion": "12 x 4",
+    "respuesta_correcta": 48,
+    "respuestaIncorrecta_1": 47,
+    "respuestaIncorrecta_2": 49,
+    "respuestaIncorrecta_3": 50,
+    "nivel": 0,
+    "duracion": 14
+  },
+  {
+    "id": 116,
+    "operacion": "15 + 10",
+    "respuesta_correcta": 25,
+    "respuestaIncorrecta_1": 24,
+    "respuestaIncorrecta_2": 26,
+    "respuestaIncorrecta_3": 27,
+    "nivel": 0,
+    "duracion": 8
+  },
+  {
+    "id": 117,
+    "operacion": "9 x 6",
+    "respuesta_correcta": 54,
+    "respuestaIncorrecta_1": 53,
+    "respuestaIncorrecta_2": 55,
+    "respuestaIncorrecta_3": 56,
+    "nivel": 0,
+    "duracion": 11
+  },
+  {
+    "id": 118,
+    "operacion": "7 + 8",
+    "respuesta_correcta": 15,
+    "respuestaIncorrecta_1": 14,
+    "respuestaIncorrecta_2": 16,
+    "respuestaIncorrecta_3": 17,
+    "nivel": 0,
+    "duracion": 12
+  },
+  {
+    "id": 119,
+    "operacion": "10 ÷ 2",
+    "respuesta_correcta": 5,
+    "respuestaIncorrecta_1": 4,
+    "respuestaIncorrecta_2": 6,
+    "respuestaIncorrecta_3": 7,
+    "nivel": 0,
+    "duracion": 9
+  },
+  {
+    "id": 120,
+    "operacion": "20 - 9",
+    "respuesta_correcta": 11,
+    "respuestaIncorrecta_1": 10,
+    "respuestaIncorrecta_2": 12,
+    "respuestaIncorrecta_3": 13,
+    "nivel": 0,
+    "duracion": 7
+  }
+
+
+
+
+
   
   
 ]
