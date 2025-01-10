@@ -95,9 +95,6 @@ function empezar(){
 
       const SalaActual = store.SalaActual;
       socket.emit('empezar',SalaActual);
-
-     
-     
       visibleRanking.value=true;
       temporizador();
      
