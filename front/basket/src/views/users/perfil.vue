@@ -76,6 +76,8 @@ onMounted(() => {
 </script>
 
 <template>
+      <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
     <main id="perfil_page" class="q-pa-md">
         <q-card flat bordered>
             <q-card-section>
@@ -138,6 +140,9 @@ onMounted(() => {
 #perfil_page {
     max-width: 600px;
     margin: 0 auto;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 15px;
+
 }
 
 .q-card {
