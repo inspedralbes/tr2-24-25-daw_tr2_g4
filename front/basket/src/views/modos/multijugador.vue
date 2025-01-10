@@ -190,12 +190,14 @@ const visibleBoton=ref(false);
 </script>
 
 <template>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
   <main >
     <div v-if="visibleSalas"  class="main-multijugador"> 
       <div class="body_multijugador">
       <SalasPrivadas :socket="socket" @boton="mostrarBoton" />
      
-      <q-btn v-if="visibleBoton" color="orange" @click="empezar" size="25px" class="boton-volver" glossy label="Empezar"></q-btn>
+      <q-btn v-if="visibleBoton" color="orange" @click="empezar" size="25px" class="emprezar" glossy label="Empezar"></q-btn>
      
     </div>
 
@@ -203,7 +205,7 @@ const visibleBoton=ref(false);
    
     
     <RouterLink to="/jugar">
-          <q-btn color="red-12" @click="desconectar" size="25px" class="boton-volver" glossy label="Volver"></q-btn>
+          <q-btn color="red-12" @click="desconectar" size="25px" class="volver" glossy label="Volver"></q-btn>
         </RouterLink>
 
 
@@ -535,5 +537,23 @@ transform: translateY(20px);
 .rank-move {
 transition: transform 0.5s ease;
 }
+.volver{
+  position: absolute;
+  bottom: 15px;
+  left: 110px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 20px;
 
+
+}
+
+.emprezar{
+  position: absolute;
+  bottom: 100px;
+  left: 100px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+
+
+}
 </style>
