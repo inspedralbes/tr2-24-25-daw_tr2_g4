@@ -88,10 +88,8 @@ if (useApp.loginInfo.loggedIn) {
   visibleLog.value = false;
 }
 </script>
-
 <template>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-
 
   <main id="main_menu">
     <div id="div_menu" v-if="visibleOpciones">
@@ -111,7 +109,7 @@ if (useApp.loginInfo.loggedIn) {
         menu-self="bottom right" size="25px">
         <div class="div_user">
           <div>
-            <div style="font-size: 50px; text-align: center">Cuenta</div>
+            <div style="font-size: 40px; text-align: center">Cuenta</div>
           </div>
 
           <!-- Loggeado -->
@@ -123,12 +121,13 @@ if (useApp.loginInfo.loggedIn) {
             <div style="font-size: 30px">{{ useApp.loginInfo.username }}</div>
 
             <RouterLink to="/user/perfil">
-              <q-btn class="botones_desple" color="black" label="Perfil" push size="30px" v-close-popup></q-btn>
+              <q-btn class="botones_desple" color="black" label="Perfil" push size="30px" v-close-popup
+                style="font-size: 16px;"></q-btn>
             </RouterLink>
             <br />
             <RouterLink to="/jugar">
               <q-btn class="botones_desple" color="red" label="Log out" push size="30px" v-close-popup
-                @click="salir"></q-btn>
+                @click="salir" style="font-size: 16px;"></q-btn>
             </RouterLink>
           </div>
 
@@ -138,14 +137,17 @@ if (useApp.loginInfo.loggedIn) {
               <img src="/avatar/boy1.png" />
             </q-avatar>
 
-            <div style="font-size: 30px">Invitado</div>
+            <!-- Texto de "Invitado" con fuente más pequeña -->
+            <div style="font-size: 20px">Invitado</div> <!-- Fuente más pequeña para "Invitado" -->
 
             <RouterLink to="/user/login">
-              <q-btn class="botones_desple" color="black" label="Login" push size="30px" v-close-popup></q-btn>
+              <q-btn class="botones_desple" color="black" label="Login" push size="30px" v-close-popup
+                style="font-size: 16px;"></q-btn>
             </RouterLink>
             <br />
             <RouterLink to="/user/register">
-              <q-btn class="botones_desple" color="grey" label="Registrarse" push size="30px" v-close-popup></q-btn>
+              <q-btn class="botones_desple" color="grey" label="Registrarse" push size="30px" v-close-popup
+                style="font-size: 16px;"></q-btn>
             </RouterLink>
           </div>
         </div>
@@ -196,7 +198,6 @@ if (useApp.loginInfo.loggedIn) {
   grid-template-columns: 1fr 1fr 1fr;
   height: 100vh;
   font-family: 'Press Start 2P', cursive;
-  
 }
 
 .menu_avatar {
@@ -212,14 +213,12 @@ if (useApp.loginInfo.loggedIn) {
   height: 400px;
   width: 300px;
   font-family: 'Press Start 2P', cursive;
-
 }
 
 #div_menu {
   text-align: center;
   grid-column: 2;
   grid-row: 2;
-
 }
 
 .botones_menu {
@@ -227,13 +226,12 @@ if (useApp.loginInfo.loggedIn) {
   width: 350px;
   font-size: 26px;
   border: 1px solid black;
-
 }
 
 .botones_desple {
   margin-top: 10px;
   width: 250px;
-font-size: 5px;
+  font-size: 5px;
 }
 
 .user_menu {
