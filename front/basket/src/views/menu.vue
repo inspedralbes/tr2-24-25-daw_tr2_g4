@@ -213,6 +213,7 @@ if (useApp.loginInfo.loggedIn) {
   height: 400px;
   width: 300px;
   font-family: 'Press Start 2P', cursive;
+  padding-top: 50px;
 }
 
 #div_menu {
@@ -236,10 +237,11 @@ if (useApp.loginInfo.loggedIn) {
 
 .user_menu {
   height: 20%;
-  margin-top: 40px;
+  margin-top: 80px; /* Aumenta el margen superior */
   grid-column: 2;
   grid-row: 3;
   align-self: center;
   justify-self: right;
 }
+
 </style>
