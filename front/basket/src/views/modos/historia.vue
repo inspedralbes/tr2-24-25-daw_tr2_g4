@@ -164,6 +164,10 @@ function cerrarAlerta() {
   filter: hue-rotate(120deg);
 }
 
+.nivel:disabled {
+  opacity: 1 !important;  /* Elimina la opacidad */
+ 
+}
 .imagen_volver {
   position: fixed;
   top: 20px;

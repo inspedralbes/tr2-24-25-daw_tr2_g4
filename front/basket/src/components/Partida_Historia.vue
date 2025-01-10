@@ -125,16 +125,19 @@ let apagar=0;
         apagar=5
         info.racha=true; 
         animaciones.tiro_en_llamas=true;
+        tiroHecho.value=true;
         
       }
       else{
         animaciones.encestar=true;
+        tiroHecho.value=true;
        
 }
 
     }else{
       let aux= Math.floor(Math.random() * 5) + 1;
       animaciones[`fallo${aux}`] = true;
+      tiroHecho.value=true;
       info.fallo=true;
       info.canasta=0;
       puntosSeguidos=0;
@@ -146,6 +149,7 @@ let apagar=0;
 
   setTimeout(() => {
     apagarAnimaciones(apagar);
+    tiroHecho.value=false;
   }, 500);
 
  
@@ -216,7 +220,7 @@ function mezclarRespuestas() {
 
 
 }
-
+const tiroHecho=ref(false)
 const respuestasMezcladas = computed(() => mezclarRespuestas());
 
 function responder(num){
@@ -287,7 +291,7 @@ function responder(num){
      
       <div v-for="(respuesta, index) in respuestasMezcladas" :key="index">
 
-      <q-btn  color="deep-orange" class="botones_partida" glossy label=""@click="responder(respuesta)"> {{ respuesta }}</q-btn>
+      <q-btn  color="deep-orange" class="botones_partida" glossy label=""@click="responder(respuesta)" :disabled="tiroHecho"> {{ respuesta }}</q-btn>
     
      
      </div>
@@ -449,6 +453,11 @@ function responder(num){
   animation: tiro_en_llamas 0.5s linear;
 }
 
+
+.q-btn:disabled {
+  opacity: 1 !important;  /* Elimina la opacidad */
+ 
+}
 .animacion_encestar{
 
  
