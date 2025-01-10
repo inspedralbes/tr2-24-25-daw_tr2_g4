@@ -217,8 +217,7 @@ const styleFondo = computed(() => ({
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'auto',
     }));
-
-    console.log(styleFondo.value)
+ 
  
 
 function mezclarRespuestas() {
