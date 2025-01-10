@@ -69,9 +69,8 @@ async function register_compo() {
   
 }
 </script>
-
 <template>
-  <main class="q-pa-md">
+  <main class="q-pa-md main-container">
 
     <!-- Dialogo de error -->
     <q-dialog v-model="alert">
@@ -91,45 +90,46 @@ async function register_compo() {
     </q-dialog>
 
     <!-- Campos de entrada -->
-    <q-input class="q-mb-md" v-model="username" filled type="text" label="Username" />
-    <q-input class="q-mb-md" v-model="email" filled type="email" label="Correo electrónico" />
-    <q-input class="q-mb-md" v-model="password" filled :type="isPwd ? 'password' : 'text'" label="Contraseña">
-      <template v-slot:append>
-        <q-icon
-          :name="isPwd ? 'visibility_off' : 'visibility'"
-          class="cursor-pointer"
-          @click="isPwd = !isPwd"
-        ></q-icon>
-      </template>
-    </q-input>
+    <div class="form-container">
+      <q-input class="q-mb-md" v-model="username" filled type="text" label="Username" />
+      <q-input class="q-mb-md" v-model="email" filled type="email" label="Correo electrónico" />
+      <q-input class="q-mb-md" v-model="password" filled :type="isPwd ? 'password' : 'text'" label="Contraseña">
+        <template v-slot:append>
+          <q-icon
+            :name="isPwd ? 'visibility_off' : 'visibility'"
+            class="cursor-pointer"
+            @click="isPwd = !isPwd"
+          ></q-icon>
+        </template>
+      </q-input>
 
-    <!-- Selección de avatar -->
-    <div class="q-mb-md text-center">
-      <span>Selecciona tu avatar</span>
-      <q-carousel
-        swipeable
-        animated
-        v-model="slide"
-        class="q-mt-md"
-        style="width: 100px; height: 100px; border-radius: 50%; border: 1px solid #ccc;">
-        <q-carousel-slide :name="1" img-src="/public/avatar/boy1.png" />
-        <q-carousel-slide :name="2" img-src="/public/avatar/boy2.png" />
-        <q-carousel-slide :name="3" img-src="/public/avatar/boy3.png" />
-        <q-carousel-slide :name="4" img-src="/public/avatar/boy4.png" />
-        <q-carousel-slide :name="5" img-src="/public/avatar/boy5.png" />
-        <q-carousel-slide :name="6" img-src="/public/avatar/boy6.png" />
-        <q-carousel-slide :name="7" img-src="/public/avatar/boy7.png" />
-      </q-carousel>
+      <!-- Selección de avatar -->
+      <div class="q-mb-md text-center">
+        <span>Desliza para seleccionar tu avatar</span>
+        <q-carousel
+          swipeable
+          animated
+          v-model="slide"
+          class="q-mt-md"
+          style="width: 100px; height: 100px; border-radius: 50%; border: 1px solid #ccc;">
+          <q-carousel-slide :name="1" img-src="/public/avatar/boy1.png" />
+          <q-carousel-slide :name="2" img-src="/public/avatar/boy2.png" />
+          <q-carousel-slide :name="3" img-src="/public/avatar/boy3.png" />
+          <q-carousel-slide :name="4" img-src="/public/avatar/boy4.png" />
+          <q-carousel-slide :name="5" img-src="/public/avatar/boy5.png" />
+          <q-carousel-slide :name="6" img-src="/public/avatar/boy6.png" />
+          <q-carousel-slide :name="7" img-src="/public/avatar/boy7.png" />
+        </q-carousel>
+      </div>
+
+      <!-- Botones -->
+      <div class="q-mt-md text-center">
+        <q-btn color="deep-orange" @click="register_compo" class="q-mb-md" glossy label="Registrarse" />
+        <RouterLink to="/jugar">
+          <q-btn color="red" class="q-mb-md" glossy label="Volver" />
+        </RouterLink>
+      </div>
     </div>
-
-    <!-- Botones -->
-    <div class="q-mt-md text-center">
-      <q-btn color="deep-orange" @click="register_compo" class="q-mb-md" glossy label="Registrarse" />
-      <RouterLink to="/jugar">
-        <q-btn color="red" class="q-mb-md" glossy label="Volver" />
-      </RouterLink>
-    </div>
-
   </main>
 </template>
 
@@ -140,6 +140,7 @@ async function register_compo() {
 
 .q-input {
   width: 100%;
+  background-color: white;
 }
 
 .q-carousel {
@@ -153,9 +154,22 @@ async function register_compo() {
 
 .q-mb-md {
   margin-bottom: 16px;
+  color: white;
 }
 
 .q-mt-md {
   margin-top: 16px;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-container {
+  margin-top: 100px; 
+  width: 100%;
+  max-width: 400px;
 }
 </style>

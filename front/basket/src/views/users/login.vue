@@ -62,9 +62,8 @@ async function aux_login() {
   }
 }
 </script>
-
 <template>
-  <main class="q-pa-md">
+  <main class="q-pa-md main-container">
     <!-- Diálogo de error -->
     <q-dialog v-model="alert" backdrop-filter="blur(4px)">
       <q-card>
@@ -82,38 +81,41 @@ async function aux_login() {
       </q-card>
     </q-dialog>
 
-    <!-- Campos de entrada -->
-    <q-input
-      v-model="username"
-      class="q-mb-md"
-      filled
-      type="text"
-      label="Username"
-      :dense="true"
-    />
-    <q-input
-      v-model="password"
-      class="q-mb-md"
-      filled
-      :type="isPwd ? 'password' : 'text'"
-      label="Contraseña"
-      :dense="true"
-    >
-      <template v-slot:append>
-        <q-icon
-          :name="isPwd ? 'visibility_off' : 'visibility'"
-          class="cursor-pointer"
-          @click="isPwd = !isPwd"
-        ></q-icon>
-      </template>
-    </q-input>
+    <!-- Contenedor del formulario -->
+    <div class="form-container">
+      <!-- Campos de entrada -->
+      <q-input
+        v-model="username"
+        class="q-mb-md"
+        filled
+        type="text"
+        label="Username"
+        :dense="true"
+      />
+      <q-input
+        v-model="password"
+        class="q-mb-md"
+        filled
+        :type="isPwd ? 'password' : 'text'"
+        label="Contraseña"
+        :dense="true"
+      >
+        <template v-slot:append>
+          <q-icon
+            :name="isPwd ? 'visibility_off' : 'visibility'"
+            class="cursor-pointer"
+            @click="isPwd = !isPwd"
+          ></q-icon>
+        </template>
+      </q-input>
 
-    <!-- Botones -->
-    <div class="text-center q-mt-md">
-      <q-btn color="deep-orange" @click="aux_login" glossy label="Login" class="q-mb-md" />
-      <RouterLink to="/jugar">
-        <q-btn color="red" glossy label="Volver" class="q-mb-md" />
-      </RouterLink>
+      <!-- Botones -->
+      <div class="text-center q-mt-md">
+        <q-btn color="deep-orange" @click="aux_login" glossy label="Login" class="q-mb-md" />
+        <RouterLink to="/jugar">
+          <q-btn color="red" glossy label="Volver" class="q-mb-md" />
+        </RouterLink>
+      </div>
     </div>
   </main>
 </template>
@@ -138,9 +140,22 @@ async function aux_login() {
 
 .q-mb-md {
   margin-bottom: 16px;
+  background-color: white;
 }
 
 .q-mt-md {
   margin-top: 16px;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-container {
+  margin-top: 250px; 
+  width: 100%;
+  max-width: 400px;
 }
 </style>
