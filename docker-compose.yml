@@ -1,3 +1,4 @@
+version: '3'
 
 services:
   # Servicio de la base de datos MySQL
@@ -43,10 +44,10 @@ services:
       - ./back/node:/var/www  # Montar el directorio de Node.js
     working_dir: /var/www
     ports:
-      - "3100:8080"  # Exponiendo el puerto 8080 para el WebSocket
+      - "3001:8080"  # Cambié el puerto 3000 por 3001 para evitar el conflicto
     depends_on:
       - db  # Asegura que db esté levantado antes que Node.js
-    command: ["node", "server.js"]  # Asegúrate de que el archivo 'server.js' sea el punto de entrada
+    command: /bin/bash -c "npm install && node server.js"  # Ejecutar npm install y luego node server.js
 
   # Servicio de la aplicación Vue.js
   vue-app:
@@ -58,4 +59,4 @@ services:
       - "5176:5176"  # PUERTO PARA VUE
     command: /bin/bash -c "npm install && npm run dev"  # Instalación de dependencias y luego iniciar el servidor de desarrollo
     depends_on:
-      - db  
+      - db  # Asegura que db esté levantado antes que Vue.js
