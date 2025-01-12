@@ -5,12 +5,14 @@ import { useCounterStore } from '@/stores/counter';
 import socketManager from '@/socket';
 import Partida from '@/components/Partida.vue';
 import Temporizador from '@/components/temporizador.vue';
+import confetti from 'canvas-confetti';
+import audioPodio from '@/assets/audio/podio_multi.mp3';
 
 const visibleSalas = ref(true);
 const visibleJuego = ref(false);
 const store = useCounterStore();
 const token = store.getLoginInfo.token;
-
+const audio = new Audio(audioPodio);
 
 
 console.log("Token enviado al servidor:", token);
@@ -34,6 +36,7 @@ let posiciones = ref("");
 let poderes = reactive({ data: "" })
 let data = reactive({ preguntas: "" });
 let medio = reactive({ poder: "", username: "", num: "" });
+let animacionConfetti;
 const visibleTedio = ref(false);
 const temblor = ref(false);
 const puntacionFinal = reactive({ puntuacion: "", posicion: "" })
@@ -62,11 +65,14 @@ socket.on('acabar', (index, puntuacion) => {
     puntacionFinal.posicion = index;
     visibleJuego.value = false;
     visibleFinal.value = true;
-
-  } else {
-    visibleRanking.value = false;
-    visiblePodio.value = true;
-
+    
+  } else if(visibleRanking.value==true){
+      visibleRanking.value = false;
+      visiblePodio.value = true;
+      audio.play().catch(error => {
+      console.error('No se pudo reproducir el audio:', error);
+  });
+      lanzarConfeti();
   }
 
 
@@ -96,6 +102,7 @@ function empezar() {
 
 function tempoAcabado() {
   visibleTempo.value = false;
+  visibleRanking.value = true;
   const SalaActual = store.SalaActual;
   socket.emit('empezar', SalaActual);
   visibleRanking.value = true;
@@ -124,7 +131,7 @@ socket.on('poderes', (param) => {
 
 })
 
-const tiempo = ref(60);
+const tiempo = ref(1);
 let interval;
 
 function temporizador() {
@@ -184,6 +191,45 @@ const visibleBoton = ref(false);
 
 function mostrarBoton() {
   visibleBoton.value = !visibleBoton.value;
+}
+
+function lanzarConfeti() {
+  const end = Date.now() + (15 * 1000); 
+  const colors = [
+    '#ff0000', '#ffff00', '#00ff00', '#0000ff', '#ff00ff', 
+    '#00ffff', '#ff7f00', '#8a2be2', '#a52a2a', '#000080', 
+    '#ff1493', '#7fff00', '#d2691e', '#ff4500', '#ff6347'
+  ];
+
+  function frame() {
+    confetti({
+      particleCount: 5,
+      angle: 90,        
+      spread: 15,       
+      startVelocity: 30, 
+      decay: 0.9,       
+      gravity: 1.5,     
+      origin: { x: Math.random(), y: 0 },
+      colors: colors,   
+    });
+
+    if (Date.now() < end) {
+      animacionConfetti = requestAnimationFrame(frame); 
+    }
+  }
+  frame();
+
+
+}
+
+
+function detenerConfeti() {
+  if (animacionConfetti) {
+    cancelAnimationFrame(animacionConfetti);
+    animacionConfetti= null;
+    confetti.reset();
+
+  }
 }
 
 
@@ -279,38 +325,43 @@ function mostrarBoton() {
           </table>
         </div>
       </div>
-
-      <div v-if="visiblePodio">
+      
+    </div>
+    <div v-if="visiblePodio">
         <div class="body-p">
+          <RouterLink to="/jugar" @click.native="detenerConfeti">
+          <img style="right: inherit;" src="@/assets/imagenes/volver.png" alt="Volver" class="imagen_volver">
+        </RouterLink>
+          <div class="titulo-ganadores">
+          <h1>GANADORES</h1>
+          </div>
           <div class="contenedor-podio">
             <div class="podio">
-              <div class="copa" style="background-image: url('podio/copa2.png');"></div>
+              <div class="copa" style="background-image: url('/podio/copa2.png')"></div>
               <div class="numero">2</div>
-              <div class="podio-2"></div>
-              <div class="jugador">{{posiciones[1].username}}</div>
-              <div class="puntuacion">{{posiciones[1].puntacion}}</div>
+              <div class="podio-2"></div> 
+              <div class="jugador">{{ posiciones[1]?.username || "Vacío" }}</div>
+              <div class="puntuacion">{{ posiciones[1]?.puntacion || "0" }}</div>
             </div>
             <div class="podio">
-              <div class="copa" style="background-image: url('podio/copa1.png');"></div>
+              <div class="copa" style="background-image: url('/podio/copa1.png')"></div>
               <div class="numero">1</div>
               <div class="podio-1"></div>
-              <div class="jugador">{{posiciones[0].username}}</div>
-              <div class="puntuacion">{{posiciones[0].puntacion}}</div>
+              <div class="jugador">{{ posiciones[0]?.username || "Vacío" }}</div>
+              <div class="puntuacion">{{ posiciones[0]?.puntacion || "0" }}</div>
             </div>
             <div class="podio">
-              <div class="copa" style="background-image: url('podio/copa3.png');"></div>
+              <div class="copa" style="background-image: url('/podio/copa3.png')"></div>
               <div class="numero">3</div>
               <div class="podio-3"></div>
-              <div class="jugador">{{posiciones[2].username}}</div>
-              <div class="puntuacion">{{posiciones[2].puntacion}}</div>
+              <div class="jugador">{{ posiciones[2]?.username || "Vacío" }}</div>
+              <div class="puntuacion">{{ posiciones[2]?.puntacion || "0" }}</div>
             </div>
           </div>
         </div>
-
       </div>
 
 
-    </div>
 
     <div v-if="visibleFinal">
 
@@ -332,15 +383,36 @@ function mostrarBoton() {
 
 
 <style scoped>
+.imagen_volver {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 40px;
+  border: 2px solid white;
+  border-radius: 5px;
+}
 .body-p {
   font-family: 'Press Start 2P', cursive;
-  background: linear-gradient(to bottom, #1a1a1a, #333333);
-  color: #fff;
+  background-image: url("@/assets/bioma/parque.jpg");
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
+  position: relative;  color: #fff;
   display: flex;
+  flex-direction: column; 
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   margin: 0;
+  padding: 0 20px;
+}
+.titulo-ganadores {
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+  color: #FFD700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.6), 0 0 30px rgba(255, 215, 0, 0.4); /* Efecto de resplandor */
+  margin-bottom: 10px;
 }
 
 .contenedor-podio {
@@ -350,9 +422,8 @@ function mostrarBoton() {
   align-items: flex-end;
   gap: 10px;
   padding: 140px 30px 30px;
-  background: #222222;
+  background: #272727;
   border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.9);
   width: 90%;
   max-width: 1100px;
   height: 100%;
@@ -368,7 +439,7 @@ function mostrarBoton() {
 
 .copa {
   position: absolute;
-  top: -120px;
+  top: -110px;
   width: 130px;
   height: 130px;
   background-size: contain;
