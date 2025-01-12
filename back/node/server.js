@@ -3,24 +3,24 @@ const express = require('express');
 const cors = require('cors');
 const http = require('http');
 const socketIo = require('socket.io');
-const axios = require('axios');  
+const axios = require('axios');
 
 const app = express();
 
 app.use(cors({
-    origin: "*",  
+    origin: "*",
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true  
+    credentials: true
 }));
 
 const server = http.createServer(app);
 
 const io = socketIo(server, {
     cors: {
-        origin: "*",  
+        origin: "*",
         methods: ["GET", "POST"],
-        credentials: true  
+        credentials: true
     }
 });
 
@@ -50,7 +50,7 @@ io.on('connection', async (socket) => {
     }
 
     socket.on('create-room', () => {
-        const claveSala = uuidv4().slice(0, 5); 
+        const claveSala = uuidv4().slice(0, 5);
         socket.join(claveSala);
         socket.emit('room-created', claveSala);
         console.log(`Sala creada: ${claveSala} por el usuario: ${socket.user.username} (ID=${socket.user.id})`);
@@ -122,7 +122,7 @@ io.on('connection', async (socket) => {
         console.log(`Usuario desconectado: ${socket.id}`);
     });
 });
-const PORT = 8080;  // Cambié a 8080 para que coincida con el puerto mapeado en Docker
+const PORT = 1234;  // Cambié a 8080 para que coincida con el puerto mapeado en Docker
 server.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });

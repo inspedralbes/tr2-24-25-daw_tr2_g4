@@ -117,7 +117,7 @@ export default {
     const token = store.getLoginInfo.token; 
     console.log("Token enviado al servidor:", token);
 
-    this.socket = io("http://localhost:3000", {
+    this.socket = io("http://localhost:1234", {
       transports: ["websocket"],
       withCredentials: true,
       auth: {
