@@ -39,6 +39,8 @@ function ocultarTemporizador() {
 </script>
 
 <template>
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
   <main class="main">
     <Temporizador v-if="mostrarTempo" @complete="ocultarTemporizador" />
 
@@ -57,5 +59,7 @@ function ocultarTemporizador() {
   background-attachment: fixed;
   height: 100vh;
   position: relative;
+  font-family: 'Press Start 2P', cursive;
+
 }
 </style>
