@@ -10,6 +10,7 @@ import App from './App.vue'
 import '@quasar/extras/eva-icons/eva-icons.css'
 import { Loading } from 'quasar'
 import piniaPersistedState from 'pinia-plugin-persistedstate'
+import { Notify } from 'quasar';
 const pinia = createPinia()
 pinia.use(piniaPersistedState) 
 
