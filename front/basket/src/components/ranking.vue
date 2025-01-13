@@ -68,11 +68,9 @@
 
       if (userInfo.loggedIn && userInfo.id_user) {
         try {
-          // comprobar si el jugador ya tiene una puntuación en el ranking
           const existingRank = this.rankings.find(rank => rank.id_user === userInfo.id_user);
 
           if (existingRank) {
-            // Si ya existe, acualiz solo si la nueva puntuacion es mayor
             if (this.puntuacion > existingRank.puntuacion) {
               await axios.put(`http://a23diemujper.juego.daw.inspedralbes.cat/laravel/public/api/ranking/${existingRank.id}`, {
                 puntuacion: this.puntuacion,
@@ -82,7 +80,6 @@
               console.log('La nueva puntuación no es mayor, no se actualiza');
             }
           } else {
-            // Si no existe, guardar una nueva puntuacin en el ranking
             await axios.post('http://a23diemujper.juego.daw.inspedralbes.cat/laravel/public/api/ranking', {
               id_users: userInfo.id_user,
               puntuacion: this.puntuacion,
@@ -90,7 +87,6 @@
             console.log('Puntuación guardada con éxito');
           }
           
-          // recargar el ranking después de guardar la puntuación
           this.fetchRanking();
         } catch (error) {
           console.error('Error al guardar la puntuación:', error);
