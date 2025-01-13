@@ -63,6 +63,8 @@ async function aux_login() {
 }
 </script>
 <template>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
   <main class="q-pa-md main-container">
     <!-- Diálogo de error -->
     <q-dialog v-model="alert" backdrop-filter="blur(4px)">
@@ -123,39 +125,55 @@ async function aux_login() {
 <style scoped>
 .q-card {
   width: 400px;
+  font-family: 'Press Start 2P', cursive;
+
 }
 
 .q-input {
   width: 100%;
+  font-family: 'Press Start 2P', cursive;
+
 }
 
 .botones_login {
   margin-top: 40px;
   margin-right: 6px;
+  font-family: 'Press Start 2P', cursive;
+
 }
 
 .q-btn {
   width: 200px;
+  font-family: 'Press Start 2P', cursive;
+
 }
 
 .q-mb-md {
   margin-bottom: 16px;
   background-color: white;
+  font-family: 'Press Start 2P', cursive;
+
 }
 
 .q-mt-md {
   margin-top: 16px;
+  font-family: 'Press Start 2P', cursive;
+
 }
 
 .main-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: 'Press Start 2P', cursive;
+
 }
 
 .form-container {
   margin-top: 250px; 
   width: 100%;
   max-width: 400px;
+  font-family: 'Press Start 2P', cursive;
+
 }
 </style>
