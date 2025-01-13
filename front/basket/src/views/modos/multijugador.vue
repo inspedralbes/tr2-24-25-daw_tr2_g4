@@ -449,16 +449,18 @@ function mostrarRanking() {
 .imagen-copa {
   display: block;
   margin: 0 auto;
+  
   width: 400px;
   height: auto;
-  position: relative;
+  position: absolute;
+  top: 9%;
   margin-bottom: 80px;
 }
 
 .pantallaFinalPosicion {
   position: absolute;
-  top: 7%;
-  left: 52%;
+  top: 18%;
+  left: 60%;
   transform: translateX(-50%);
   font-family: 'Press Start 2P', cursive;
   color: #ffffff;
@@ -469,6 +471,7 @@ function mostrarRanking() {
 
 .pantallaFinalPuntuacion {
   position: absolute;
+  top: 72%;
   left: 50%;
   transform: translateX(-50%);
   font-family: 'Press Start 2P', cursive;
