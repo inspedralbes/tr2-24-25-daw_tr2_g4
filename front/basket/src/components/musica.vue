@@ -5,7 +5,7 @@
 
 <q-btn-dropdown
     class="glossy"
-    color="deep-orange"
+    color="black"
    icon="eva-music-outline" 
    menu-anchor="top right"  
    menu-self="bottom right"  

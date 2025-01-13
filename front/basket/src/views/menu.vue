@@ -120,7 +120,7 @@ if (useApp.loginInfo.loggedIn) {
     </div>
 
     <div class="user_menu" v-if="visibleOpciones">
-      <q-btn-dropdown class="glossy" color="deep-orange" icon="eva-person-add-outline" menu-anchor="top right"
+      <q-btn-dropdown class="glossy" color="black" icon="eva-person-add-outline" menu-anchor="top right"
         menu-self="bottom right" size="25px">
         <div class="div_user">
           <div>
