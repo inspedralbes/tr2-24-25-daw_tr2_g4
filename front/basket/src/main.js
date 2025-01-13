@@ -9,17 +9,22 @@ import router from './router'
 import App from './App.vue'
 import '@quasar/extras/eva-icons/eva-icons.css'
 import { Loading } from 'quasar'
+import piniaPersistedState from 'pinia-plugin-persistedstate'
+import { Notify } from 'quasar';
+const pinia = createPinia()
+pinia.use(piniaPersistedState) 
 
 const app = createApp(App)
 
 app.use(Quasar, {
   plugins: {
-    Loading, // Aquí añades el plugin Loading
+    Loading,
+    Notify, // Aquí añades el plugin Loading
   },
   lang: quasarLang,
 })
 
-app.use(createPinia())
+app.use(pinia)
 app.use(router)
 
 app.mount('#app')

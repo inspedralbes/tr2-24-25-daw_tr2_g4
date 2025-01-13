@@ -13,16 +13,16 @@
 
   <div class="fondo" v-else>
     <div class="niveles">
-      <q-btn round class="nivel" :class="{'NoDisponible': colores[9]==1, 'Superado': colores[9]==2}" style="grid-row: 1; grid-column: 2;" :label="10" @click="cargarPreguntas(10)" :disabled="isGameFinished"></q-btn>
-      <q-btn round class="nivel " :class="{'NoDisponible': colores[8]==1, 'Superado': colores[8]==2}" style="grid-row: 2; grid-column: 3;" :label="9" @click="cargarPreguntas(9)" :disabled="isGameFinished"></q-btn>
-      <q-btn round class="nivel" :class="{'NoDisponible': colores[7]==1, 'Superado': colores[7]==2}" style="grid-row: 3; grid-column: 3;" :label="8" @click="cargarPreguntas(8)" :disabled="isGameFinished"></q-btn>
-      <q-btn round class="nivel" :class="{'NoDisponible': colores[6]==1, 'Superado': colores[6]==2}" style="grid-row: 4; grid-column: 2;" :label="7" @click="cargarPreguntas(7)" :disabled="isGameFinished"></q-btn>
-      <q-btn round class="nivel" :class="{'NoDisponible': colores[5]==1, 'Superado': colores[5]==2}" style="grid-row: 5; grid-column: 1;" :label="6" @click="cargarPreguntas(6)" :disabled="isGameFinished"></q-btn>      
-      <q-btn round class="nivel" :class="{'NoDisponible': colores[4]==1, 'Superado': colores[4]==2}" style="grid-row: 6; grid-column: 2;" :label="5" @click="cargarPreguntas(5)" :disabled="isGameFinished"></q-btn>
-      <q-btn round class="nivel" :class="{'NoDisponible': colores[3]==1, 'Superado': colores[3]==2}" style="grid-row: 7; grid-column: 3;" :label="4" @click="cargarPreguntas(4)" :disabled="isGameFinished"></q-btn>
-      <q-btn round class="nivel" :class="{'NoDisponible': colores[2]==1, 'Superado': colores[2]==2}" style="grid-row: 8; grid-column: 2;" :label="3" @click="cargarPreguntas(3)" :disabled="isGameFinished"></q-btn> 
-      <q-btn round class="nivel" :class="{'NoDisponible': colores[1]==1, 'Superado': colores[1]==2}" style="grid-row: 9; grid-column: 1;" :label="2" @click="cargarPreguntas(2)" :disabled="isGameFinished"></q-btn>
-      <q-btn round class="nivel" :class="{'NoDisponible': colores[0]==1, 'Superado': colores[0]==2}" style="grid-row: 10; grid-column: 2;" :label="1" @click="cargarPreguntas(1)" :disabled="isGameFinished"></q-btn>
+      <q-btn round class="nivel" :class="{'NoDisponible': colores[9]==1, 'Superado': colores[9]==2}" style="grid-row: 1; grid-column: 2;" :label="10" @click="cargarPreguntas(10)" :disabled="isGameFinished || colores[9]==1"></q-btn>
+      <q-btn round class="nivel" :class="{'NoDisponible': colores[8]==1, 'Superado': colores[8]==2}" style="grid-row: 2; grid-column: 3;" :label="9" @click="cargarPreguntas(9)" :disabled="isGameFinished || colores[8]==1"></q-btn>
+      <q-btn round class="nivel" :class="{'NoDisponible': colores[7]==1, 'Superado': colores[7]==2}" style="grid-row: 3; grid-column: 3;" :label="8" @click="cargarPreguntas(8)" :disabled="isGameFinished || colores[7]==1"></q-btn>
+      <q-btn round class="nivel" :class="{'NoDisponible': colores[6]==1, 'Superado': colores[6]==2}" style="grid-row: 4; grid-column: 2;" :label="7" @click="cargarPreguntas(7)" :disabled="isGameFinished || colores[6]==1"></q-btn>
+      <q-btn round class="nivel" :class="{'NoDisponible': colores[5]==1, 'Superado': colores[5]==2}" style="grid-row: 5; grid-column: 1;" :label="6" @click="cargarPreguntas(6)" :disabled="isGameFinished || colores[5]==1"></q-btn>      
+      <q-btn round class="nivel" :class="{'NoDisponible': colores[4]==1, 'Superado': colores[4]==2}" style="grid-row: 6; grid-column: 2;" :label="5" @click="cargarPreguntas(5)" :disabled="isGameFinished || colores[4]==1"></q-btn>
+      <q-btn round class="nivel" :class="{'NoDisponible': colores[3]==1, 'Superado': colores[3]==2}" style="grid-row: 7; grid-column: 3;" :label="4" @click="cargarPreguntas(4)" :disabled="isGameFinished || colores[3]==1"></q-btn>
+      <q-btn round class="nivel" :class="{'NoDisponible': colores[2]==1, 'Superado': colores[2]==2}" style="grid-row: 8; grid-column: 2;" :label="3" @click="cargarPreguntas(3)" :disabled="isGameFinished || colores[2]==1"></q-btn> 
+      <q-btn round class="nivel" :class="{'NoDisponible': colores[1]==1, 'Superado': colores[1]==2}" style="grid-row: 9; grid-column: 1;" :label="2" @click="cargarPreguntas(2)" :disabled="isGameFinished || colores[1]==1"></q-btn>
+      <q-btn round class="nivel" :class="{'NoDisponible': colores[0]==1, 'Superado': colores[0]==2}" style="grid-row: 10; grid-column: 2;" :label="1" @click="cargarPreguntas(1)" :disabled="isGameFinished || colores[0]==1"></q-btn>
     </div>
   </div>
 
@@ -50,6 +50,7 @@ import { reactive, ref } from 'vue';
 import Partida_Historia from '@/components/Partida_Historia.vue';
 import { getPreguntas } from '@/comunication_manager';
 import { useCounterStore } from '@/stores/counter';
+import { ActualizarNivel } from '@/comunication_manager';
 
 const progress = ref(0.0);
 const index = ref(0);
@@ -57,7 +58,6 @@ const canastas = ref(0);
 const nivel = ref("");
 const nivelActual = ref("");
 const useApp = useCounterStore();
-
 const isGameFinished = ref(false); 
 const gameResult = ref(""); 
 const gameMessage = ref(""); 
@@ -84,11 +84,15 @@ function siguientePregunta(info) {
           // Si es nivel 10, no permitimos continuar, solo muestra la alerta final
           gameMessage.value = "¡Felicidades, has completado todos los niveles!";
           gameResult.value = "ganaste";
-        } else if (useApp.loginInfo.nivel > nivelActual.value) {
+          useApp.loginInfo.nivel=10;
+          nivel.value = useApp.loginInfo.nivel;
+          ActualizarNivel(useApp.loginInfo.id_user, nivel.value);
+        } else if (useApp.loginInfo.nivel >= nivelActual.value) {
           // No hacer nada si el nivel ya está superado
         } else {
           useApp.loginInfo.nivel++;
           nivel.value = useApp.loginInfo.nivel;
+          ActualizarNivel(useApp.loginInfo.id_user, nivel.value);
           niveles();
         }
       } else {
@@ -164,6 +168,10 @@ function cerrarAlerta() {
   filter: hue-rotate(120deg);
 }
 
+.nivel:disabled {
+  opacity: 1 !important;  /* Elimina la opacidad */
+ 
+}
 .imagen_volver {
   position: fixed;
   top: 20px;

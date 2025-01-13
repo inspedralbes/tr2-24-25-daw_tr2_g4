@@ -1,4 +1,5 @@
-const laravel = { URL: "http://a23diemujper.juego.daw.inspedralbes.cat/laravel/public/api" };
+//const laravel = { URL: "http://a23diemujper.juego.daw.inspedralbes.cat/laravel/public/api" };
+export const laravel = { URL: "http://127.0.0.1:8000/api" };
 
 export async function register(param) {
     const URL = `${laravel.URL}/register`;
@@ -38,6 +39,25 @@ export async function login(param) {
         body: JSON.stringify({
             username: param.username,
             password: param.password
+        })
+    });
+
+    const data = await response.json();
+    console.log(data)
+    return data;
+}
+
+
+export async function ActualizarNivel(id,nivel) {
+    const URL = `${laravel.URL}/nivel`;
+    const response = await fetch(URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            id:id,
+            nivel:nivel
         })
     });
 

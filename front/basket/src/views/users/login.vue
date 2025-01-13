@@ -50,7 +50,6 @@ async function aux_login() {
         token: data.token,
         id_user: data.user.id_user || data.user.id,
       })
-
       router.push('/jugar')
     } else {
       error.errors = data.message

@@ -32,6 +32,8 @@ onMounted(() => {
     });
  
 const valorCanasta= ref(0)
+
+const tiroHecho=ref(false)
 const index = ref(0)
 
 const info= reactive({fallo:false, canasta:0,racha:false})
@@ -125,16 +127,19 @@ let apagar=0;
         apagar=5
         info.racha=true; 
         animaciones.tiro_en_llamas=true;
+        tiroHecho.value=true;
         
       }
       else{
         animaciones.encestar=true;
+        tiroHecho.value=true;
        
 }
 
     }else{
       let aux= Math.floor(Math.random() * 5) + 1;
       animaciones[`fallo${aux}`] = true;
+      tiroHecho.value=true;
       info.fallo=true;
       info.canasta=0;
       puntosSeguidos=0;
@@ -146,6 +151,7 @@ let apagar=0;
 
   setTimeout(() => {
     apagarAnimaciones(apagar);
+    tiroHecho.value=false;
   }, 500);
 
  
@@ -202,8 +208,17 @@ function iniciarTemporizador() {
 
 
 const emit = defineEmits();
+ const foto=ref("");
+ foto.value=Math.floor((props.data.nivel - 1) / 2 + 1);
 
-
+const styleFondo = computed(() => ({
+      backgroundImage: `url('/bioma/${foto.value}.jpg')`,
+      backgroundPosition: 'center 150%',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'auto',
+    }));
+ 
+ 
 
 function mezclarRespuestas() {
   const respuestas = [
@@ -216,7 +231,6 @@ function mezclarRespuestas() {
 
 
 }
-
 const respuestasMezcladas = computed(() => mezclarRespuestas());
 
 function responder(num){
@@ -238,9 +252,7 @@ function responder(num){
 </script>
 
 <template>
-          <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-
-  <main id="main_arcade">
+  <main id="main_arcade" :style="styleFondo">
      
  <div class="body_arcade">
    <!--
@@ -289,7 +301,7 @@ function responder(num){
      
       <div v-for="(respuesta, index) in respuestasMezcladas" :key="index">
 
-      <q-btn  color="deep-orange" class="botones_partida" glossy label=""@click="responder(respuesta)"> {{ respuesta }}</q-btn>
+      <q-btn  color="deep-orange" class="botones_partida" glossy label=""@click="responder(respuesta)" :disabled="tiroHecho"> {{ respuesta }}</q-btn>
     
      
      </div>
@@ -451,6 +463,11 @@ function responder(num){
   animation: tiro_en_llamas 0.5s linear;
 }
 
+
+.q-btn:disabled {
+  opacity: 1 !important;  /* Elimina la opacidad */
+ 
+}
 .animacion_encestar{
 
  
@@ -520,10 +537,6 @@ function responder(num){
   grid-template-columns:1fr 1fr 1fr  ;
   grid-template-rows: 1fr 1fr ;
   max-height: 100svh;
-  background-image: url("../assets/bioma/parque.jpg"); 
-  background-position: center 150% ;
-  background-repeat: no-repeat; 
-  background-size: auto;
  
     }
 

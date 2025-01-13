@@ -1,4 +1,5 @@
 import { ref, computed, reactive } from 'vue'
+
 import { defineStore } from 'pinia'
 
 export const useCounterStore = defineStore('counter', () => {
@@ -12,6 +13,7 @@ export const useCounterStore = defineStore('counter', () => {
   const EncenderMusica = () => {
       ActivarMusica.value=true;
   }
+  
 
   const loginInfo = reactive({
     loggedIn: false,
@@ -22,6 +24,8 @@ export const useCounterStore = defineStore('counter', () => {
     token:'',
     id_user: null,
   });
+
+ 
 
 
   const setLoginInfo = ({loggedIn,username,email,avatar,nivel,token,id_user }) => {
@@ -51,4 +55,6 @@ export const useCounterStore = defineStore('counter', () => {
 
 
   }
+}, {
+  persist: true   
 })
