@@ -27,7 +27,7 @@
       </div>
 
     </q-btn-dropdown>
-    <audio ref="audio" :src="currentTrack.url" autoplay></audio>
+    <audio ref="audio" :src="currentTrack.url"></audio>
     </div>
   </template>
   
@@ -52,7 +52,7 @@
 
     return aux.sort(() => Math.random() - 0.5);
 }
-      const parado=ref(false)
+      const parado=ref(true)
       // Lista interna de canciones
       const playlist =  mezclarMusica();
       console.log(playlist)
