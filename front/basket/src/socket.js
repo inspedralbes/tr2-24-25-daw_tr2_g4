@@ -1,5 +1,30 @@
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:1234'); // Cambiar a la URL de tu backend en producción
+let socketInstance;
 
-export default socket;
+const getSocket = (token) => {
+  // Si no existe la instancia, la creamos
+  if (!socketInstance) {
+    console.log("Token enviado al servidor:", token);
+    socketInstance = io("http://a23diemujper.juego.daw.inspedralbes.cat:20070", {
+ //  socketInstance = io("localhost:20070", {
+      transports: ["websocket"],
+      withCredentials: true,
+      auth: {
+        token: token,
+      },
+    });
+  }
+  return socketInstance;
+};
+
+
+const RemSocket=()=>{
+
+  if (socketInstance) {
+    socketInstance.disconnect();
+    socketInstance = null;  
+  }
+}
+
+export default { getSocket, RemSocket } ;

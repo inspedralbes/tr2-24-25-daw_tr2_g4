@@ -1,7 +1,6 @@
 <script setup>
-import { reactive,ref,computed, watch } from 'vue';
-
-
+import { reactive,ref,computed, watch, onMounted, onUnmounted } from 'vue';
+import { useCounterStore } from '@/stores/counter';
 const props = defineProps({
   data: {
     type: Object,
@@ -14,8 +13,31 @@ const props = defineProps({
 },)
 
 
+onMounted(() => {
+  const useApp = useCounterStore();
+  
+      if (useApp.ActivarMusica) {
+        useApp.ApagarMusica();
+        
+      }
+     
+    });
+
+    onUnmounted(() => {
+      const useApp = useCounterStore();
+      if (useApp.ActivarMusica==false) {
+        useApp.EncenderMusica();
+        
+      }
+    });
+
+
 const Canastas = ref(0)
+const valorCanasta= ref(0)
 const index = ref(0)
+
+const info= reactive({fallo:false, canasta:0,racha:false})
+
 
 const animaciones = reactive({encestar: false, fallo1: false, fallo2: false, fallo3:false, fallo4:false, fallo5:false,temblor1:false,
                               temblor2:false, llamas:false, tiro_en_llamas:false
@@ -52,6 +74,14 @@ function apagarAnimaciones(interrumptor){
 
 }
 
+function reiniciarInfo(){
+
+  info.canasta=0;
+  info.fallo=false;
+  info.racha=false;
+}
+
+
 function apagarAnimaciones_temblores(){
 
   animaciones.temblor1=false;
@@ -63,9 +93,8 @@ function apagarAnimaciones_temblores(){
 let puntosSeguidos=0;
 
 function comprobarPunto(num) {
-
   
-let fallo=false;
+ reiniciarInfo();
 
 let apagar=0;
    
@@ -73,16 +102,17 @@ let apagar=0;
     if (props.data.respuesta_correcta == num) {
        
 
-      if (progress.value < 0.3) {
+    if (progress.value < 0.3) {
         puntosSeguidos++;
-        Canastas.value=Canastas.value+3;
+        info.canasta=3;
     } else if(progress.value < 0.7) {
-      Canastas.value=Canastas.value+2;
+      info.canasta=2;
       puntosSeguidos=0;
+
     } else if(progress.value < 1){
-      Canastas.value++;
+      info.canasta=1;
       puntosSeguidos=0;
-    }
+    }else{}
      
 
       if(puntosSeguidos==3){
@@ -95,14 +125,11 @@ let apagar=0;
       }
       if(puntosSeguidos>=5){
         apagar=5
+        info.racha=true; 
+        animaciones.tiro_en_llamas=true;
         
       }
-
-      if(puntosSeguidos>5){
-        animaciones.tiro_en_llamas=true;
-      
-
-      }else{
+      else{
         animaciones.encestar=true;
        
 }
@@ -110,19 +137,20 @@ let apagar=0;
     }else{
       let aux= Math.floor(Math.random() * 5) + 1;
       animaciones[`fallo${aux}`] = true;
-      fallo=true;
+      info.fallo=true;
+      info.canasta=0;
+      puntosSeguidos=0;
 
 
     }
-  console.log(Canastas.value)
+  
   index.value++;
 
   setTimeout(() => {
     apagarAnimaciones(apagar);
   }, 500);
 
-
-  return fallo;
+ 
 }
 
 
@@ -195,17 +223,18 @@ const respuestasMezcladas = computed(() => mezclarRespuestas());
 
 function responder(num){
     
-  let f=comprobarPunto(num);
+    
+  comprobarPunto(num);
 
-  if(f){
+  if(info.fallo){
     setTimeout(() => {
-      emit('siguiente',f); 
+      emit('siguiente',info); 
   }, 800);
 
 
   }else{
 
-    emit('siguiente',f); 
+    emit('siguiente',info); 
   }
 
     reiniciarTemporizador();
@@ -221,6 +250,9 @@ function responder(num){
   <main id="main_arcade">
      
  <div class="body_arcade">
+  <RouterLink to="/jugar">
+    <img style="right: inherit;" src="@/assets/imagenes/volver.png" alt="Volver" class="imagen_volver">
+  </RouterLink> 
    <!--
   <h4  >Puntos:  {{ Canastas }} </h4>
   
@@ -469,6 +501,14 @@ function responder(num){
 }
 
 
+.imagen_volver {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 40px;
+  border: 2px solid white;
+  border-radius: 5px;
+}
 
 
 

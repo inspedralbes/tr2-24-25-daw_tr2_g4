@@ -1,9 +1,13 @@
  html,body{
-
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  background-image: url("./fondo_juego.jpg"); 
-  
+  background-image: url("./fondo_juego.jpg") ; 
   background-repeat: no-repeat; 
   background-size: auto;
+  background-position: center;
+  font-family: 'Press Start 2P', cursive;
   
 }

@@ -1,4 +1,5 @@
-const laravel = { URL: "http://localhost:8000/api" }
+//const laravel = { URL: "http://a23diemujper.juego.daw.inspedralbes.cat/laravel/public/api" };
+const laravel = { URL: "http://127.0.0.1:8000/api" };
 
 export async function register(param) {
     const URL = `${laravel.URL}/register`;
@@ -7,19 +8,22 @@ export async function register(param) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify( {
-
-            username:param.username,
-            email: param.email,            
+        body: JSON.stringify({
+            username: param.username,
+            email: param.email,
             password: param.password,
             avatar: param.avatar
-
-
-
         })
-    } );
+    });
+
+    const data = await response.json();
+    return data;
+}
+
+export async function getPreguntas(nivel) {
     
-    
+    const URL = `${laravel.URL}/preguntas/nivel/${nivel}`;
+    const response = await fetch(URL);
     const data = await response.json();
 
     return data;
@@ -32,18 +36,13 @@ export async function login(param) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify( {
-
-            username:param.username,          
+        body: JSON.stringify({
+            username: param.username,
             password: param.password
-          
-
-
-
         })
-    } );
-    
-    const data = await response.json();
+    });
 
+    const data = await response.json();
+    console.log(data)
     return data;
 }

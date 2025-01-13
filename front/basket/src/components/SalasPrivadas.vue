@@ -1,16 +1,14 @@
 <template>
   <div>
     <div class="menu-mult">
-      <h1 class="text-center text-white bg-deep-orange q-pa-md no-margin">Salas Privadas</h1>
+      <h1 class="text-center text-white bg-deep-orange q-pa-md no-margin"><br>Salas Privadas</h1>
 
       <div v-if="!enSala" class="boton-grid">
         <q-btn @click="crearSala" color="deep-orange" size="25px" class="boton_sala" glossy label="Crear Sala"></q-btn>
         <input type="text" v-model="claveSala" class="input-sala" placeholder="Clave de la sala" />
         <q-btn @click="unirSala" color="deep-orange" size="25px" class="boton_sala" glossy label="Unir Sala"></q-btn>
 
-        <RouterLink to="/jugar">
-          <q-btn color="red-12" size="25px" class="boton-volver" glossy label="Volver"></q-btn>
-        </RouterLink>
+        
       </div>
 
       <div id="room-info" v-else>
@@ -64,33 +62,39 @@
 </template>
 
 <script>
-import { useCounterStore } from '@/stores/counter';
-import { io } from "socket.io-client";
+import { useCounterStore } from '@/stores/counter'; 
 import { ref } from "vue";
+import getSocket from '@/socket';
 
 export default {
-  setup() {
-    const dialog = ref(false); 
-    const backdropFilter = ref("hue-rotate(210deg)"); 
-
-    return {
-      dialog,
-      backdropFilter,
-    };
+   
+  props: {
+    socket: {
+      type: Object,
+      required: true
+    }
   },
   data() {
     return {
-      socket: null,
+     
+      socket: this.socket,
       claveSala: "", // Clave de la sala ingresada por el usuario
       claveActual: "", // Sala actual
       usuarios: [], // Lista de usuarios en la sala
-      enSala: false, // Indicador de si el usuario está en una sala
+      enSala: false,
+      dialog: false,
+      backdropFilter: "hue-rotate(210deg)"
+       
+
     };
   },
   methods: {
-    crearSala() {
+  crearSala() {
       this.socket.emit("create-room");
+      this.$emit('boton');
+     
     },
+
     unirSala() {
       if (this.claveSala.trim()) {
         this.socket.emit("join-room", this.claveSala.trim());
@@ -100,10 +104,15 @@ export default {
     },
     salirSala() {
       this.socket.emit("leave-room", this.claveActual);
+      this.$emit('boton');
     },
     updateRoomView(clave) {
       this.enSala = true;
       this.claveActual = clave;
+      const caja = useCounterStore();
+
+      caja.SalaActual=clave;
+      console.log(caja.SalaActual)
     },
     resetToMenu() {
       this.enSala = false;
@@ -114,21 +123,9 @@ export default {
 
   mounted() {
     const store = useCounterStore();
-    const token = store.getLoginInfo.token; 
-    console.log("Token enviado al servidor:", token);
-
-    this.socket = io("http://localhost:1234", {
-      transports: ["websocket"],
-      withCredentials: true,
-      auth: {
-        token: token, 
-      },
-    });
-
-    
-    this.socket.on("connect", () => {
-    console.log("Conectado al servidor con ID:", this.socket.id);
-    });
+     
+   
+    const token = store.getLoginInfo.token;
 
     this.socket.on("connect_error", (err) => {
       console.error("Error al conectar:", err.message);
@@ -136,10 +133,12 @@ export default {
 
     this.socket.on("room-created", (claveSala) => {
       this.updateRoomView(claveSala);
+      
     });
 
     this.socket.on("room-joined", (claveSala) => {
       this.updateRoomView(claveSala);
+    
     });
 
     this.socket.on("room-users", ({ room, users }) => {
@@ -156,11 +155,6 @@ export default {
     this.socket.on("error", (message) => {
       alert(message);
     });
-  },
-  beforeDestroy() {
-    if (this.socket) {
-      this.socket.disconnect();
-    }
   },
 };
 </script>
