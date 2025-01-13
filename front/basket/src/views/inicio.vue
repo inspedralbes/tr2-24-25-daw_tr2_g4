@@ -7,7 +7,7 @@
 
   <main id="main_inicio">
  <div id="div_inicio">
-    <h2> BasketBall</h2>
+   <img src="/bioma/logo.png" width="350px" height="350px" alt="Logo"><br>
    <RouterLink to="/jugar"> <q-btn color="deep-orange" size="40px"> <q-icon name="eva-arrow-right-outline" size="400%"/></q-btn></RouterLink>
  </div>
    

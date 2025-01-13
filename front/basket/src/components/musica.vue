@@ -5,7 +5,7 @@
 
 <q-btn-dropdown
     class="glossy"
-    color="deep-orange"
+    color="black"
    icon="eva-music-outline" 
    menu-anchor="top right"  
    menu-self="bottom right"  
@@ -28,6 +28,7 @@
 
   </q-btn-dropdown>
   <audio ref="audio" :src="currentTrack.url" autoplay></audio>
+
   </div>
 </template>
 
@@ -47,7 +48,7 @@ import { useCounterStore } from '@/stores/counter';
       { name: 'Hora Cero', artist: 'Myke Towers', url: '/songs/Myke Towers - Hora Cero clean version.mp3' },
       { name: 'One Call', artist: 'Rich Amiri', url: '/songs/Rich Amiri - One Call (Official Audio).mp3' },
       { name: 'Rick Flair', artist: 'Anuel AA', url: '/songs/Rick Flair (Clean) - Anuel AA .mp3' },
-      { name: 'I KNOW', artist: 'I KNOW', url: '/songs/Travis Scott - I KNOW _ (Official Audio).mp3' },
+      { name: 'I KNOW', artist: 'Travis Scott', url: '/songs/Travis Scott - I KNOW _ (Official Audio).mp3' },
     ];
 
   return aux.sort(() => Math.random() - 0.5);
@@ -57,8 +58,8 @@ import { useCounterStore } from '@/stores/counter';
     const playlist =  mezclarMusica();
     console.log(playlist)
   const useApp = useCounterStore();
-  const ActivarMusica = computed(() => useApp.ActivarMusica);;
-   
+  const ActivarMusica = computed(() => useApp.ActivarMusica);
+  
     
     const audio = ref(null);
     const currentTrackIndex = ref(0);

@@ -8,10 +8,27 @@ const { log } = require('console');
 
 const app = express();
 
+
+app.use(cors({
+    origin: "*",  
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true  
+}));
+
+const server = http.createServer(app);
+
+const io = socketIo(server, {
+    cors: {
+        origin: "*",  
+        methods: ["GET", "POST"],
+        credentials: true  
+    }
+});
+
 const salas={};
 let conexiones = {};
 let Preguntas=[];
-
 let poderes=[
     {
         poder:"banana",
@@ -67,10 +84,6 @@ let poderes=[
 
 rellenarPreguntas();
 
-
-
-
-
 async function rellenarPreguntas(){
     const URL = `http://localhost:8000/api/preguntas/nivel/0`;
     const response = await fetch(URL);
@@ -79,30 +92,8 @@ async function rellenarPreguntas(){
 
  }
 
-
-
-
-app.use(cors({
-    origin: "*",  
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true  
-}));
-
-const server = http.createServer(app);
-
-const io = socketIo(server, {
-    cors: {
-        origin: "*",  
-        methods: ["GET", "POST"],
-        credentials: true  
-    }
-});
-
 io.on('connection', async (socket) => {
     console.log(`Usuario conectado: ${socket.id}`);
-   
-
     const token = socket.handshake.auth.token;
 
     if (!token) {
@@ -119,7 +110,7 @@ io.on('connection', async (socket) => {
         });
         socket.user = response.data;
         
-        console.log('Usuario autenticado:', socket.user); // Confirmar las propiedades que llegan
+        console.log('Usuario autenticado:', socket.user);  
     } catch (error) {
         console.error('Token inválido:', error.response?.data || error.message);
         socket.disconnect();
@@ -135,6 +126,70 @@ io.on('connection', async (socket) => {
         }
 
     }
+    function obtenerIndex(username,sala) {
+       
+        const index = salas[sala].findIndex(user => user.username === username);
+        return index
+      }
+    
+
+    function emitirRanking(sala){
+        salas[sala].sort((a, b) => b.puntacion - a.puntacion);
+        io.to(sala).emit('ranking', salas[sala]); 
+    }
+    function asignarValores(){
+        socket.user.puntacion=0;
+        socket.user.index=0;
+        socket.user.socketId=socket.id; 
+        socket.user.darPoder=15;
+        socket.user.poder=null;
+
+    }
+
+    function darPoderes(data,index){
+
+        if(data[index].poder==null){
+          let numeroAleatorio = Math.floor(Math.random() * 3);  
+       
+          let aux= ((index+1)*100)/data.length;
+           
+          if(aux<34){
+            
+          }
+           if(aux>=34 && aux<67){
+            let probabilidad=Math.floor(Math.random() * 3);
+            if(probabilidad>0){
+                numeroAleatorio+=3;
+
+            }
+            
+            
+           }
+           if(aux>=67){
+            let probabilidad=Math.floor(Math.random() * 5);
+            if(probabilidad==1){
+                numeroAleatorio+=3;
+            }
+            if(probabilidad>1){
+                numeroAleatorio+=6;
+            }
+
+           
+         
+           }
+           
+           data[index].poder=poderes[numeroAleatorio];
+          
+           socket.emit('poderes', data[index].poder)
+          
+
+
+
+        }
+
+
+    }
+
 
     socket.on('poder',(poder,sala,username)=>{
         let index=obtenerIndex(username,sala)
@@ -318,11 +373,7 @@ io.on('connection', async (socket) => {
     socket.on('empezar',(sala)=>{
 
         socket.broadcast.to(sala).emit('pregunta', Preguntas[0]);
-       
-     //  io.to(sala).emit('pregunta', Preguntas[0]);     
-     
-
-        
+           
         emitirRanking(sala)
     });
 
@@ -334,26 +385,13 @@ io.on('connection', async (socket) => {
     })
 
 
-    function obtenerIndex(username,sala) {
-       
-        const index = salas[sala].findIndex(user => user.username === username);
-        return index
-      }
-    
-
-    function emitirRanking(sala){
-        salas[sala].sort((a, b) => b.puntacion - a.puntacion);
-        io.to(sala).emit('ranking', salas[sala]); 
-    }
+ 
 
     socket.on('cambio_pregunta',(username,sala,tiro)=>{
         const index= obtenerIndex(username,sala)  
        
         let aux=salas[sala][index].index;
-      //  if(tiro==Preguntas[0].respuesta_correcta){
-        //    salas[sala][index].puntacion++;
-       // }
-        
+    
        salas[sala][index].puntacion=salas[sala][index].puntacion+tiro;
 
         salas[sala][index].index++;
@@ -376,49 +414,6 @@ io.on('connection', async (socket) => {
         emitirRanking(sala);
     })
 
-    function darPoderes(data,index){
-
-        if(data[index].poder==null){
-          let numeroAleatorio = Math.floor(Math.random() * 3);  
-       
-          let aux= ((index+1)*100)/data.length;
-           
-          if(aux<34){
-            
-          }
-           if(aux>=34 && aux<67){
-            let probabilidad=Math.floor(Math.random() * 3);
-            if(probabilidad>0){
-                numeroAleatorio+=3;
-
-            }
-            
-            
-           }
-           if(aux>=67){
-            let probabilidad=Math.floor(Math.random() * 5);
-            if(probabilidad==1){
-                numeroAleatorio+=3;
-            }
-            if(probabilidad>1){
-                numeroAleatorio+=6;
-            }
-
-           
-         
-           }
-           
-           data[index].poder=poderes[numeroAleatorio];
-          
-           socket.emit('poderes', data[index].poder)
-          
-
-
-
-        }
-
-
-    }
  
  
     socket.on('create-room', () => {
@@ -447,14 +442,7 @@ io.on('connection', async (socket) => {
 
     });
 
-    function asignarValores(){
-        socket.user.puntacion=0;
-        socket.user.index=0;
-        socket.user.socketId=socket.id; 
-        socket.user.darPoder=15;
-        socket.user.poder=null;
-
-    }
+   
 
  
 

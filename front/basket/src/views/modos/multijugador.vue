@@ -115,6 +115,7 @@ function desconectar() {
 
 
 function empezar() {
+  store.ActivarMusica = false;
   visibleTempo.value = true;
   if (visibleSalas.value == true) {
     visibleSalas.value = false;
@@ -129,6 +130,7 @@ function tempoAcabado() {
   visibleTempo.value = false;
   visibleRanking.value = true;
   const SalaActual = store.SalaActual;
+  store.ActivarMusica = true;
   socket.emit('empezar', SalaActual);
   visibleRanking.value = true;
   temporizador();
@@ -136,17 +138,47 @@ function tempoAcabado() {
 
 }
 
+let poderYaObtenido=[];
 
+  socket.on('ranking', async (rankings) => {
+    posiciones.value = [...rankings];
 
-socket.on('ranking', (rankings) => {
-  posiciones.value = [...rankings];
+    posiciones.value.forEach((posicion) => {
+      if (!poderYaObtenido[posicion.username]) {
+          poderYaObtenido[posicion.username] = {};  
+          poderYaObtenido[posicion.username].aux = false;
+        }
+      if(posicion.poder?.poder==null){
+        poderYaObtenido[posicion.username].aux = false;
+      }
+        
+    });
 
+    await Promise.all(
+    posiciones.value.map(async (posicion) => {
+      if (posicion.poder?.poder && !poderYaObtenido[posicion.username].aux) {
 
+        let aux = posicion.poder.poder;
+        posicion.poder.poder = "ItemBoxMK7";
+        await promesita();
+        posicion.poder.poder = aux;
+        poderYaObtenido[posicion.username].aux = true;
+      }
+    })
+  );
+});
 
-})
+function promesita() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, 1000); 
+  });
+}
+
 
 socket.on('poderes', (param) => {
-
+ 
   visiblePoder.value = true;
   poderes.data = param;
   setTimeout(() => {
@@ -191,6 +223,7 @@ function usarpoder() {
   if (poderes.data) {
     socket.emit('poder', poderes.data, store.SalaActual, store.loginInfo.username)
     poderes.data = "";
+    poderYaObtenido[store.loginInfo.username].aux = false;
   }
 
 
@@ -351,7 +384,12 @@ function mostrarRanking() {
                 <td><img class="foto_ranking" :src="`/avatar/boy${player.avatar}.png`" alt="" srcset=""></td>
                 <td>{{ player.username }}</td>
                 <td>{{ player.puntacion }} </td>
-                <td><img class="foto_ranking" :src="`/items/${medio.poder}.webp`" alt="" srcset=""></td>
+                <td><img 
+    class="foto_ranking" 
+    :src="player.poder?.poder ? `/items/${player.poder.poder}.webp` : ''" 
+    v-if="player.poder?.poder"
+  >
+</td>
               </tr>
             </transition-group>
           </table>
