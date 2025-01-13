@@ -18,7 +18,8 @@ const app = createApp(App)
 
 app.use(Quasar, {
   plugins: {
-    Loading, // Aquí añades el plugin Loading
+    Loading,
+    Notify, // Aquí añades el plugin Loading
   },
   lang: quasarLang,
 })
