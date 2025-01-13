@@ -47,7 +47,7 @@
         { name: 'Hora Cero', artist: 'Myke Towers', url: '/songs/Myke Towers - Hora Cero clean version.mp3' },
         { name: 'One Call', artist: 'Rich Amiri', url: '/songs/Rich Amiri - One Call (Official Audio).mp3' },
         { name: 'Rick Flair', artist: 'Anuel AA', url: '/songs/Rick Flair (Clean) - Anuel AA .mp3' },
-        { name: 'I KNOW', artist: 'I KNOW', url: '/songs/Travis Scott - I KNOW _ (Official Audio).mp3' },
+        { name: 'I KNOW', artist: 'Travis Scott', url: '/songs/Travis Scott - I KNOW _ (Official Audio).mp3' },
       ];
 
     return aux.sort(() => Math.random() - 0.5);
@@ -58,6 +58,7 @@
       console.log(playlist)
     const useApp = useCounterStore();
     const ActivarMusica = computed(() => useApp.ActivarMusica);;
+    
      
       
       const audio = ref(null);

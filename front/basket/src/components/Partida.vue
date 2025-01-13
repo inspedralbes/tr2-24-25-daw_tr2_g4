@@ -13,23 +13,7 @@ const props = defineProps({
 },)
 
 
-onMounted(() => {
-  const useApp = useCounterStore();
   
-      if (useApp.ActivarMusica) {
-        useApp.ApagarMusica();
-        
-      }
-     
-    });
-
-    onUnmounted(() => {
-      const useApp = useCounterStore();
-      if (useApp.ActivarMusica==false) {
-        useApp.EncenderMusica();
-        
-      }
-    });
 
 
 const Canastas = ref(0)

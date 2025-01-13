@@ -4,13 +4,23 @@ import Ranking from '../../components/ranking.vue';
 import Partida from '../../components/Partida.vue';
 import Temporizador from '../../components/temporizador.vue';
 import { getPreguntas } from '@/comunication_manager';
+import { useCounterStore } from '@/stores/counter';
 
 const data = reactive({ pregunta: "" });
 const visibleJuego = ref(false);
 const index = ref(0);
 const puntuacion = ref(0);
 const cargando = ref(true);
-const mostrarTempo = ref(true);
+const mostrarTempo = ref(true); 
+
+
+onUnmounted(() => {
+      const useApp = useCounterStore();
+      if (useApp.ActivarMusica==true) {
+        useApp.ApagarMusica();
+        
+      }
+    });
 
 async function rellenarPreguntas() {
   cargando.value = true;
@@ -33,6 +43,8 @@ function siguientePregunta(info) {
 }
 
 function ocultarTemporizador() {
+
+
   mostrarTempo.value = false;
   rellenarPreguntas();  
 }

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch,onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useCounterStore } from '@/stores/counter';
 import { useQuasar, QSpinnerFacebook } from 'quasar';
@@ -7,6 +7,18 @@ import { onBeforeUnmount } from 'vue';
 import socketManager from '@/socket';
 import musica from '@/components/musica.vue';
 
+
+onMounted(() => {
+  const useApp = useCounterStore();
+  
+      if (useApp.ActivarMusica==false) {
+        useApp.EncenderMusica();
+        
+      }
+     
+    });
+
+  
 
 const $q = useQuasar();
 const router = useRouter();

@@ -4,7 +4,7 @@ import SalasPrivadas from '@/components/SalasPrivadas.vue';
 import { useCounterStore } from '@/stores/counter'; 
 import socketManager from '@/socket'; 
 import Partida from '@/components/Partida.vue';
-import Temporizador from '@/components/temporizador.vue';
+import Temporizador from '@/components/temporizador.vue';  
 
 const visibleSalas=ref(true);
 const visibleJuego=ref(false);
@@ -80,7 +80,19 @@ function desconectar(){
 
 
 function empezar(){
-  visibleTempo.value=true;  
+  visibleTempo.value=true;
+  
+  
+  const useApp = useCounterStore();
+  
+      if (useApp.ActivarMusica==true) {
+        useApp.ApagarMusica();
+        
+      }
+     
+    
+
+  
       if(visibleSalas.value==true){
         visibleSalas.value=false;
         
