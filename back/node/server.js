@@ -146,7 +146,10 @@ io.on('connection', async (socket) => {
                 if(salas[sala][index-1]){
                     salas[sala][index-1].puntacion-=poder.num;
                     comprobarCero(index-1,sala)
-                    conexiones[salas[sala][index-1].socketId].emit('tedio',username,poder) 
+                    if(salas[sala][index-i].socketId){
+                        conexiones[salas[sala][index-i].socketId].emit('tedio',username,poder) 
+                    }
+                    
                 }
 
             
@@ -155,7 +158,9 @@ io.on('connection', async (socket) => {
                 if(salas[sala][index+1]){
                     salas[sala][index+1].puntacion-=poder.num;
                     comprobarCero(index+1,sala)
-                    conexiones[salas[sala][index+1].socketId].emit('tedio',username,poder) 
+                    if(salas[sala][index+1].socketId){
+                        conexiones[salas[sala][index+1].socketId].emit('tedio',username,poder) 
+                    } 
                 }
              
                 break;
@@ -178,6 +183,9 @@ io.on('connection', async (socket) => {
                                 salas[sala][i].puntacion-=poder.num;
                                 comprobarCero(i,sala)
                                 conexiones[salas[sala][i].socketId].emit('tedio',username,poder) 
+                                if(salas[sala][i].socketId){
+                                    conexiones[salas[sala][i].socketId].emit('tedio',username,poder) 
+                                }
                             }
                         }
 
@@ -192,8 +200,11 @@ io.on('connection', async (socket) => {
                          
                         if(salas[sala][index-i]){
                             salas[sala][index-i].puntacion-=poder.num;
-                            comprobarCero(index-i,sala)
-                            conexiones[salas[sala][index-i].socketId].emit('tedio',username,poder) 
+                            comprobarCero(index-i,sala) 
+
+                            if(salas[sala][index-i].socketId){
+                                conexiones[salas[sala][index-i].socketId].emit('tedio',username,poder) 
+                            }
                         }
                         
                     }
@@ -217,8 +228,9 @@ io.on('connection', async (socket) => {
                             if(salas[sala][index+i]){
                                 salas[sala][index+i].puntacion-=3;
                                 comprobarCero(index+i,sala);
-                              
-                                conexiones[salas[sala][index+i].socketId].emit('tedio',username,poder) 
+                                if(salas[sala][index+i].socketId){
+                                    conexiones[salas[sala][index+i].socketId].emit('tedio',username,poder) 
+                                } 
                             }
                             
 
@@ -247,6 +259,9 @@ io.on('connection', async (socket) => {
                                 comprobarCero(index+i,sala);
                                 
                                 conexiones[salas[sala][index+i].socketId].emit('tedio',username,poder) 
+                                if(salas[sala][index+i].socketId){
+                                    conexiones[salas[sala][index+i].socketId].emit('tedio',username,poder) 
+                                }
                             }
                         
 
@@ -265,7 +280,13 @@ io.on('connection', async (socket) => {
                                 if(salas[sala][1]){
                                     salas[sala][1].puntacion-=poder.num;
                                     comprobarCero(1,sala)
-                                    conexiones[salas[sala][1].socketId].emit('tedio',username,poder) 
+
+                                    if(salas[sala][1].socketId){
+                                        conexiones[salas[sala][1].socketId].emit('tedio',username,poder) 
+                                    }
+
+
+                                    
                                 }
 
                             }
