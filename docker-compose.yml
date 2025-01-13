@@ -34,17 +34,17 @@ services:
     depends_on:
       - db  
 
-  # Servicio de la aplicación Laravel (back)
+   # Servicio de la aplicación Laravel (back)
   laravel:
-    image: php:8.2-fpm
+    build: ./back/laravel  # Ruta a la carpeta de Laravel
     volumes:
-      - ./back/laravel:/var/www/  # Asume que el código Laravel está en ./back/laravel
+      - ./back/laravel:/var/www/  # Montar el directorio Laravel
     working_dir: /var/www
     ports:
-     - "8000:8000"  
+      - "8000:8000"  # Exponiendo el puerto 8000 para Laravel
     depends_on:
-      - db
-    command: bash -c "apt-get update && apt-get install -y libpng-dev libjpeg-dev libfreetype6-dev && docker-php-ext-configure gd --with-freetype --with-jpeg && docker-php-ext-install gd pdo pdo_mysql && curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer && composer install && php artisan key:generate && php artisan migrate && php artisan serve --host=0.0.0.0"
+      - db  # Asegura que db esté levantado antes que Laravel
+    command: bash -c "composer install && php artisan key:generate && php artisan migrate && php artisan serve --host=0.0.0.0"
     environment:
       MYSQL_ROOT_PASSWORD: root
       DB_HOST: db
