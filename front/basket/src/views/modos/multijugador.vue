@@ -23,6 +23,7 @@ const visiblePoder = ref(false);
 const visibleRanking = ref(false);
 const visibleTempo = ref(false);
 const visiblePodio = ref(false);
+const visibleCopa = ref(false);
 
 const imagenes = ["/items/banana.webp", "/items/bill_bala.webp",
   "/items/bomba.webp", "/items/caparazon_azul.webp",
@@ -31,6 +32,11 @@ const imagenes = ["/items/banana.webp", "/items/bill_bala.webp",
 
 ];
 
+const imagenesCopas = [
+  "/podio/copa1.png", 
+  "/podio/copa2.png",
+  "/podio/copa3.png"  
+];
 
 let posiciones = ref("");
 let poderes = reactive({ data: "" })
@@ -40,6 +46,7 @@ let animacionConfetti;
 const visibleTedio = ref(false);
 const temblor = ref(false);
 const puntacionFinal = reactive({ puntuacion: "", posicion: "" })
+const imagenCopaGanador = ref(null);
 
 socket.on('tedio', (nombre, poders) => {
 
@@ -64,20 +71,38 @@ socket.on('acabar', (index, puntuacion) => {
     puntacionFinal.puntuacion = puntuacion;
     puntacionFinal.posicion = index;
     visibleJuego.value = false;
+
+    if (index === 1) {
+      imagenCopaGanador.value = imagenesCopas[0];
+      lanzarConfeti()
+    } else if (index === 2) {
+      imagenCopaGanador.value = imagenesCopas[1];
+      lanzarConfeti()
+    } else if (index === 3) {
+      imagenCopaGanador.value = imagenesCopas[2];
+      lanzarConfeti()
+    } else {
+      imagenCopaGanador.value = null; 
+    }
+
     visibleFinal.value = true;
-    
-  } else if(visibleRanking.value==true){
-      visibleRanking.value = false;
-      visiblePodio.value = true;
-      audio.play().catch(error => {
+
+
+
+  } else if (visibleRanking.value == true) {
+    visibleRanking.value = false;
+    visiblePodio.value = true;
+    audio.play().catch(error => {
       console.error('No se pudo reproducir el audio:', error);
-  });
-      lanzarConfeti();
+    });
+    lanzarConfeti();
   }
 
 
 
 })
+
+
 
 function siguientePregunta(info) {
   socket.emit('cambio_pregunta', store.loginInfo.username, store.SalaActual, info.canasta);
@@ -131,7 +156,7 @@ socket.on('poderes', (param) => {
 
 })
 
-const tiempo = ref(1);
+const tiempo = ref(20);
 let interval;
 
 function temporizador() {
@@ -194,27 +219,27 @@ function mostrarBoton() {
 }
 
 function lanzarConfeti() {
-  const end = Date.now() + (15 * 1000); 
+  const end = Date.now() + (15 * 1000);
   const colors = [
-    '#ff0000', '#ffff00', '#00ff00', '#0000ff', '#ff00ff', 
-    '#00ffff', '#ff7f00', '#8a2be2', '#a52a2a', '#000080', 
+    '#ff0000', '#ffff00', '#00ff00', '#0000ff', '#ff00ff',
+    '#00ffff', '#ff7f00', '#8a2be2', '#a52a2a', '#000080',
     '#ff1493', '#7fff00', '#d2691e', '#ff4500', '#ff6347'
   ];
 
   function frame() {
     confetti({
       particleCount: 5,
-      angle: 90,        
-      spread: 15,       
-      startVelocity: 30, 
-      decay: 0.9,       
-      gravity: 1.5,     
+      angle: 90,
+      spread: 15,
+      startVelocity: 30,
+      decay: 0.9,
+      gravity: 1.5,
       origin: { x: Math.random(), y: 0 },
-      colors: colors,   
+      colors: colors,
     });
 
     if (Date.now() < end) {
-      animacionConfetti = requestAnimationFrame(frame); 
+      animacionConfetti = requestAnimationFrame(frame);
     }
   }
   frame();
@@ -226,13 +251,16 @@ function lanzarConfeti() {
 function detenerConfeti() {
   if (animacionConfetti) {
     cancelAnimationFrame(animacionConfetti);
-    animacionConfetti= null;
+    animacionConfetti = null;
     confetti.reset();
 
   }
 }
 
-
+function mostrarRanking(){
+  visiblePodio.value = false;
+  visibleRanking.value = true;
+}
 </script>
 
 <template>
@@ -302,6 +330,9 @@ function detenerConfeti() {
     </div>
 
     <div v-if="visibleRanking">
+      <RouterLink to="/jugar" @click.native="detenerConfeti">
+          <img style="right: inherit;" src="@/assets/imagenes/volver.png" alt="Volver" class="imagen_volver">
+        </RouterLink>
       <div class="bodyR">
         <div class="rankingTotal_ranking-container">
           <div class="tiempo_raninkg"> {{ tiempo }} </div>
@@ -325,52 +356,55 @@ function detenerConfeti() {
           </table>
         </div>
       </div>
-      
+
     </div>
     <div v-if="visiblePodio">
-        <div class="body-p">
-          <RouterLink to="/jugar" @click.native="detenerConfeti">
+      <div class="body-p">
+        <RouterLink to="/jugar" @click.native="detenerConfeti">
           <img style="right: inherit;" src="@/assets/imagenes/volver.png" alt="Volver" class="imagen_volver">
         </RouterLink>
-          <div class="titulo-ganadores">
+        <div class="titulo-ganadores">
           <h1>GANADORES</h1>
+        </div>
+        <div class="contenedor-podio">
+          <div class="podio">
+            <div class="copa" style="background-image: url('/podio/copa2.png')"></div>
+            <div class="numero">2</div>
+            <div class="podio-2"></div>
+            <div class="jugador">{{ posiciones[1]?.username || "Vacío" }}</div>
+            <div class="puntuacion">{{ posiciones[1]?.puntacion || "0" }}</div>
           </div>
-          <div class="contenedor-podio">
-            <div class="podio">
-              <div class="copa" style="background-image: url('/podio/copa2.png')"></div>
-              <div class="numero">2</div>
-              <div class="podio-2"></div> 
-              <div class="jugador">{{ posiciones[1]?.username || "Vacío" }}</div>
-              <div class="puntuacion">{{ posiciones[1]?.puntacion || "0" }}</div>
-            </div>
-            <div class="podio">
-              <div class="copa" style="background-image: url('/podio/copa1.png')"></div>
-              <div class="numero">1</div>
-              <div class="podio-1"></div>
-              <div class="jugador">{{ posiciones[0]?.username || "Vacío" }}</div>
-              <div class="puntuacion">{{ posiciones[0]?.puntacion || "0" }}</div>
-            </div>
-            <div class="podio">
-              <div class="copa" style="background-image: url('/podio/copa3.png')"></div>
-              <div class="numero">3</div>
-              <div class="podio-3"></div>
-              <div class="jugador">{{ posiciones[2]?.username || "Vacío" }}</div>
-              <div class="puntuacion">{{ posiciones[2]?.puntacion || "0" }}</div>
-            </div>
+          <div class="podio">
+            <div class="copa" style="background-image: url('/podio/copa1.png')"></div>
+            <div class="numero">1</div>
+            <div class="podio-1"></div>
+            <div class="jugador">{{ posiciones[0]?.username || "Vacío" }}</div>
+            <div class="puntuacion">{{ posiciones[0]?.puntacion || "0" }}</div>
+          </div>
+          <div class="podio">
+            <div class="copa" style="background-image: url('/podio/copa3.png')"></div>
+            <div class="numero">3</div>
+            <div class="podio-3"></div>
+            <div class="jugador">{{ posiciones[2]?.username || "Vacío" }}</div>
+            <div class="puntuacion">{{ posiciones[2]?.puntacion || "0" }}</div>
           </div>
         </div>
+        <button class="boton-ranking" @click="mostrarRanking">VER RANKING</button>
+
       </div>
+    </div>
 
 
 
     <div v-if="visibleFinal">
-
-      <div>
-        <div class="tiempo_raninkg">{{ puntacionFinal.posicion }}</div>
-        <div class="tiempo_raninkg">{{ puntacionFinal.puntuacion }}</div>
+        <RouterLink to="/jugar" @click.native="detenerConfeti">
+          <img style="right: inherit;" src="@/assets/imagenes/volver.png" alt="Volver" class="imagen_volver">
+        </RouterLink>
+      <div v-if="imagenCopaGanador!=null">
+        <img v-if="imagenCopaGanador" :src="imagenCopaGanador" alt="Copa ganada" class="imagen-copa" />
       </div>
-
-
+      <div class="pantallaFinalPosicion">{{ puntacionFinal.posicion }}º</div>
+      <div class="pantallaFinalPuntuacion"><p class="p-pfp">PUNTUACION</p><br>{{ puntacionFinal.puntuacion }}</div>
     </div>
 
 
@@ -383,6 +417,77 @@ function detenerConfeti() {
 
 
 <style scoped>
+.boton-ranking {
+  position: fixed; 
+  bottom: 50px; 
+  right: 20px;
+  background-color: #000000; 
+  color: #ffffff;
+  border: none; 
+  border-radius: 8px; 
+  padding: 20px 20px; 
+  font-family: 'Press Start 2P', cursive; 
+  font-size: 1rem; 
+  cursor: pointer; 
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); 
+  transition: background-color 0.3s, transform 0.2s; 
+}
+
+.boton-ranking:hover {
+  background-color: #ffffff;
+  color: #000000; 
+  transform: scale(1.1); 
+}
+
+.boton-ranking:active {
+  transform: scale(1);
+}
+
+
+.imagen-copa {
+  display: block; 
+  margin: 0 auto; 
+  width: 400px; 
+  height: auto; 
+  position: relative;
+  margin-bottom: 80px;
+}
+
+.pantallaFinalPosicion {
+  position: absolute; 
+  top: 7%;
+  left: 52%;
+  transform: translateX(-50%);
+  font-family: 'Press Start 2P', cursive;
+  color: #ffffff;
+  text-align: center;
+  font-size: 5rem; 
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+}
+.pantallaFinalPuntuacion {
+  position: absolute; 
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Press Start 2P', cursive;
+  color: #ffffff;
+  text-align: center;
+  font-size: 4rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+}
+.p-pfp{
+  position: absolute; 
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Press Start 2P', cursive;
+  color: #ffffff;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+
 .imagen_volver {
   position: fixed;
   top: 20px;
@@ -391,27 +496,30 @@ function detenerConfeti() {
   border: 2px solid white;
   border-radius: 5px;
 }
+
 .body-p {
   font-family: 'Press Start 2P', cursive;
   background-image: url("@/assets/bioma/parque.jpg");
   background-position: center center;
   background-size: cover;
   background-attachment: fixed;
-  position: relative;  color: #fff;
+  position: relative;
+  color: #fff;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   margin: 0;
   padding: 0 20px;
 }
+
 .titulo-ganadores {
   text-align: center;
   font-size: 36px;
   font-weight: bold;
   color: #FFD700;
-  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.6), 0 0 30px rgba(255, 215, 0, 0.4); /* Efecto de resplandor */
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.6), 0 0 30px rgba(255, 215, 0, 0.4);
   margin-bottom: 10px;
 }
 
