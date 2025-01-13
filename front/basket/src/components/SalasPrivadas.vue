@@ -348,7 +348,7 @@ export default {
 .salas-titulo {
   font-size: 27px;
   padding: 0px;
-  margin-top: 10px;
+  margin-top: 0;
   font-family: 'Press Start 2P', cursive;
   background-color: #1e1e1e;
   color: #ffffff;

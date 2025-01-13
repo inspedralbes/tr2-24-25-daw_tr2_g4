@@ -1,5 +1,5 @@
-//export const laravel = { URL: "http://a23diemujper.juego.daw.inspedralbes.cat/laravel/public/api" };
- export const laravel = { URL: "http://127.0.0.1:8000/api" };
+export const laravel = { URL: "http://a23diemujper.juego.daw.inspedralbes.cat/laravel/public/api" };
+// export const laravel = { URL: "http://127.0.0.1:8000/api" };
 
 export async function register(param) {
     const URL = `${laravel.URL}/register`;

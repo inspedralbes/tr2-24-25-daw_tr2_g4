@@ -13,8 +13,7 @@ const useApp = useCounterStore();
 const nombreUsuario = ref(useApp.loginInfo.username || '');
 const correo = ref(useApp.loginInfo.email || '');
 const avatar = ref(useApp.loginInfo.avatar || 1);
-const nivel = ref(useApp.loginInfo.nivel || '');
-const puntuacion = ref(useApp.loginInfo.score || 0);
+const nivel = ref(useApp.loginInfo.nivel || '0');
 const errores = ref('');
 const cargando = ref(false);
 const editando = ref(false); 
@@ -139,11 +138,14 @@ async function editarYGuardarPerfil() {
       <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
    <main id="pagina_perfil" class="q-pa-md">
-       <div class="text-h6">{{ editando ? 'Editar perfil' : 'Perfil del usuario' }}</div>
+    
+      
 
 
        <q-card flat bordered>
            <q-card-section>
+            <div class="text-h6">{{ editando ? 'Editar perfil' : 'Perfil del usuario' }}</div>
+            <hr>
                <div v-if="errores" class="text-negative q-mt-md">
                    <p>{{ errores }}</p>
                </div>
@@ -156,7 +158,7 @@ async function editarYGuardarPerfil() {
                            <div><strong>Nombre de usuario:</strong> {{ nombreUsuario }}</div>
                            <div><strong>Correo electrónico:</strong> {{ correo }}</div>
                            <div><strong>Nivel:</strong> {{ nivel }}</div>
-                           <div><strong>Puntuación:</strong> {{ puntuacion }}</div>
+                          
                        </q-item-section>
                    </q-item>
                    <div class="text-center q-mt-md">
@@ -224,10 +226,15 @@ async function editarYGuardarPerfil() {
 
 <style scoped>
 #pagina_perfil {
-   max-width: 600px;
+    max-width: 600px;
    margin: 0 auto;
-    font-family: 'Press Start 2P', cursive;
-    font-size: 15px;
+   font-family: 'Press Start 2P', cursive;
+   font-size: 15px;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   height: 100vh; 
 
 }
 

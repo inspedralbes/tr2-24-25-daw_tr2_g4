@@ -642,7 +642,12 @@ function mostrarRanking() {
 .fondo_sp{
   background-image: url("/bioma/fondoSP.jpg");
   height: 100vh;
+  background-position: center;  
+  background-repeat: no-repeat;  
+  background-size: cover;
+  
 }
+
 .numero {
   position: absolute;
   top: -95px;
