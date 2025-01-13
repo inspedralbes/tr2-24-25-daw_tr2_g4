@@ -112,13 +112,13 @@ async function register_compo() {
           v-model="slide"
           class="q-mt-md"
           style="width: 100px; height: 100px; border-radius: 50%; border: 1px solid #ccc;">
-          <q-carousel-slide :name="1" img-src="/public/avatar/boy1.png" />
-          <q-carousel-slide :name="2" img-src="/public/avatar/boy2.png" />
-          <q-carousel-slide :name="3" img-src="/public/avatar/boy3.png" />
-          <q-carousel-slide :name="4" img-src="/public/avatar/boy4.png" />
-          <q-carousel-slide :name="5" img-src="/public/avatar/boy5.png" />
-          <q-carousel-slide :name="6" img-src="/public/avatar/boy6.png" />
-          <q-carousel-slide :name="7" img-src="/public/avatar/boy7.png" />
+          <q-carousel-slide :name="1" img-src="/avatar/boy1.png" />
+          <q-carousel-slide :name="2" img-src="/avatar/boy2.png" />
+          <q-carousel-slide :name="3" img-src="/avatar/boy3.png" />
+          <q-carousel-slide :name="4" img-src="/avatar/boy4.png" />
+          <q-carousel-slide :name="5" img-src="/avatar/boy5.png" />
+          <q-carousel-slide :name="6" img-src="/avatar/boy6.png" />
+          <q-carousel-slide :name="7" img-src="/avatar/boy7.png" />
         </q-carousel>
       </div>
 

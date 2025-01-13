@@ -146,8 +146,8 @@ io.on('connection', async (socket) => {
                 if(salas[sala][index-1]){
                     salas[sala][index-1].puntacion-=poder.num;
                     comprobarCero(index-1,sala)
-                    if(salas[sala][index-i].socketId){
-                        conexiones[salas[sala][index-i].socketId].emit('tedio',username,poder) 
+                    if(salas[sala][index-1].socketId){
+                        conexiones[salas[sala][index-1].socketId].emit('tedio',username,poder) 
                     }
                     
                 }
@@ -543,7 +543,7 @@ io.on('connection', async (socket) => {
     });
 });
 
-const PORT = 3000;
+const PORT = 20070;
 server.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
