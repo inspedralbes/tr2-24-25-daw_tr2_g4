@@ -429,7 +429,7 @@ io.on('connection', async (socket) => {
        
        asignarValores()
 
-        salas[claveSala].push(socket.user);
+        
         conexiones[socket.id]=socket
         
         socket.join(claveSala);

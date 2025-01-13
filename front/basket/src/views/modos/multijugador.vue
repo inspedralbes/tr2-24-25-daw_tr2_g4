@@ -343,6 +343,7 @@ function mostrarRanking() {
                 <th class="rankingTotal_th">Avatar</th>
                 <th class="rankingTotal_th">Username</th>
                 <th class="rankingTotal_th">Puntos</th>
+                <th class="rankingTotal_th">Poder</th>
               </tr>
             </thead>
             <transition-group name="rank" tag="tbody">
@@ -351,6 +352,7 @@ function mostrarRanking() {
                 <td><img class="foto_ranking" :src="`/avatar/boy${player.avatar}.png`" alt="" srcset=""></td>
                 <td>{{ player.username }}</td>
                 <td>{{ player.puntacion }} </td>
+                <td><img class="foto_ranking" :src="`/items/${medio.poder}.webp`" alt="" srcset=""></td>
               </tr>
             </transition-group>
           </table>
