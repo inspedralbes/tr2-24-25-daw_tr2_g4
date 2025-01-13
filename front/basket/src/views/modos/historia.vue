@@ -14,7 +14,7 @@
   <div class="fondo" v-else>
     <div class="niveles">
       <q-btn round class="nivel" :class="{'NoDisponible': colores[9]==1, 'Superado': colores[9]==2}" style="grid-row: 1; grid-column: 2;" :label="10" @click="cargarPreguntas(10)" :disabled="isGameFinished || colores[9]==1"></q-btn>
-      <q-btn round class="nivel " :class="{'NoDisponible': colores[8]==1, 'Superado': colores[8]==2}" style="grid-row: 2; grid-column: 3;" :label="9" @click="cargarPreguntas(9)" :disabled="isGameFinished || colores[8]==1"></q-btn>
+      <q-btn round class="nivel" :class="{'NoDisponible': colores[8]==1, 'Superado': colores[8]==2}" style="grid-row: 2; grid-column: 3;" :label="9" @click="cargarPreguntas(9)" :disabled="isGameFinished || colores[8]==1"></q-btn>
       <q-btn round class="nivel" :class="{'NoDisponible': colores[7]==1, 'Superado': colores[7]==2}" style="grid-row: 3; grid-column: 3;" :label="8" @click="cargarPreguntas(8)" :disabled="isGameFinished || colores[7]==1"></q-btn>
       <q-btn round class="nivel" :class="{'NoDisponible': colores[6]==1, 'Superado': colores[6]==2}" style="grid-row: 4; grid-column: 2;" :label="7" @click="cargarPreguntas(7)" :disabled="isGameFinished || colores[6]==1"></q-btn>
       <q-btn round class="nivel" :class="{'NoDisponible': colores[5]==1, 'Superado': colores[5]==2}" style="grid-row: 5; grid-column: 1;" :label="6" @click="cargarPreguntas(6)" :disabled="isGameFinished || colores[5]==1"></q-btn>      
@@ -50,6 +50,7 @@ import { reactive, ref } from 'vue';
 import Partida_Historia from '@/components/Partida_Historia.vue';
 import { getPreguntas } from '@/comunication_manager';
 import { useCounterStore } from '@/stores/counter';
+import { ActualizarNivel } from '@/comunication_manager';
 
 const progress = ref(0.0);
 const index = ref(0);
@@ -57,7 +58,6 @@ const canastas = ref(0);
 const nivel = ref("");
 const nivelActual = ref("");
 const useApp = useCounterStore();
-
 const isGameFinished = ref(false); 
 const gameResult = ref(""); 
 const gameMessage = ref(""); 
@@ -84,11 +84,15 @@ function siguientePregunta(info) {
           // Si es nivel 10, no permitimos continuar, solo muestra la alerta final
           gameMessage.value = "¡Felicidades, has completado todos los niveles!";
           gameResult.value = "ganaste";
+          useApp.loginInfo.nivel=10;
+          nivel.value = useApp.loginInfo.nivel;
+          ActualizarNivel(useApp.loginInfo.id_user, nivel.value);
         } else if (useApp.loginInfo.nivel >= nivelActual.value) {
           // No hacer nada si el nivel ya está superado
         } else {
           useApp.loginInfo.nivel++;
           nivel.value = useApp.loginInfo.nivel;
+          ActualizarNivel(useApp.loginInfo.id_user, nivel.value);
           niveles();
         }
       } else {

@@ -98,9 +98,11 @@ class AuthController extends Controller
     // Actualizar el nombre del usuario
     $user->nivel = $nivel;
     $user->save();
+
+    return response()->json("OK", 200);
     }
 
-
+    
 
 
 }
