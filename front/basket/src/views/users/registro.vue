@@ -70,6 +70,8 @@ async function register_compo() {
 }
 </script>
 <template>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
   <main class="q-pa-md main-container">
 
     <!-- Dialogo de error -->
@@ -136,40 +138,55 @@ async function register_compo() {
 <style scoped>
 .q-card {
   width: 400px;
+  font-family: 'Press Start 2P', cursive;
+
 }
 
 .q-input {
   width: 100%;
   background-color: white;
+  font-family: 'Press Start 2P', cursive;
+
 }
 
 .q-carousel {
   max-width: 300px;
   margin: 0 auto;
+
 }
 
 .q-btn {
   width: 200px;
+  font-family: 'Press Start 2P', cursive;
+
 }
 
 .q-mb-md {
   margin-bottom: 16px;
   color: white;
+  font-family: 'Press Start 2P', cursive;
+
 }
 
 .q-mt-md {
   margin-top: 16px;
+  font-family: 'Press Start 2P', cursive;
+
 }
 
 .main-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: 'Press Start 2P', cursive;
+
 }
 
 .form-container {
   margin-top: 100px; 
   width: 100%;
   max-width: 400px;
+  font-family: 'Press Start 2P', cursive;
+
 }
 </style>
