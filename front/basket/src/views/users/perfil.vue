@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { useCounterStore } from '@/stores/counter';
 import { useQuasar } from 'quasar';
 import { useRouter } from 'vue-router';
-
+import { laravel } from '@/comunication_manager';
 
 const $q = useQuasar();
 const router = useRouter();
@@ -17,8 +17,9 @@ const nivel = ref(useApp.loginInfo.nivel || '');
 const puntuacion = ref(useApp.loginInfo.score || 0);
 const errores = ref('');
 const cargando = ref(false);
-const editando = ref(false);
-const urlBase = "http://127.0.0.1:8000";
+const editando = ref(false); 
+const urlBase = laravel.URL;
+console.log(urlBase)
 const mostrarCambioContrasena = ref(false);
 const contrasenaActual = ref('');
 const nuevaContrasena = ref('');
