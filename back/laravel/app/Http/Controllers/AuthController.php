@@ -127,15 +127,7 @@ class AuthController extends Controller
    
     public function cambiarContrasena(Request $request)
  {
-    $validador = Validator::make($request->all(), [
-        'contrasena_actual' => 'required',
-        'nueva_contrasena' => 'required|min:6',
-    ]);
- 
- 
-    if ($validador->fails()) {
-        return response()->json(['errores' => $validador->errors()], 422);
-    }
+    
  
  
     $usuario = $request->user();
