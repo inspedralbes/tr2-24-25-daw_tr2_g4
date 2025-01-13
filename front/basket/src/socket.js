@@ -6,8 +6,13 @@ const getSocket = (token) => {
   // Si no existe la instancia, la creamos
   if (!socketInstance) {
     console.log("Token enviado al servidor:", token);
+<<<<<<< HEAD
    //  socketInstance = io("http://a23diemujper.juego.daw.inspedralbes.cat:20070", {
    socketInstance = io("localhost:3000", {
+=======
+    //socketInstance = io("http://a23diemujper.juego.daw.inspedralbes.cat:20070", {
+      socketInstance = io("http://localhost:20070", {
+>>>>>>> origin/puntuacion_multijugador
       transports: ["websocket"],
       withCredentials: true,
       auth: {
