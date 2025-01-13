@@ -117,7 +117,7 @@ async function editarYGuardarPerfil() {
            position: 'top',
        });
    } catch (error) {
-       console.error('Error al guardar el perfil:', error);
+        
        errores.value = error.message || 'Hubo un error al guardar el perfil.';
        $q.notify({
            type: 'negative',

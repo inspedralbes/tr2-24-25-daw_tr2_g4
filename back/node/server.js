@@ -245,7 +245,6 @@ io.on('connection', async (socket) => {
                             if(salas[sala][index+i]){
                                 salas[sala][index+i].puntacion-=5;
                                 comprobarCero(index+i,sala);
-                                
                                 conexiones[salas[sala][index+i].socketId].emit('tedio',username,poder) 
                             }
                         
@@ -522,7 +521,7 @@ io.on('connection', async (socket) => {
     });
 });
 
-const PORT = 20070;
+const PORT = 3000;
 server.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });

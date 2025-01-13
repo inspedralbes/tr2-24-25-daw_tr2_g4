@@ -57,7 +57,7 @@ async function aux_login() {
     }
   } catch (err) {
     $q.loading.hide()
-    console.error("Error durante el login:", err)
+   
   }
 }
 </script>

@@ -137,7 +137,7 @@ function empezar(){
  let interval;
 
  function temporizador(){
-    console.log("tiempo",tiempo.value)
+     
       
        
             if (interval) return; 

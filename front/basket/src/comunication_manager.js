@@ -42,8 +42,7 @@ export async function login(param) {
         })
     });
 
-    const data = await response.json();
-    console.log(data)
+    const data = await response.json(); 
     return data;
 }
 
@@ -61,7 +60,6 @@ export async function ActualizarNivel(id,nivel) {
         })
     });
 
-    const data = await response.json();
-    console.log(data)
+    const data = await response.json(); 
     return data;
 }

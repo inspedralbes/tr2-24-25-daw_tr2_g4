@@ -20,7 +20,7 @@ let intervalo;
 
 const iniciarTemporizador = () => {
   audio.play().catch(error => {
-    console.error('No se pudo reproducir el audio:', error);
+    
   });
 
   const imagenes = [imagen3, imagen2, imagen1, imagenGo];

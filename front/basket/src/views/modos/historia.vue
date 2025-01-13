@@ -115,7 +115,7 @@ async function cargarPreguntas(i) {
   index.value = 0;
   canastas.value = 0;
   data.preguntas = await getPreguntas(i);
-  console.log(data.preguntas);
+  
   visibleJugar.value = true;
   nivelActual.value = i;
 }

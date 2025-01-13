@@ -107,7 +107,7 @@ export default {
       const caja = useCounterStore();
 
       caja.SalaActual = clave;
-      console.log(caja.SalaActual);
+      
     },
     resetToMenu() {
       this.enSala = false;
@@ -121,7 +121,7 @@ export default {
     const token = store.getLoginInfo.token;
 
     this.socket.on("connect_error", (err) => {
-      console.error("Error al conectar:", err.message);
+       
     });
 
     this.socket.on("room-created", (claveSala) => {
@@ -133,7 +133,7 @@ export default {
     });
 
     this.socket.on("room-users", ({ room, users }) => {
-      console.log(`Usuarios en la sala ${room}:`, users);
+      
       
       this.claveActual = room;
       this.usuarios = users;

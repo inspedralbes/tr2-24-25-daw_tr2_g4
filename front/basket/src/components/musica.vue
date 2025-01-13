@@ -55,7 +55,7 @@ import { useCounterStore } from '@/stores/counter';
     const parado=ref(false)
     // Lista interna de canciones
     const playlist =  mezclarMusica();
-    console.log(playlist)
+     
   const useApp = useCounterStore();
   const ActivarMusica = computed(() => useApp.ActivarMusica);;
    

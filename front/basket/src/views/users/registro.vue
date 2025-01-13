@@ -42,8 +42,7 @@ async function register_compo() {
   })
   try {
     const data = await register(params);
-    $q.loading.hide()
-    console.log(data);
+    $q.loading.hide() 
 
   if (data.errors == undefined) {
     const appStore = useCounterStore()
@@ -62,8 +61,9 @@ async function register_compo() {
     alert.value = true;
   }
   } catch (err) {
-    $q.loading.hide()
-    console.error("Error durante el register:", err)
+    $q.loading.hide();
+    alert("Error durante el register:", err);
+     
   }
 
   
