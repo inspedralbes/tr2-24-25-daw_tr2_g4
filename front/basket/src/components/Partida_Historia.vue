@@ -574,7 +574,7 @@ function responder(num){
   font-size: 50px;
   border: 1px solid black;
   background-color: white;
-  font-family: 'Press Start 2P', cursive;
+  
   text-align: center
 
 }
@@ -607,7 +607,6 @@ function responder(num){
 .problema{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  font-family: 'Press Start 2P', cursive;
   text-align: center
   
 
@@ -615,7 +614,7 @@ function responder(num){
 .respuestas{
     display: grid;
     grid-column: span 3;
-    font-family: 'Press Start 2P', cursive;
+    
     grid-template-columns: 1fr 1fr;
     
 }
