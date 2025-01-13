@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, onMounted } from 'vue';
+import { ref, reactive, onUnmounted } from 'vue';
 import Ranking from '../../components/ranking.vue';
 import Partida from '../../components/Partida.vue';
 import Temporizador from '../../components/temporizador.vue';

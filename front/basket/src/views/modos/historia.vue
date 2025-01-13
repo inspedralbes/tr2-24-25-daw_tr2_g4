@@ -87,6 +87,7 @@ function siguientePregunta(info) {
           useApp.loginInfo.nivel=10;
           nivel.value = useApp.loginInfo.nivel;
           ActualizarNivel(useApp.loginInfo.id_user, nivel.value);
+          niveles();
         } else if (useApp.loginInfo.nivel >= nivelActual.value) {
           // No hacer nada si el nivel ya está superado
         } else {
