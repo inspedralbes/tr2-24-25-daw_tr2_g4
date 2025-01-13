@@ -5,10 +5,10 @@ services:
     image: mysql:8.2.0
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: masket
-      MYSQL_USER: laravel
-      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: 
+      MYSQL_DATABASE: hola
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 
     ports:
       - "1000:3306"  # Mapeo de puertos
     volumes:

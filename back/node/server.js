@@ -3,7 +3,8 @@ const express = require('express');
 const cors = require('cors');
 const http = require('http');
 const socketIo = require('socket.io');
-const axios = require('axios');
+const axios = require('axios');  
+const { log } = require('console');
 
 const app = express();
 
@@ -82,19 +83,19 @@ async function rellenarPreguntas(){
 
 
 app.use(cors({
-    origin: "*",
+    origin: "*",  
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true
+    credentials: true  
 }));
 
 const server = http.createServer(app);
 
 const io = socketIo(server, {
     cors: {
-        origin: "*",
+        origin: "*",  
         methods: ["GET", "POST"],
-        credentials: true
+        credentials: true  
     }
 });
 
@@ -400,7 +401,16 @@ io.on('connection', async (socket) => {
  
  
     socket.on('create-room', () => {
-        const claveSala = uuidv4().slice(0, 5);
+        const claveSala = uuidv4().slice(0, 5); 
+        if (!salas[claveSala]) {
+            salas[claveSala] = [];  // Inicializamos la sala como un array vacío
+        }
+       
+       asignarValores()
+
+        salas[claveSala].push(socket.user);
+        conexiones[socket.id]=socket
+        
         socket.join(claveSala);
 
         socket.emit('room-created', claveSala);
@@ -511,8 +521,8 @@ io.on('connection', async (socket) => {
         
     });
 });
-const PORT = 1234;  // Cambié a 8080 para que coincida con el puerto mapeado en Docker
+
+const PORT = 1234;
 server.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
-
