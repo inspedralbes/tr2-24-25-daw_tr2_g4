@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, onUnmounted } from 'vue';
+import { ref, reactive, onUnmounted,onMounted } from 'vue';
 import Ranking from '../../components/ranking.vue';
 import Partida from '../../components/Partida.vue';
 import Temporizador from '../../components/temporizador.vue';
@@ -14,7 +14,7 @@ const cargando = ref(true);
 const mostrarTempo = ref(true); 
 
 
-onUnmounted(() => {
+onMounted(() => {
       const useApp = useCounterStore();
       if (useApp.ActivarMusica==true) {
         useApp.ApagarMusica();

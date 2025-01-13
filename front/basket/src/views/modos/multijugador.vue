@@ -115,6 +115,7 @@ function desconectar() {
 
 
 function empezar() {
+  store.ActivarMusica = false;
   visibleTempo.value = true;
   if (visibleSalas.value == true) {
     visibleSalas.value = false;
@@ -129,6 +130,7 @@ function tempoAcabado() {
   visibleTempo.value = false;
   visibleRanking.value = true;
   const SalaActual = store.SalaActual;
+  store.ActivarMusica = true;
   socket.emit('empezar', SalaActual);
   visibleRanking.value = true;
   temporizador();
