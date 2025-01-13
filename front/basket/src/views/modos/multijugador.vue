@@ -268,18 +268,17 @@ function mostrarRanking() {
     <div v-if="visibleSalas" class="main-multijugador">
       <div class="body_multijugador">
         <SalasPrivadas :socket="socket" @boton="mostrarBoton" />
-
-        <q-btn v-if="visibleBoton" color="orange" @click="empezar" size="25px" class="boton-volver" glossy
-          label="Empezar"></q-btn>
-
+        <div class="boton-container">
+          <q-btn v-if="visibleBoton" @click="empezar"class="boton-volver" glossy label="Empezar"></q-btn>
+        </div>
+          <RouterLink to="/jugar" @click.native="detenerConfeti">
+        <img style="right: inherit;" src="@/assets/imagenes/volver.png" alt="Volver" class="imagen_volver">
+      </RouterLink>
       </div>
 
 
 
 
-      <RouterLink to="/jugar">
-        <q-btn color="red-12" @click="desconectar" size="25px" class="boton-volver" glossy label="Volver"></q-btn>
-      </RouterLink>
 
 
     </div>
@@ -421,6 +420,46 @@ function mostrarRanking() {
 
 
 <style scoped>
+
+.boton-volver {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 24px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background-color: #ff4500;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s, background-color 0.3s;
+  display: inline-block;
+  text-align: center;
+}
+
+.boton-volver:hover {
+  background-color: #ffa500;
+  transform: scale(1.05);
+}
+
+.boton-volver:active {
+  transform: scale(1);
+}
+
+.boton-volver.q-btn {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+.boton-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  height: 100%; 
+}
+
+
+
+
+
+
 .boton-ranking {
   position: fixed;
   bottom: 50px;
