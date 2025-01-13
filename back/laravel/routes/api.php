@@ -26,3 +26,9 @@ Route::post('/ranking', [RankingController::class, 'store']);
 Route::get('/ranking', [RankingController::class, 'getRanking']);
 
 Route::post('nivel', [AuthController::class, 'nivel']); 
+
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/user/update-profile', [AuthController::class, 'updatePerfil']);
+});
+Route::middleware('auth:sanctum')->post('/user/cambiar-contra', [AuthController::class, 'cambiarContrasena']); 
