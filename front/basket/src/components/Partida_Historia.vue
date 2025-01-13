@@ -238,6 +238,8 @@ function responder(num){
 </script>
 
 <template>
+          <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
   <main id="main_arcade">
      
  <div class="body_arcade">
@@ -559,7 +561,9 @@ function responder(num){
   font-size: 50px;
   border: 1px solid black;
   background-color: white;
+  font-family: 'Press Start 2P', cursive;
   text-align: center
+
 }
 
 .tiempo_fuera{
@@ -590,12 +594,15 @@ function responder(num){
 .problema{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  font-family: 'Press Start 2P', cursive;
   text-align: center
+  
 
 }
 .respuestas{
     display: grid;
     grid-column: span 3;
+    font-family: 'Press Start 2P', cursive;
     grid-template-columns: 1fr 1fr;
     
 }

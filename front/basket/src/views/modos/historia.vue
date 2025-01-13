@@ -187,6 +187,7 @@ function cerrarAlerta() {
   margin: 0;
 }
 
+
 .niveles {
   display: grid;
   grid-template-rows: repeat(10, 1fr);
@@ -228,7 +229,6 @@ function cerrarAlerta() {
   margin-top: 20px;
   color: white;
   font-size: 20px;
-  font-family: 'Press Start 2P', cursive;
   text-align: center;
 }
 
