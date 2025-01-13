@@ -297,7 +297,7 @@ function mostrarRanking() {
 </script>
 
 <template>
-  <main>
+  <main class="fondo_sp">
     <div v-if="visibleSalas" class="main-multijugador">
       <div class="body_multijugador">
         <SalasPrivadas :socket="socket" @boton="mostrarBoton" />
@@ -639,7 +639,10 @@ function mostrarRanking() {
   background-size: contain;
   background-repeat: no-repeat;
 }
-
+.fondo_sp{
+  background-image: url("/bioma/fondoSP.jpg");
+  height: 100vh;
+}
 .numero {
   position: absolute;
   top: -95px;

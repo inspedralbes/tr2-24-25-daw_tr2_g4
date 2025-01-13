@@ -1,8 +1,8 @@
  html,body{
-  height: 100%;
+  height: 100vh;
   margin: 0;
   padding: 0;
-  width: 100%;
+  width: 100vh;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   background-image: url("./fondo_juego.jpg") ; 
   background-repeat: no-repeat; 
