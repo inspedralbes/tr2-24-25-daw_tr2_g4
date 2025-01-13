@@ -85,7 +85,7 @@ let poderes=[
 rellenarPreguntas();
 
 async function rellenarPreguntas(){
-    const URL = `http://a23diemujper.juego.daw.inspedralbes.cat/laravel/public/api/preguntas/nivel/0`;
+    const URL = `http://localhost:8000/api/preguntas/nivel/0`;
     const response = await fetch(URL);
     Preguntas=await response.json();
 
@@ -103,7 +103,7 @@ io.on('connection', async (socket) => {
     }
 
     try {
-        const response = await axios.get("http://a23diemujper.juego.daw.inspedralbes.cat/laravel/public/api/user", {
+        const response = await axios.get("http://localhost:8000/api/user", {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
