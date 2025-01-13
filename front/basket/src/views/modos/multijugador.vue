@@ -33,9 +33,9 @@ const imagenes = ["/items/banana.webp", "/items/bill_bala.webp",
 ];
 
 const imagenesCopas = [
-  "/podio/copa1.png", 
+  "/podio/copa1.png",
   "/podio/copa2.png",
-  "/podio/copa3.png"  
+  "/podio/copa3.png"
 ];
 
 let posiciones = ref("");
@@ -82,7 +82,7 @@ socket.on('acabar', (index, puntuacion) => {
       imagenCopaGanador.value = imagenesCopas[2];
       lanzarConfeti()
     } else {
-      imagenCopaGanador.value = null; 
+      imagenCopaGanador.value = null;
     }
 
     visibleFinal.value = true;
@@ -257,7 +257,7 @@ function detenerConfeti() {
   }
 }
 
-function mostrarRanking(){
+function mostrarRanking() {
   visiblePodio.value = false;
   visibleRanking.value = true;
 }
@@ -331,8 +331,8 @@ function mostrarRanking(){
 
     <div v-if="visibleRanking">
       <RouterLink to="/jugar" @click.native="detenerConfeti">
-          <img style="right: inherit;" src="@/assets/imagenes/volver.png" alt="Volver" class="imagen_volver">
-        </RouterLink>
+        <img style="right: inherit;" src="@/assets/imagenes/volver.png" alt="Volver" class="imagen_volver">
+      </RouterLink>
       <div class="bodyR">
         <div class="rankingTotal_ranking-container">
           <div class="tiempo_raninkg"> {{ tiempo }} </div>
@@ -356,8 +356,8 @@ function mostrarRanking(){
           </table>
         </div>
       </div>
-
     </div>
+    
     <div v-if="visiblePodio">
       <div class="body-p">
         <RouterLink to="/jugar" @click.native="detenerConfeti">
@@ -397,14 +397,16 @@ function mostrarRanking(){
 
 
     <div v-if="visibleFinal">
-        <RouterLink to="/jugar" @click.native="detenerConfeti">
-          <img style="right: inherit;" src="@/assets/imagenes/volver.png" alt="Volver" class="imagen_volver">
-        </RouterLink>
-      <div v-if="imagenCopaGanador!=null">
+      <RouterLink to="/jugar" @click.native="detenerConfeti">
+        <img style="right: inherit;" src="@/assets/imagenes/volver.png" alt="Volver" class="imagen_volver">
+      </RouterLink>
+      <div v-if="imagenCopaGanador != null">
         <img v-if="imagenCopaGanador" :src="imagenCopaGanador" alt="Copa ganada" class="imagen-copa" />
       </div>
       <div class="pantallaFinalPosicion">{{ puntacionFinal.posicion }}º</div>
-      <div class="pantallaFinalPuntuacion"><p class="p-pfp">PUNTUACION</p><br>{{ puntacionFinal.puntuacion }}</div>
+      <div class="pantallaFinalPuntuacion">
+        <p class="p-pfp">PUNTUACION</p><br>{{ puntacionFinal.puntuacion }}
+      </div>
     </div>
 
 
@@ -418,25 +420,25 @@ function mostrarRanking(){
 
 <style scoped>
 .boton-ranking {
-  position: fixed; 
-  bottom: 50px; 
+  position: fixed;
+  bottom: 50px;
   right: 20px;
-  background-color: #000000; 
+  background-color: #000000;
   color: #ffffff;
-  border: none; 
-  border-radius: 8px; 
-  padding: 20px 20px; 
-  font-family: 'Press Start 2P', cursive; 
-  font-size: 1rem; 
-  cursor: pointer; 
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); 
-  transition: background-color 0.3s, transform 0.2s; 
+  border: none;
+  border-radius: 8px;
+  padding: 20px 20px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  transition: background-color 0.3s, transform 0.2s;
 }
 
 .boton-ranking:hover {
   background-color: #ffffff;
-  color: #000000; 
-  transform: scale(1.1); 
+  color: #000000;
+  transform: scale(1.1);
 }
 
 .boton-ranking:active {
@@ -445,27 +447,28 @@ function mostrarRanking(){
 
 
 .imagen-copa {
-  display: block; 
-  margin: 0 auto; 
-  width: 400px; 
-  height: auto; 
+  display: block;
+  margin: 0 auto;
+  width: 400px;
+  height: auto;
   position: relative;
   margin-bottom: 80px;
 }
 
 .pantallaFinalPosicion {
-  position: absolute; 
+  position: absolute;
   top: 7%;
   left: 52%;
   transform: translateX(-50%);
   font-family: 'Press Start 2P', cursive;
   color: #ffffff;
   text-align: center;
-  font-size: 5rem; 
+  font-size: 5rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
 }
+
 .pantallaFinalPuntuacion {
-  position: absolute; 
+  position: absolute;
   left: 50%;
   transform: translateX(-50%);
   font-family: 'Press Start 2P', cursive;
@@ -475,8 +478,9 @@ function mostrarRanking(){
   font-weight: bold;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
 }
-.p-pfp{
-  position: absolute; 
+
+.p-pfp {
+  position: absolute;
   left: 50%;
   transform: translateX(-50%);
   font-family: 'Press Start 2P', cursive;
@@ -626,7 +630,13 @@ function mostrarRanking(){
   align-items: top;
   min-height: 100vh;
   text-align: center;
-  font-size: 30px;
+  font-family: 'Press Start 2P', cursive;
+
+  font-size: 20px;
+  background-image: url("../assets/bioma/parque.jpg"); 
+  background-position: center center;
+  background-size: cover; 
+  background-attachment: fixed;
 }
 
 
@@ -668,25 +678,25 @@ function mostrarRanking(){
 .rankingTotal_table {
   width: 100%;
   border-collapse: collapse;
-}
-
-.rankingTotal_table {
-  background-color: white;
-}
-
-.rankingTotal_th,
-.rankingTotal_td {
-  padding: 15px;
-  text-align: center;
+  margin-top: 20px;
+  background-color: #333;
+  border: 1px solid #ddd;
+  color: #e5ba0c;
 }
 
 .rankingTotal_th {
-  background-color: #ff7043;
-  color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 17px;
+    background-color: #1d1d1d;
+    color: #e5ba0c;
 }
 
 .rankingTotal_tr:nth-child(even) {
   background-color: #f9f9f9;
+  
 }
 
 .rankingTotal_tr:hover {
