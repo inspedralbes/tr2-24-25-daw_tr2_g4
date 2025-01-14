@@ -381,7 +381,12 @@ io.on('connection', async (socket) => {
         
 
         salas[sala].forEach((user,index) => {
-            conexiones[user.socketId].emit('acabar',index+1, user.puntacion);
+            if(conexiones[user.socketId]){
+                conexiones[user.socketId].emit('acabar',index+1, user.puntacion);
+
+            }
+
+          
         }) 
         socket.emit('acabar',0, 0);
     })

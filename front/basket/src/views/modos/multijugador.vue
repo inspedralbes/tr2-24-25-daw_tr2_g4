@@ -188,7 +188,7 @@ socket.on('poderes', (param) => {
 
 })
 
-const tiempo = ref(3);
+const tiempo = ref(180);
 let interval;
 
 function temporizador() {
