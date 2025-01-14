@@ -43,7 +43,7 @@ services:
       - "8000:8000"
     depends_on:
       - db
-    command: bash -c "composer install && php artisan key:generate && php artisan migrate && php artisan serve --host=0.0.0.0"
+    command: bash -c "composer install && php artisan key:generate && php artisan migrate:fresh --seed && php artisan serve --host=0.0.0.0"
     environment:
       MYSQL_ROOT_PASSWORD: root
       DB_HOST: db
