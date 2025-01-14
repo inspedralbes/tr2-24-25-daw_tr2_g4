@@ -1,25 +1,24 @@
-
 services:
   # Servicio de la base de datos MySQL
   db:
     image: mysql:8.2.0
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root  # Aquí defines la contraseña para el usuario root
-      MYSQL_DATABASE: masket      # Base de datos predeterminada
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: masket
     ports:
-      - "3306:3306" 
+      - "3306:3306"
     volumes:
-      - ./mysql_data:/var/lib/mysql  
-      - ./back/laravel.sql:/docker-entrypoint-initdb.d/laravel.sql 
+      - ./mysql_data:/var/lib/mysql
+      - ./back/laravel.sql:/docker-entrypoint-initdb.d/laravel.sql
 
   # Adminer para gestionar la base de datos
   adminer:
     image: adminer
     restart: always
     depends_on:
-      - db  
-    ports: 
+      - db
+    ports:
       - 9092:8080
 
   # Servicio de la aplicación Vue.js
@@ -27,23 +26,23 @@ services:
     image: node:18
     working_dir: /app
     volumes:
-      - ./front/basket:/app  
+      - ./front/basket:/app
     ports:
-      - "5173:5173"  
-    command: /bin/bash -c "npm install && npm run dev" 
+      - "5173:5173"
+    command: /bin/bash -c "npm install && npm run dev"
     depends_on:
-      - db  
+      - db
 
-   # Servicio de la aplicación Laravel (back)
+  # Servicio de la aplicación Laravel (back)
   laravel:
-    build: ./back/laravel  # Ruta a la carpeta de Laravel
+    build: ./back/laravel
     volumes:
-      - ./back/laravel:/var/www/  # Montar el directorio Laravel
+      - ./back/laravel:/var/www/
     working_dir: /var/www
     ports:
-      - "8000:8000"  # Exponiendo el puerto 8000 para Laravel
+      - "8000:8000"
     depends_on:
-      - db  # Asegura que db esté levantado antes que Laravel
+      - db
     command: bash -c "composer install && php artisan key:generate && php artisan migrate && php artisan serve --host=0.0.0.0"
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -52,3 +51,17 @@ services:
       DB_DATABASE: masket
       DB_USERNAME: root
       DB_PASSWORD: root
+
+  node:
+    image: node:18  # Usa una imagen base
+    volumes:
+       - ./back/node:/app  # Monta el directorio del servidor
+    working_dir: /app
+    ports:
+       - "1234:1234"  # Exponer el puerto donde correrá el servidor
+    command: "node server.js"  # Comando para iniciar tu servidor de Node.js
+    depends_on:
+       - db  # Si dependiera de la base de datos
+       - laravel  # Si utiliza la API de Laravel
+    environment:
+        NODE_ENV: development  # Ambiente de desarrollo

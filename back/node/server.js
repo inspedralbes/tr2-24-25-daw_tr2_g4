@@ -521,7 +521,7 @@ io.on('connection', async (socket) => {
     });
 });
 
-const PORT = 3000;
+const PORT = 1234;
 server.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
