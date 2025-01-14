@@ -1,6 +1,6 @@
 <template>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-
+<div class="fondoAlto">
   <!-- Enlace para volver -->
   <RouterLink to="/jugar">
     <img style="right: inherit;" src="@/assets/imagenes/volver.png" alt="Volver" class="imagen_volver">
@@ -43,6 +43,8 @@
       <q-btn icon="close" @click="cerrarAlerta" color="red" class="cerrar-alerta"></q-btn>
     </div>
   </div>
+</div>
+
 </template>
 
 <script setup>
@@ -181,6 +183,14 @@ function cerrarAlerta() {
   border: 2px solid white;
   border-radius: 5px;
 }
+.fondoAlto{
+  background-image: url("@/assets/23.jpg") ; 
+  background-repeat: no-repeat; 
+  background-size: auto;
+  background-position: center; 
+
+}
+
 
 .fondo {
   background-image: url('@/assets/imagenes/fondo1.jpg');
