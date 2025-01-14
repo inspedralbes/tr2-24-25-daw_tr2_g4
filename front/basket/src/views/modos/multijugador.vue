@@ -89,8 +89,7 @@ socket.on('acabar', (index, puntuacion) => {
 
 
 
-  } 
-  if(visibleRanking== true ) {
+  } else if (visibleRanking.value == true) {
     visibleRanking.value = false;
     visiblePodio.value = true;
     audio.play().catch(error => {
