@@ -1,90 +1,91 @@
-# Resum del projecte:
+# Resumen:
 # 
-# Aquest projecte està compost per diversos serveis: una base de dades MySQL, un frontend en Vue.js, un backend en Laravel i un servidor Node.js.
-# Cada servei està definit en la seva respectiva secció de Docker Compose.
+# Este proyecto está compuesto por varios servicios: una base de datos MySQL, un frontend en Vue.js, un backend en Laravel y un servidor Node.js.
+# Cada servicio está definido en su respectiva sección de Docker Compose.
 # 
-# Per executar el projecte:
+# Para ejecutar el proyecto:
 #
-# 1. Assegura't de tenir Docker i Docker Compose instal·lats a la teva màquina.
-# 2. A la arrel del projecte, crea el contenidor executant la següent comanda:
-#    docker-compose up --build
-# 3. Un cop els contenidors estiguin en execució, segueix aquests passos:
-#    - Per instal·lar les dependències de Node.js i Laravel:
-#      1. Navega a la carpeta `back/laravel` i executa `composer install`.
-#      2. Navega a la carpeta `back/node` i executa `npm install`.
-#    - Per iniciar l'aplicació, escriu al terminal `docker-compose up`.
+# 1. Asegúrate de tener Docker y Docker Compose instalados en tu máquina.
+# 2. Una vez que los contenedores estén en ejecución, sigue estos pasos:
+#
+#   - Para instalar las dependencias de Node.js y Laravel:
+#
+#     1. Navega a la carpeta `back/laravel` y ejecuta `composer install`.
+#     2. Navega a la carpeta `back/node` y ejecuta `npm install`.
+#
+#    - Para iniciar la aplicación, escribe en la terminal `docker-compose up`.
 # 
-# Els serveis estaran disponibles als següents ports:
+# Los servicios estarán disponibles en los siguientes puertos:
 # - Frontend (Vue.js): http://localhost:5173
 # - Backend (Laravel): http://localhost:8000
-# - Adminer (gestor de base de dades MySQL): http://localhost:9092
+# - Adminer (gestor de base de datos MySQL): http://localhost:9092
 
 services:
 
-  # Servei de la base de dades MySQL
-  # Proporciona una base de dades MySQL amb un script d'inicialització.
+  # Servicio de la base de datos MySQL
+  # Proporciona una base de datos MySQL con un script de inicialización.
   db:
-    image: mysql:8.2.0  # Imatge oficial de MySQL versió 8.2.0
-    restart: always  # Reinicia automàticament el contenidor si s'atura
+    image: mysql:8.2.0  # Imagen oficial de MySQL versión 8.2.0
+    restart: always  # Reinicia automáticamente el contenedor si se detiene
     environment:
-      MYSQL_ROOT_PASSWORD: root  # Contrasenya de l'usuari root
-      MYSQL_DATABASE: masket     # Nom de la base de dades inicial
+      MYSQL_ROOT_PASSWORD: root  # Contraseña del usuario root
+      MYSQL_DATABASE: masket     # Nombre de la base de datos inicial
     ports:
-      - "3306:3306"  # Exposa el port 3306 per connexions externes
+      - "3306:3306"  # Expone el puerto 3306 para conexiones externas
     volumes:
-      - ./mysql_data:/var/lib/mysql  # Emmagatzema dades de MySQL de manera persistent
-      - ./back/laravel.sql:/docker-entrypoint-initdb.d/laravel.sql  # Script d'inicialització de la base de dades
+      - ./mysql_data:/var/lib/mysql  # Almacena datos de MySQL de forma persistente
+      - ./back/laravel.sql:/docker-entrypoint-initdb.d/laravel.sql  # Script de inicialización de la base de datos
 
-  # Adminer per gestionar la base de dades
-  # Eina web per administrar bases de dades MySQL.
+  # Adminer para gestionar la base de datos
+  # Herramienta web para administrar bases de datos MySQL.
   adminer:
-    image: adminer  # Imatge oficial d'Adminer
-    restart: always  # Reinicia automàticament el contenidor si s'atura
+    image: adminer  # Imagen oficial de Adminer
+    restart: always  # Reinicia automáticamente el contenedor si se detiene
     depends_on:
-      - db  # Aquest servei depèn de la base de dades
+      - db  # Este servicio depende de la base de datos
     ports:
-      - 9092:8080  # Accessible al port 9092 de l'host
+      - 9092:8080  # Accesible en el puerto 9092 del host
 
-  # Servei de l'aplicació Vue.js
-  # Proporciona un entorn per executar i servir l'aplicació Vue.js.
+  # Servicio de la aplicación Vue.js
+  # Proporciona un entorno para ejecutar y servir la aplicación Vue.js.
   vue-app:
-    image: node:18  # Usa la imatge oficial de Node.js versió 18
-    working_dir: /app  # Defineix el directori de treball dins del contenidor
+    image: node:18  # Usa la imagen oficial de Node.js versión 18
+    working_dir: /app  # Define el directorio de trabajo dentro del contenedor
     volumes:
-      - ./front/basket:/app  # Muntatge del codi font del frontend com a volum
-      - /app/node_modules    # Manté les dependències instal·lades
+      - ./front/basket:/app  # Montaje del código fuente del frontend como volumen
+      - /app/node_modules    # Mantiene las dependencias instaladas
     ports:
-      - "5173:5173"  # Exposa el servidor de desenvolupament de Vue al port 5173
+      - "5173:5173"  # Expone el servidor de desarrollo de Vue en el puerto 5173
     command: /bin/bash -c "npm install && npm run dev"
     depends_on:
-      - db  # Depèn de la base de dades per al seu funcionament
+      - db  # Depende de la base de datos para su funcionamiento
 
-  # Servei de l'aplicació Laravel (backend)
-  # Proporciona un entorn per executar l'aplicació Laravel.
+  # Servicio de la aplicación Laravel (backend)
+  # Proporciona un entorno para ejecutar la aplicación Laravel.
   laravel:
-    build: ./back/laravel  # Construeix la imatge utilitzant el Dockerfile a ./back/laravel
+    build: ./back/laravel  # Construye la imagen utilizando el Dockerfile en ./back/laravel
     volumes:
-      - ./back/laravel:/var/www/  # Muntatge del codi font de Laravel com a volum
-    working_dir: /var/www  # Defineix el directori de treball dins del contenidor
+      - ./back/laravel:/var/www/  # Montaje del código fuente de Laravel como volumen
+    working_dir: /var/www  # Define el directorio de trabajo dentro del contenedor
     ports:
-      - "8000:8000"  # Exposa el servidor de desenvolupament de Laravel al port 8000
+      - "8000:8000"  # Expone el servidor de desarrollo de Laravel en el puerto 8000
     depends_on:
-      - db  # Depèn de la base de dades per al seu funcionament
+      - db  # Depende de la base de datos para su funcionamiento
     command: bash -c "php artisan key:generate && php artisan migrate:fresh --seed && php artisan serve --host=0.0.0.0"
-      # Genera la clau de l'aplicació, executa migracions i sembrats, i serveix l'aplicació Laravel
+      # Genera la clave de la aplicación, ejecuta migraciones y datos iniciales, y sirve la aplicación Laravel
 
-  # Servei Node.js per al servidor backend
-  # Proporciona un entorn per executar un servidor Node.js personalitzat.
+  # Servicio Node.js para el servidor backend
+  # Proporciona un entorno para ejecutar un servidor Node.js personalizado.
   node-server:
-    image: node:18  # Usa la imatge oficial de Node.js versió 18
+    image: node:18  # Usa la imagen oficial de Node.js versión 18
     volumes:
-      - ./back/node:/app  # Muntatge del codi font del backend com a volum
-    working_dir: /app  # Defineix el directori de treball dins del contenidor
+      - ./back/node:/app  # Montaje del código fuente del backend como volumen
+    working_dir: /app  # Define el directorio de trabajo dentro del contenedor
     ports:
-      - "20070:20070"  # Exposa el port del servidor backend Node.js
+      - "20070:20070"  # Expone el puerto del servidor backend Node.js
     command: /bin/bash -c "node server.js"
     depends_on:
-      - db  # Depèn de la base de dades
+      - db  # Depende de la base de datos
       - laravel
     environment:
-      - LARAVEL_URL=http://laravel:8000  # URL del backend Laravel per al servidor Node.js
+      - LARAVEL_URL=http://laravel:8000  # URL del backend Laravel para el servidor Node.js

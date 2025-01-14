@@ -23,7 +23,7 @@ Este proyecto ha sido desarrollado utilizando las siguientes tecnologías:
 - **Socket.io**
 
 ## Instrucciones para Ejecutar el Proyecto 🏃
-Para ver el proyecto utilizando Docker, mira el finchero 'docker-compose.yml' y sigue las instrucciones.
+Para ver el proyecto utilizando Docker, mirar el finchero 'docker-compose.yml' y seguir las instrucciones.
 ```
 ## Penpot 📌
 ```
