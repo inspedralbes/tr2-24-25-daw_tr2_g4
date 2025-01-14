@@ -89,7 +89,8 @@ socket.on('acabar', (index, puntuacion) => {
 
 
 
-  } else if (visibleRanking.value == true) {
+  } 
+  if(visibleRanking== true ) {
     visibleRanking.value = false;
     visiblePodio.value = true;
     audio.play().catch(error => {
@@ -188,7 +189,7 @@ socket.on('poderes', (param) => {
 
 })
 
-const tiempo = ref(180);
+const tiempo = ref(3);
 let interval;
 
 function temporizador() {
