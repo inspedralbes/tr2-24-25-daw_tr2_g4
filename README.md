@@ -1,14 +1,32 @@
-# transversals
-Esquema mínim de carpetes pels projectes transversals
+# Transversals Grup 4
 
-És obligatori seguir aquesta estructura tot i que la podeu ampliar.
+## Integrantes
+* Simran
+* Elihu
+* Ishaa
+* Diego
+* Gabriel
 
-## Atenció
-Un cop comenceu heu de canviar aquesta explicació amb la corresponent al vostre projecte (utilitzant markdown)
+## Descripción del Proyecto
 
-# Aquest fitxer ha de contenir com a mínim:
- * Simran, Elihu, Ishaa, Diego, Gabriel 
- * Masket
- * Es un juego de basket con problemas de mates. Se trata de una pelota de basket y unos problemas, si respondes bien el prporblema la pelota va dentro de la cesta, y sinó pues va a fuera. así vas acumulando puntos. Hay diferentes modos (historia,arcade y 2 jugadores), en el modo historia hay diferentes niveles, en el modo arcade el juego sigue hasta que no se pierde y en el juego 2 jugadores juegas en contra de una persona.
- * Penpot: https://design.penpot.app/#/view/7ad540b5-8190-815d-8005-5ce7036cd352?page-id=7ad540b5-8190-815d-8005-5ce7036cd353&section=interactions&index=0&share-id=7ad540b5-8190-815d-8005-5ceed113db9d
- * Estat: inicial
+**Masket** es un juego de baloncesto que incluye problemas matemáticos. El objetivo del juego es responder correctamente a los problemas para encestar la pelota en la canasta. Si respondes mal, la pelota no entra. De esta manera, acumulas puntos. Existen diferentes modos de juego:
+- **Modo Historia**: Con diferentes niveles.
+- **Modo Arcade**: El juego sigue hasta que pierdes.
+- **Modo 2 Jugadores**: Juegas en contra de una o más personas.
+
+## Tecnologías Utilizadas
+Este proyecto ha sido desarrollado utilizando las siguientes tecnologías:
+- **Laravel**
+- **Vue.js**
+- **Node.js**
+- **Socket.io**
+
+## Instrucciones para Ejecutar el Proyecto
+Para ver el proyecto utilizando Docker, ejecuta el siguiente comando en la terminal:
+docker-compose up
+
+## Penpot
+https://design.penpot.app/#/view/7ad540b5-8190-815d-8005-5ce7036cd352?page-id=7ad540b5-8190-815d-8005-5ce7036cd353&section=interactions&index=0&share-id=7ad540b5-8190-815d-8005-5ceed113db9d
+
+## Estado: 
+Acabado
