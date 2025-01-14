@@ -1,32 +1,36 @@
 # Transversals Grup 4
 
-## Integrantes
+## Integrantes ✒️
 * Simran
 * Elihu
 * Ishaa
 * Diego
-* Gabriel
 
-## Descripción del Proyecto
+## Descripción del Proyecto 🚀
 
-**Masket** es un juego de baloncesto que incluye problemas matemáticos. El objetivo del juego es responder correctamente a los problemas para encestar la pelota en la canasta. Si respondes mal, la pelota no entra. De esta manera, acumulas puntos. Existen diferentes modos de juego:
-- **Modo Historia**: Con diferentes niveles.
-- **Modo Arcade**: El juego sigue hasta que pierdes.
-- **Modo 2 Jugadores**: Juegas en contra de una o más personas.
+### Masket 🏀
+Es un juego de baloncesto que incluye problemas matemáticos. El objetivo del juego es mejorar el calculo mental de forma atractiva y competitiva, tendras que responder correctamente a las operaciones para encestar y acumular puntos. 
+Existen diferentes modos de juego:
+- **Modo Historia**: 10 niveles.
+- **Modo Arcade**: Consigue el maximo de puntos sin fallar.
+- **Modo Multijugador**: Crea tu sala privada y compaprte el codigo con quien quieras jugar!
 
-## Tecnologías Utilizadas
+## Tecnologías Utilizadas 🛠️
 Este proyecto ha sido desarrollado utilizando las siguientes tecnologías:
 - **Laravel**
 - **Vue.js**
 - **Node.js**
 - **Socket.io**
 
-## Instrucciones para Ejecutar el Proyecto
+## Instrucciones para Ejecutar el Proyecto 🏃
 Para ver el proyecto utilizando Docker, ejecuta el siguiente comando en la terminal:
+```
 docker-compose up
-
-## Penpot
+```
+## Penpot 📌
+```
 https://design.penpot.app/#/view/7ad540b5-8190-815d-8005-5ce7036cd352?page-id=7ad540b5-8190-815d-8005-5ce7036cd353&section=interactions&index=0&share-id=7ad540b5-8190-815d-8005-5ceed113db9d
+```
 
 ## Estado
 Acabado
