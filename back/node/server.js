@@ -237,7 +237,7 @@ io.on('connection', async (socket) => {
                             if(salas[sala][i]){
                                 salas[sala][i].puntacion-=poder.num;
                                 comprobarCero(i,sala)
-                                conexiones[salas[sala][i].socketId].emit('tedio',username,poder) 
+                                 
                                 if(salas[sala][i].socketId){
                                     conexiones[salas[sala][i].socketId].emit('tedio',username,poder) 
                                 }
@@ -271,7 +271,7 @@ io.on('connection', async (socket) => {
                    
                      
                     salas[sala][index].puntacion+=poder.num;
-                    emitirRanking(sala);
+                   
                     index=obtenerIndex(username,sala);
                     aux-=index;
 
