@@ -1,0 +1,90 @@
+# Resum del projecte:
+# 
+# Aquest projecte està compost per diversos serveis: una base de dades MySQL, un frontend en Vue.js, un backend en Laravel i un servidor Node.js.
+# Cada servei està definit en la seva respectiva secció de Docker Compose.
+# 
+# Per executar el projecte:
+#
+# 1. Assegura't de tenir Docker i Docker Compose instal·lats a la teva màquina.
+# 2. A la arrel del projecte, crea el contenidor executant la següent comanda:
+#    docker-compose up --build
+# 3. Un cop els contenidors estiguin en execució, segueix aquests passos:
+#    - Per instal·lar les dependències de Node.js i Laravel:
+#      1. Navega a la carpeta `back/laravel` i executa `composer install`.
+#      2. Navega a la carpeta `back/node` i executa `npm install`.
+#    - Per iniciar l'aplicació, escriu al terminal `docker-compose up`.
+# 
+# Els serveis estaran disponibles als següents ports:
+# - Frontend (Vue.js): http://localhost:5173
+# - Backend (Laravel): http://localhost:8000
+# - Adminer (gestor de base de dades MySQL): http://localhost:9092
+
+services:
+
+  # Servei de la base de dades MySQL
+  # Proporciona una base de dades MySQL amb un script d'inicialització.
+  db:
+    image: mysql:8.2.0  # Imatge oficial de MySQL versió 8.2.0
+    restart: always  # Reinicia automàticament el contenidor si s'atura
+    environment:
+      MYSQL_ROOT_PASSWORD: root  # Contrasenya de l'usuari root
+      MYSQL_DATABASE: masket     # Nom de la base de dades inicial
+    ports:
+      - "3306:3306"  # Exposa el port 3306 per connexions externes
+    volumes:
+      - ./mysql_data:/var/lib/mysql  # Emmagatzema dades de MySQL de manera persistent
+      - ./back/laravel.sql:/docker-entrypoint-initdb.d/laravel.sql  # Script d'inicialització de la base de dades
+
+  # Adminer per gestionar la base de dades
+  # Eina web per administrar bases de dades MySQL.
+  adminer:
+    image: adminer  # Imatge oficial d'Adminer
+    restart: always  # Reinicia automàticament el contenidor si s'atura
+    depends_on:
+      - db  # Aquest servei depèn de la base de dades
+    ports:
+      - 9092:8080  # Accessible al port 9092 de l'host
+
+  # Servei de l'aplicació Vue.js
+  # Proporciona un entorn per executar i servir l'aplicació Vue.js.
+  vue-app:
+    image: node:18  # Usa la imatge oficial de Node.js versió 18
+    working_dir: /app  # Defineix el directori de treball dins del contenidor
+    volumes:
+      - ./front/basket:/app  # Muntatge del codi font del frontend com a volum
+      - /app/node_modules    # Manté les dependències instal·lades
+    ports:
+      - "5173:5173"  # Exposa el servidor de desenvolupament de Vue al port 5173
+    command: /bin/bash -c "npm install && npm run dev"
+    depends_on:
+      - db  # Depèn de la base de dades per al seu funcionament
+
+  # Servei de l'aplicació Laravel (backend)
+  # Proporciona un entorn per executar l'aplicació Laravel.
+  laravel:
+    build: ./back/laravel  # Construeix la imatge utilitzant el Dockerfile a ./back/laravel
+    volumes:
+      - ./back/laravel:/var/www/  # Muntatge del codi font de Laravel com a volum
+    working_dir: /var/www  # Defineix el directori de treball dins del contenidor
+    ports:
+      - "8000:8000"  # Exposa el servidor de desenvolupament de Laravel al port 8000
+    depends_on:
+      - db  # Depèn de la base de dades per al seu funcionament
+    command: bash -c "php artisan key:generate && php artisan migrate:fresh --seed && php artisan serve --host=0.0.0.0"
+      # Genera la clau de l'aplicació, executa migracions i sembrats, i serveix l'aplicació Laravel
+
+  # Servei Node.js per al servidor backend
+  # Proporciona un entorn per executar un servidor Node.js personalitzat.
+  node-server:
+    image: node:18  # Usa la imatge oficial de Node.js versió 18
+    volumes:
+      - ./back/node:/app  # Muntatge del codi font del backend com a volum
+    working_dir: /app  # Defineix el directori de treball dins del contenidor
+    ports:
+      - "20070:20070"  # Exposa el port del servidor backend Node.js
+    command: /bin/bash -c "node server.js"
+    depends_on:
+      - db  # Depèn de la base de dades
+      - laravel
+    environment:
+      - LARAVEL_URL=http://laravel:8000  # URL del backend Laravel per al servidor Node.js
