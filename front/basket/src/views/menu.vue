@@ -108,14 +108,14 @@ if (useApp.loginInfo.loggedIn) {
 
   <main id="main_menu">
     <div id="div_menu" v-if="visibleOpciones">
-      <q-btn color="deep-orange" class="botones_menu" glossy label="Historia" @click="verificarHistoria"></q-btn>
+      <q-btn class="botones_menu" glossy label="Historia" @click="verificarHistoria"></q-btn>
       <br>
-      <q-btn color="deep-orange" class="botones_menu" glossy label="Arcade" @click="verificarArcade"></q-btn>
+      <q-btn class="botones_menu" glossy label="Arcade" @click="verificarArcade"></q-btn>
       <br>
-      <q-btn color="deep-orange" class="botones_menu" glossy label="Multijugador" @click="verificarMultijugador"></q-btn>
+      <q-btn class="botones_menu" glossy label="Multijugador" @click="verificarMultijugador"></q-btn>
       <br>
       <RouterLink to="/" @click="ocultarTot">
-        <q-btn color="deep-orange" class="botones_menu" glossy label="Volver"></q-btn>
+        <q-btn class="botones_menu" glossy label="Volver"></q-btn>
       </RouterLink>
     </div>
 
@@ -242,6 +242,22 @@ if (useApp.loginInfo.loggedIn) {
   width: 350px;
   font-size: 26px;
   border: 1px solid black;
+  background-color: #ff4500;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9);
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.botones_menu:hover {
+  background-color: #ffffff;
+  color: #ff4500;
+  transform: scale(1.05);
+}
+
+.botones_menu:active {
+  transform: scale(1);
 }
 
 .botones_desple {

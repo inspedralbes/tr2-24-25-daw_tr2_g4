@@ -322,7 +322,6 @@ export default {
   width: 300px;
   max-width: 90%;
   font-size: 20px;
-  font-family: 'Press Start 2P', cursive;
   background-color: #ff4500;
   color: #ffffff;
   border: none;
