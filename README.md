@@ -28,5 +28,5 @@ docker-compose up
 ## Penpot
 https://design.penpot.app/#/view/7ad540b5-8190-815d-8005-5ce7036cd352?page-id=7ad540b5-8190-815d-8005-5ce7036cd353&section=interactions&index=0&share-id=7ad540b5-8190-815d-8005-5ceed113db9d
 
-## Estado: 
+## Estado
 Acabado
