@@ -26,7 +26,7 @@ const nuevaContrasena = ref('');
 
 async function cambiarContrasena() {
    try {
-       const response = await fetch(`${urlBase}/api/user/cambiar-contra`, {
+       const response = await fetch(`${urlBase}/user/cambiar-contra`, {
            method: 'POST',
            headers: {
                'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ async function editarYGuardarPerfil() {
 
 
    try {
-       const response = await fetch(`${urlBase}/api/user/update-profile`, {
+       const response = await fetch(`${urlBase}/user/update-profile`, {
            method: 'POST',
            headers: {
                'Content-Type': 'application/json',
