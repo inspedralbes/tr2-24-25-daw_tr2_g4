@@ -52,16 +52,17 @@ services:
       DB_USERNAME: root
       DB_PASSWORD: root
 
+  # Servicio Node.js
   node:
-    image: node:18  # Usa una imagen base
+    image: node:18
     volumes:
-       - ./back/node:/app  # Monta el directorio del servidor
+      - ./back/node:/app  # Monta el directorio del servidor
     working_dir: /app
     ports:
-       - "1234:1234"  # Exponer el puerto donde correrá el servidor
-    command: "node server.js"  # Comando para iniciar tu servidor de Node.js
+      - "1234:1234"  # Exponer el puerto donde correrá el servidor
+    command: /bin/bash -c "npm install && node server.js"  # Asegúrate de instalar dependencias antes de ejecutar
     depends_on:
-       - db  # Si dependiera de la base de datos
-       - laravel  # Si utiliza la API de Laravel
+      - db  # Si dependiera de la base de datos
+      - laravel  # Si utiliza la API de Laravel
     environment:
-        NODE_ENV: development  # Ambiente de desarrollo
+      NODE_ENV: development  # Ambiente de desarrollo
