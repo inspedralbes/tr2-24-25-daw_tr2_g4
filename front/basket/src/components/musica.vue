@@ -53,7 +53,7 @@ import { useCounterStore } from '@/stores/counter';
 
   return aux.sort(() => Math.random() - 0.5);
 }
-    const parado=ref(false)
+    const parado=ref(true)
     // Lista interna de canciones
     const playlist =  mezclarMusica();
     console.log(playlist)
