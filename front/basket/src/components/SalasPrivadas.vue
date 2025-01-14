@@ -175,6 +175,8 @@ export default {
 
 .usuarios-sala {
   margin-top: 20px;
+  overflow-y: auto; 
+  max-height: 200px;
 }
 
 .usuarios-sala h3 {
