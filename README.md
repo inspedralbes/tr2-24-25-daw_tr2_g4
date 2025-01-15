@@ -22,8 +22,42 @@ Este proyecto ha sido desarrollado utilizando las siguientes tecnologías:
 - **Node.js**
 - **Socket.io**
 
-## Instrucciones para Ejecutar el Proyecto 🏃
-Para ver el proyecto utilizando Docker, mirar el finchero 'docker-compose.yml' y seguir las instrucciones.
+### Instrucciones para Ejecutar el Proyecto🏃
+
+- **.env**
+Configurar la base de datos MySQL:
+Crea una base de datos llamada masket.
+Importa el archivo back/laravel.sql en la base de datos.
+Ajusta las credenciales de conexión en el archivo .env de Laravel. 
+
+## Usando docker:
+- Primero crear el fichero '.env' .
+- Para ver el proyecto utilizando Docker, mirar el fichero 'docker-compose.yml' y seguir las instrucciones.
+
+
+## Sin usar docker:
+
+- **Backend Laravel**
+Ve a la carpeta 'back/laravel'.
+Instala las dependencias con 'composer install'.
+Genera la clave de la aplicación con 'php artisan key:generate'.
+Ejecuta las migraciones y datos iniciales con 'php artisan migrate:fresh --seed'.
+Inicia el servidor con 'php artisan serve'.
+
+- **Frontend Vue.js**
+Ve a la carpeta 'front/basket'.
+Instala las dependencias con 'npm install'.
+Inicia el servidor de desarrollo con 'npm run dev'.
+
+- **Servidor Node.js**
+Ve a la carpeta 'back/node'.
+Instala las dependencias con 'npm install'.
+Inicia el servidor con 'node server.js'.
+Acceso a los servicios:
+
+Frontend (Vue.js): http://localhost:5173
+Backend (Laravel): http://localhost:8000
+Servidor (Node.js): http://localhost:20070
 ```
 ## Penpot 📌
 ```
