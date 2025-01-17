@@ -81,11 +81,10 @@ let poderes=[
 
 
 ]
-
 rellenarPreguntas();
 
 async function rellenarPreguntas(){
-    const URL = `http://127.0.0.1:8000/api/preguntas/nivel/0`;
+    const URL = `http://laravel:8000/api/preguntas/nivel/0`;
     const response = await fetch(URL);
     Preguntas=await response.json();
 
@@ -103,7 +102,7 @@ io.on('connection', async (socket) => {
     }
 
     try {
-       const response = await axios.get("http://127.0.0.1:8000/api/user", {
+       const response = await axios.get("http://laravel:8000/api/user", {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -376,7 +375,8 @@ io.on('connection', async (socket) => {
 
 
     socket.on('empezar',(sala)=>{
-
+        
+        
         socket.broadcast.to(sala).emit('pregunta', Preguntas[0]);
            
         emitirRanking(sala)
@@ -545,4 +545,3 @@ const PORT = 20070;
 server.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
-

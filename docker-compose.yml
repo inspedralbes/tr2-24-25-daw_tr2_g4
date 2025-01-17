@@ -34,7 +34,7 @@ services:
       - "3306:3306"  # Expone el puerto 3306 para conexiones externas
     volumes:
       - ./mysql_data:/var/lib/mysql  # Almacena datos de MySQL de forma persistente
-      - ./back/laravel.sql:/docker-entrypoint-initdb.d/laravel.sql  # Script de inicialización de la base de datos
+  # - ./back/laravel.sql:/docker-entrypoint-initdb.d/laravel.sql  # Script de inicialización de la base de datos
 
   # Adminer para gestionar la base de datos
   # Herramienta web para administrar bases de datos MySQL.
@@ -67,11 +67,16 @@ services:
     volumes:
       - ./back/laravel:/var/www/  # Montaje del código fuente de Laravel como volumen
     working_dir: /var/www  # Define el directorio de trabajo dentro del contenedor
+    environment:
+      - DB_HOST=db
+      - DB_DATABASE=masket
+      - DB_USERNAME=root
+      - DB_PASSWORD=root
     ports:
       - "8000:8000"  # Expone el servidor de desarrollo de Laravel en el puerto 8000
     depends_on:
       - db  # Depende de la base de datos para su funcionamiento
-    command: bash -c "php artisan key:generate && php artisan migrate:fresh --seed && php artisan serve --host=0.0.0.0"
+    command: bash -c "sleep 10; php artisan key:generate && php artisan migrate:fresh --seed && php artisan serve --host=0.0.0.0"
       # Genera la clave de la aplicación, ejecuta migraciones y datos iniciales, y sirve la aplicación Laravel
 
   # Servicio Node.js para el servidor backend
@@ -83,9 +88,7 @@ services:
     working_dir: /app  # Define el directorio de trabajo dentro del contenedor
     ports:
       - "20070:20070"  # Expone el puerto del servidor backend Node.js
-    command: /bin/bash -c "node server.js"
+    command: /bin/bash -c "sleep 15;node server.js"
     depends_on:
       - db  # Depende de la base de datos
       - laravel
-    environment:
-      - LARAVEL_URL=http://laravel:8000  # URL del backend Laravel para el servidor Node.js
